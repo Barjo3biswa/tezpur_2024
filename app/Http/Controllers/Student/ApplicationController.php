@@ -802,7 +802,7 @@ class ApplicationController extends CommonApplicationController
         if ($is_pwd == true) {
             $request->validate([
                 'pwd_explain' => 'required|max:255',
-                "pwd_percentage"=> 'required|max:255',
+                'pwd_percentage' => 'required|numeric|max:255',
             ]);
         }
         if ($is_ex_serviceman == true) {
@@ -1115,7 +1115,7 @@ class ApplicationController extends CommonApplicationController
         if ($is_pwd == true) {
             $request->validate([
                 'pwd_explain' => 'required|max:255',
-                'pwd_percentage' => 'required|max:255',
+                'pwd_percentage' => 'required|numeric|max:255',
             ]);
         }
 
