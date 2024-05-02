@@ -1,0 +1,117 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Application;
+use App\Models\OnlinePaymentSuccess;
+use App\Services\PaymentHandlerService;
+use App\Traits\VknrlPayment;
+use DB;
+use Illuminate\Support\Collection;
+use Payabbhi\Client;
+
+class CronController
+{
+    use VknrlPayment;
+    private $limit = 20;
+    // private $payAbbhiClient;
+    private $accessId;
+    private $secretKey;
+    private $paymentHandlerService;
+
+    public function __construct()
+    {                
+        $this->accessId  = env("PAYMENT_ACCESS_ID");
+        $this->secretKey = env("PAYMENT_SECRET_KEY");
+        // $this->payAbbhiClient = new Client($this->accessId, $this->secretKey);
+        $this->paymentHandlerService = new PaymentHandlerService;
+    }
+
+    public function verifyAll()
+    {
+
+        $applications = $this->conditionalApplication();
+        $this->crossVerifyPaymentsAllApplication($applications);
+
+    }
+    private function conditionalApplication(){
+        return Application::with(["online_payment_tried" => function($query){
+                return $query->where("created_at", "<=", now()->subMinutes(30)->format("Y-m-d H:i:s"))
+                    ->whereNull("cron_checked_at");
+            }])
+            ->whereHas("online_payment_tried", function($query){
+                return $query->where("created_at", "<=", now()->subMinutes(30)->format("Y-m-d H:i:s"))
+                    ->whereNull("cron_checked_at");
+            })
+            ->doesnthave("online_payments_succeed")
+            ->limit($this->limit)
+            ->where("id", 33446)
+            ->get();
+    }
+    private function crossVerifyPaymentsAllApplication(Collection $application_collection){
+        if($application_collection){
+
+            foreach ($application_collection as $key => $application) {
+                $tried_records = $application->online_payment_tried;
+                if ($tried_records) {
+                    foreach ($tried_records as $tried_record) {
+                        $previous_order = $this->paymentHandlerService->orderFetchByOrderId($tried_record->order_id);
+                        // dump($previous_order);
+                        $order_status   = (isset($previous_order["status"]) ? $previous_order["status"] : $previous_order->status);
+                        if (PaymentHandlerService::isOrderPaid($previous_order)) {
+                            $payments_data = $previous_order->payments();
+                            foreach ($payments_data->items as $index => $payment) {
+                                // only if payment is done captured status
+                                if (PaymentHandlerService::isPaymentPaid($payment)) {
+                                // if ($payment->status == "captured") {
+                                    $online_payment = OnlinePaymentSuccess::create([
+                                        "application_id"    => $application->id,
+                                        "student_id"        => $application->student_id,
+                                        "order_id"          => $previous_order->id,
+                                        "amount"            => ($payment->amount / 100),
+                                        "amount_in_paise"   => $payment->amount,
+                                        "response_amount"   => $payment->amount,
+                                        "currency"          => $payment->currency,
+                                        "merchant_order_id" => $tried_record->merchant_order_id,
+                                        "payment_id"        => $payment->id,
+                                        "payment_signature" => null,
+                                        "is_error"          => $payment->error_code ?? false,
+                                        "error_message"     => $payment->error_description ?? "",
+                                        "biller_status"     => $payment->status ?? "",
+                                        "biller_response"   => json_encode($payment),
+                                        "status"            => 1,
+                                    ]);
+                                    $online_payment->tried_process()->update([
+                                        'payment_done' => 1, 
+                                        "online_payment_successes_id" => $online_payment->id,
+                                        "cron_checked_at" => now()->format("Y-m-d H:i:s"),
+                                    ]);
+                                    
+                                    $application->payment_status = 1;
+                                    $application->status         = "payment_done";
+                                    if (!$application->application_no) {
+                                        $application->application_no = generateApplicationNo($application);
+                                        \Log::notice($application->application_no . " is generated by cron.");
+                                    }
+    
+                                    $application->save();
+                                    saveLogs(1, "Administrator", "admin", "Application Number {$application->application_no} successfully generated by cron");
+    
+                                    $this->sendApplicationNoSMS($application);
+                                    break 2;
+    
+                                }
+                            }
+                            // DB::commit();
+                        }
+                    }
+                    $application->online_payment_tried()->whereNull("cron_checked_at")->update([
+                        "cron_checked_at" => now()->format("Y-m-d H:i:s"),
+                    ]);
+                }
+    
+            }
+        }
+
+    }
+}

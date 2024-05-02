@@ -1,0 +1,461 @@
+/*********************************************************************************
+
+    Template Name: Tezpur University Admissions 2020
+    Template URI: 
+    Description: Tezpur University Admissions 2020
+    Author: Manab
+    Author URI: https://manabworld.com
+    Version: 1.0
+
+    Note: This is style css.
+
+**********************************************************************************/
+
+html, 
+body{
+	font-size: 100%;
+	margin: 0;
+	-webkit-text-size-adjust: 100%;
+	-ms-text-size-adjust:     100%;
+}
+
+body a {
+	transition:0.5s all;
+	-webkit-transition:0.5s all;
+	-moz-transition:0.5s all;
+	-o-transition:0.5s all;
+	-ms-transition:0.5s all;
+}
+input[type="button"],
+input[type="submit"],
+input[type="text"],
+input[type="search"]{
+	transition:0.5s all;
+	-webkit-transition:0.5s all;
+	-moz-transition:0.5s all;
+	-o-transition:0.5s all;
+	-ms-transition:0.5s all;
+	-webkit-appearance: none;
+	width: 100%;
+}
+input[type="search"]{
+	width: 100%;
+	outline: none;
+	border: 1px solid #ddd;
+	padding: 0em 0.6em;
+	font-size: 1em;
+	color: #333333;
+	position: relative;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+	color: inherit;
+	font: inherit;
+	margin: 0;
+}
+textarea {
+	overflow: auto;
+}	
+img {
+	border: 0;
+}
+
+
+a {
+	text-decoration: none;
+	background-color: transparent;
+	color: #444444;
+}
+a:focus,
+a:hover{
+	text-decoration:none;
+	color: #971D0C;
+}
+label{
+	margin:0;
+}
+
+
+/*--------------------------------------------------------------
+# Typography
+--------------------------------------------------------------*/
+body,
+button,
+input,
+select,
+textarea {
+	color: #404040; 
+	font-size: 16px;
+	*font-size: 1rem;
+	line-height: 1.5;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	clear: both;
+	margin:0;
+	font-weight: 600;
+}
+
+
+p{
+	margin:0;
+}
+
+dfn,
+cite,
+em,
+i {
+	font-style: italic;
+}
+strong {
+    font-weight: bold;
+    font-family: Roboto;
+    font-size: 13px;
+}
+
+ul {
+	list-style: none;
+    padding-left: 0;
+}
+/* Header Part ********************************************/
+
+.content_block {
+    height: 50vh;
+    overflow-y: scroll;
+}
+
+.top-bar {
+color: #fff;
+    font-size: 13px;
+    font-weight: bold;
+    width: 100%;
+    background: #7a7a7a;
+    /* border-top: 3px solid #f82f26; */
+    border-bottom: 1px solid #434242;
+    display: none;
+}
+
+.social-links p {
+    color: #fff;
+    font-size: 14px;
+}
+
+header#header {
+position: absolute;
+    width: 100%;
+    z-index: 1;
+}
+
+#header .top-logo-part {
+    padding: 5px 0 5px;
+    position: relative;
+}
+
+.logo-part {
+    display: inline-flex;
+    margin-top: 5px;
+}
+
+.main-logo {
+    position: relative;
+    /* height: 100%; */
+    margin-top: 50px;
+}
+.main-logo img {
+    max-width: 150px;
+    min-width: 150px;
+    width: 100%;
+}
+
+.main_banner {
+    background:url(../images/main_back.jpg);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: center;
+    width: 100%;
+    height: 100vh;
+position: relative;
+
+}
+.main_banner:before {
+content: '';
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(rgba(5, 9, 38, 0.89), rgba(8, 8, 8, 0.33));
+    position: absolute;
+}
+
+.caption {
+    padding: 18em 0;
+    text-align: center;
+    position: relative;
+}
+.caption h1 {
+    color: #ffffff;
+    text-transform: uppercase;
+    font-family: Roboto;
+    font-size: 50px;
+    text-shadow: 2px 2px 0px #020831;
+}
+
+.caption h3 {
+    color: #ffffff;
+    font-family: Roboto;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.call-no {
+    margin-top: 50px;
+}
+
+.call-no span {
+display: block;
+    color: #fff;
+    font-family: Roboto;
+    font-size: 13px;
+}
+
+.call-no span a {
+    color: #020831;
+    font-family: Roboto;
+    font-size: 13px;
+    margin-left: 16px;
+    border: 2px solid #020831;
+    padding: 5px 15px;
+    border-radius: 100px;
+    background: #49bfdd;
+}
+.sub_header h1 {
+    color: #020831;
+    text-transform: uppercase;
+    font-family: Roboto;
+    padding: 10px 0px;
+    font-size: 22px;
+}
+.main_text p {
+    font-family: Roboto;
+    font-size: 13px;
+    margin-bottom: 5px;
+}
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 1em 0;
+    background-image: linear-gradient(rgba(8, 8, 8, 0),rgba(0, 0, 0, 0.59) );
+}
+ul.footer_links {
+    display: inline-flex;
+    margin: auto;
+}
+ul.footer_links li {
+    margin-right: 25px;
+}
+ul.footer_links li a {
+    color: #fff;
+    font-weight: bold;
+    font-size: 13px;
+}
+body {
+    height: 100vh;
+    overflow-y: hidden;
+}
+
+@media only screen and (max-width: 320px) {
+
+    .caption {
+        padding: 0;
+        padding-top: 0px;
+        text-align: center;
+        position: relative;
+        padding-top: 230px;
+    }
+
+    .caption h1 {
+        color: #ffffff;
+        text-transform: uppercase;
+        font-family: Roboto;
+        font-size: 40px;
+        text-shadow: 2px 2px 0px#020831;
+        line-height: 55px;
+    }
+
+    .main_banner {
+        background-size: cover;
+        background-position: top;
+        width: 100%;
+        height: 92vh;
+        overflow: hidden;
+
+    }
+
+    .main_text {
+        height: 60vh;
+        overflow-y: scroll;
+        margin-bottom:60px; 
+
+    }
+
+  }
+
+@media only screen and (min-width:321px) and (max-width: 360px) {
+
+    .caption {
+        padding: 0;
+        padding-top: 0px;
+        text-align: center;
+        position: relative;
+        padding-top: 230px;
+    }
+    .caption h1 {
+        color: #ffffff;
+        text-transform: uppercase;
+        font-family: Roboto;
+        font-size: 40px;
+        text-shadow: 2px 2px 0px#020831;
+        line-height: 55px;
+    }
+
+    .main_banner {
+        background-size: cover;
+        background-position: top;
+        width: 100%;
+        height: 92vh;
+        overflow: hidden;
+
+    }
+
+    .main_text {
+        height: 50vh;
+        overflow-y: scroll;\
+        margin-bottom:60px; 
+    }
+    
+  }
+  @media only screen and (min-width:361px) and (max-width: 480px) {
+    .caption {
+        padding: 0;
+        padding-top: 0px;
+        text-align: center;
+        position: relative;
+        padding-top: 230px;
+    }
+
+    .caption h1 {
+        color: #ffffff;
+        text-transform: uppercase;
+        font-family: Roboto;
+        font-size: 40px;
+        text-shadow: 2px 2px 0px#020831;
+        line-height: 55px;
+    }
+
+    .main_banner {
+        background-size: cover;
+        background-position: top;
+        width: 100%;
+        overflow: hidden;
+        height: 92vh;
+    }
+
+    .main_text {
+        height: 50vh;
+        overflow-y: scroll;
+        margin-bottom:60px; 
+    }
+
+  }
+
+  @media only screen and (min-width:481px) and (max-width: 568px) {
+    
+    .caption {
+        padding: 0;
+        padding-top: 0px;
+        text-align: center;
+        position: relative;
+        padding-top: 230px;
+    }
+    .caption h1 {
+        color: #ffffff;
+        text-transform: uppercase;
+        font-family: Roboto;
+        font-size: 40px;
+        text-shadow: 2px 2px 0px#020831;
+        line-height: 55px;
+    }
+
+    .main_banner {
+        background-size: cover;
+        background-position: top;
+        width: 100%;
+        overflow: hidden;
+        height: 92vh;
+    }
+
+    .main_text {
+    height: 50vh;
+    overflow-y: scroll;
+    margin-bottom:60px; 
+    }
+    
+  }
+  @media only screen and (min-width:569px) and (max-width: 640px) {
+    .caption {
+        padding: 0;
+        padding-top: 0px;
+        text-align: center;
+        position: relative;
+        padding-top: 230px;
+    }  
+
+    .caption h1 {
+        color: #ffffff;
+        text-transform: uppercase;
+        font-family: Roboto;
+        font-size: 40px;
+        text-shadow: 2px 2px 0px#020831;
+        line-height: 55px;
+    }
+
+    .main_banner {
+        background-size: cover;
+        background-position: top;
+        width: 100%;
+        overflow: hidden;
+        height: 92vh;
+    }
+
+    .main_text {
+        height: 50vh;
+        overflow-y: scroll;
+        margin-bottom:60px; 
+    }
+  
+  }
+  @media only screen and (min-width:641px) and (max-width: 768px) {
+    
+  
+  }
+  @media only screen and (min-width:769px) and (max-width:800px) {
+  
+  }
+  @media only screen and (min-width:801px) and (max-width: 1024px) {
+  
+  }
+  @media only screen and (min-width:1025px) and (max-width: 1366px) {
+    
+  }
+  @media only screen and (min-width:1367px) and (max-width: 1920px) {
+  
+  }
