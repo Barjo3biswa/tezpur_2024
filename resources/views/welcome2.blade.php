@@ -432,7 +432,7 @@
                             </li>
                             <li class="nav-item">
                                 <button class="btn btn-warning"><a class="nav-link"
-                                    href="https://www.tezuadmissions.in/public/notifications/2024/date-extension-170424.pdf" target="_blank">IMPORTANT DATES</a></button>
+                                    href="https://www.tezuadmissions.in/public/notifications/2024/2nd Date extension.pdf" target="_blank">IMPORTANT DATES</a></button>
                             </li>
                             <!-- <li class="nav-item">
                                 <button class="btn btn-warning"><a class="nav-link"
