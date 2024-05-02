@@ -1194,7 +1194,7 @@ class ApplicationController extends CommonApplicationController
         $application->abc = $request->abc;
         $application->is_aplly_defense_quota = $is_aplly_defense_quota;
         $application->is_pwd = $is_pwd;
-        $application->person_with_disablity = $request->pwd_explain;
+        // $application->person_with_disablity = $request->pwd_explain;
         $application->pwd_percentage = $request->pwd_percentage;
         $application->bank_ac_no = $request->bank_ac_no;
         $application->family_income = $request->family_income;
