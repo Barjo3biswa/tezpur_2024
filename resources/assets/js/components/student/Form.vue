@@ -8220,7 +8220,7 @@ export default {
         this.initial_step.course_preference_limit = 2;
         if(this.initial_step.program_name_load == "BTECH"){
           limit=7;
-          this.initial_step.course_preference_limit = 6;
+          this.initial_step.course_preference_limit = 7;
         }
         
         if (count < limit) {
