@@ -145,7 +145,8 @@ trait VknrlPayment
             //     }
             // }
             // dd($application->is_foreign);
-            if(!$application->is_foreign){
+            // dd("ok");
+            if(!$application->is_foreign && $application->is_mbbt==0){
                 // dd("ok");
                 $caste_map=[
                     1=>'general',
@@ -164,7 +165,7 @@ trait VknrlPayment
                 $program_id = Program::where('type', $program_name)->first()->id;      
                     
                 $amount_list = ApplicationFee::where('program_id',$program_id)->where('sub_prog',$application->exam_through)->first();
-                if(!$amount_list){
+                if(!$amount_list ){
                     return redirect()->back()->with('error','Application Fee not found please contact technical support.');
                 }
                 $caste = $caste_map[$application->caste_id];
@@ -186,7 +187,7 @@ trait VknrlPayment
             }else{
                 $currency_value = "NA";
             }
-
+            
             if($this->isFreeAdmissionAvailableForTheApplication($application)){
                 return $this->proceedZeroPaymentApplication($application);
             }
@@ -314,7 +315,7 @@ trait VknrlPayment
             ];
             // $json = json_encode($data);
         }catch(Exception $e){
-            // dd($e);
+            dd($e);
             Log::error($e);
             DB::rollback();
             saveLogs(auth(get_guard())->id(), auth(get_guard())->user()->name, get_guard(), "Application Number:  {$application->id} Proceeding payment failed.");
@@ -410,7 +411,7 @@ trait VknrlPayment
             $this->sendApplicationNoSMS($application);
             
         } catch (Exception $e) {
-            dd($e);
+            // dd($e);
             DB::rollback();
             Log::emergency($e);
             return redirect()->route("student.application.index")->with("error", "Something went wrong. Please try again later.");

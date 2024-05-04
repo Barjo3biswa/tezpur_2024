@@ -425,6 +425,7 @@ class CommonApplicationController extends Controller
         }
         if($prog_name!="FOREIGN"){
             $flag = Program::where('type',$prog_name)->first();
+            // dd($application_type);
             if($flag->$application_type==0){
                 return redirect()->back()->with('error','Application Process is already closed.');
             }
@@ -1979,9 +1980,9 @@ class CommonApplicationController extends Controller
         DB::beginTransaction();
         try {
             $application->status = "payment_pending";
-            // if($application->is_mbbt==1 || $application->is_cuet_ug==1){
-            //     $application->is_free_reg=1;
-            // }
+            if($application->is_mbbt==1 || $application->is_cuet_ug==1){
+                $application->is_free_reg=1;
+            }
             if($application->is_mba==1){
                 $application->is_editable=3;
             }

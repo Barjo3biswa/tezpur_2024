@@ -227,7 +227,7 @@ class ApplicationController extends CommonApplicationController
                 "academic12_stream" => 'required|max:255',
             ]);
         }
-        if ($request->course_type == 'MBBT') {
+        if ($application->exam_through == 'MBBT') {
             $request->validate([
                 'gat_b_score' => 'required|max:255',
             ]);

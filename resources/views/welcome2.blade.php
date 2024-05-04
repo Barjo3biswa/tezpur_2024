@@ -664,12 +664,12 @@
                                 </a>
                             </div> --}}
                             
-                            {{-- <div class="belowbanner-btn">
+                            <div class="belowbanner-btn">
                                 <a href="{{ route('student.register', ['is_mba' => Crypt::encrypt('MBBT')]) }}">
                                     <img src="assets/img/personal-profile.png" alt="" width="40">
-                                    <p>MBBT(Through GAT-B)<br/>Last date 13-07-2023</p>
+                                    <p>MBBT(Through GAT-B)</p>
                                 </a>
-                            </div> --}}
+                            </div>
 
 
                             {{-- <div class="belowbanner-btn">
