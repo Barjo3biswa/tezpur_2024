@@ -1980,7 +1980,7 @@ class CommonApplicationController extends Controller
         DB::beginTransaction();
         try {
             $application->status = "payment_pending";
-            if($application->is_mbbt==1 || $application->is_cuet_ug==1){
+            if($application->is_mbbt==1 /* || $application->is_cuet_ug==1 */){
                 $application->is_free_reg=1;
             }
             if($application->is_mba==1){
