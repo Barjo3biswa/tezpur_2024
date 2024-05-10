@@ -1820,17 +1820,25 @@ class CommonApplicationController extends Controller
 
             $check=1;
             // Exam center validate
-            $is_tuee=1;
-            if($is_mdes[0]==1 && Auth::user()->exam_through!='TUEE'){
-                $is_tuee=0;
-            }elseif($is_btech[0]==1||$is_cuet_ug[0]==1 || $is_mbbt[0]==1){
-                $is_tuee=0;
-            }else{
-                // $is_center_filled=Application::where('id',$decrypted_id)->pluck('exam_center_id');
-                // if($is_center_filled[0]==null){
-                //     return redirect()->route(get_guard().".home")->with("error", "Update Exam Center details in STEP-2");
-                // }
+            $valid_application = Application::where('id',$decrypted_id)->first();
+            if($valid_application->exam_through == "TUEE"){
+                if($valid_application->is_cuet_pg==1 || $valid_application->is_phd==1 || $valid_application->is_laterall || $valid_application->is_mdes || $valid_application->is_bdes){
+                    if(!$valid_application->ExamCenter->name){
+                        return redirect()->route(get_guard().".home")->with("error", "Update Exam Center details in STEP-2");
+                    }
+                }
             }
+            // $is_tuee=1;
+            // if($is_mdes[0]==1 && Auth::user()->exam_through!='TUEE'){
+            //     $is_tuee=0;
+            // }elseif($is_btech[0]==1||$is_cuet_ug[0]==1 || $is_mbbt[0]==1){
+            //     $is_tuee=0;
+            // }else{
+            //     // $is_center_filled=Application::where('id',$decrypted_id)->pluck('exam_center_id');
+            //     // if($is_center_filled[0]==null){
+            //     //     return redirect()->route(get_guard().".home")->with("error", "Update Exam Center details in STEP-2");
+            //     // }
+            // }
             
             // if($is_cuet_ug[0]==1 && Auth::user()->cuet_verified==0){
             //     return redirect()->route(get_guard().".home")->with("error", "Please Verify Your CUET University Preference");
