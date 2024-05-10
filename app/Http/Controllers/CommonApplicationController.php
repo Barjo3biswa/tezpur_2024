@@ -1823,7 +1823,7 @@ class CommonApplicationController extends Controller
             $valid_application = Application::where('id',$decrypted_id)->first();
             if($valid_application->exam_through == "TUEE"){
                 if($valid_application->is_cuet_pg==1 || $valid_application->is_phd==1 || $valid_application->is_laterall || $valid_application->is_mdes || $valid_application->is_bdes){
-                    if(!$valid_application->ExamCenter->name){
+                    if(!$valid_application->ExamCenter->center_name){
                         return redirect()->route(get_guard().".home")->with("error", "Update Exam Center details in STEP-2");
                     }
                 }

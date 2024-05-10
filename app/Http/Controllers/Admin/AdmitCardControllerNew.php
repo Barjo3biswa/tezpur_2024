@@ -120,23 +120,48 @@ class AdmitCardControllerNew extends Controller
     public function generateAdmitCard()
     {
         set_time_limit(0);
+        // $date=[
+        //     'one'   => '26-05-2023',
+        //     'two'   => '26-05-2023',
+        //     'three' => '27-05-2023',
+        //     'four'  => '27-05-2023',
+        //     'five'  => '28-05-2023',
+        //     'six'   => '28-05-2023',
+        // ];
+
+        // $shift=[
+        //     'one'   => '10 AM to 12 Noon',
+        //     'two'   => '2 PM to 4 PM',
+        //     'three' => '10 AM to 12 Noon',
+        //     'four'  => '2 PM to 4 PM',
+        //     'five'  => '10 AM to 12 Noon',
+        //     'six'   => '2 PM to 4 PM',
+        // ];
+
         $date=[
-            'one'   => '26-05-2023',
-            'two'   => '26-05-2023',
-            'three' => '27-05-2023',
-            'four'  => '27-05-2023',
-            'five'  => '28-05-2023',
-            'six'   => '28-05-2023',
+            'one'   => '11-06-2024',
+            'two'   => '11-06-2024',
+            'three' => '11-06-2024',
+            'four'  => '12-06-2024',
+            'five'  => '12-06-2024',
+            'six'   => '12-06-2024',
+            'seven' => '13-06-2024',
+            'eight' => '13-06-2024',
+            'nine'  => '13-06-2024',
         ];
 
         $shift=[
-            'one'   => '10 AM to 12 Noon',
-            'two'   => '2 PM to 4 PM',
-            'three' => '10 AM to 12 Noon',
-            'four'  => '2 PM to 4 PM',
+            'one'   => '9:00 AM 10:30 AM',
+            'two'   => '12:00 PM 1:30 PM',
+            'three' => '3:00 PM 4:30 PM',
+            'four'  => '9:00 AM 10:30 AM',
             'five'  => '10 AM to 12 Noon',
-            'six'   => '2 PM to 4 PM',
+            'six'   => '3:00 PM 4:30 PM',
+            'seven' => '9:00 AM 10:30 AM',
+            'eight' => '12:00 PM 1:30 PM',
+            'nine'  => '3:00 PM 4:30 PM',
         ];
+        
 
         
             $active_session = Session::where('is_active',1)->first()->id;
