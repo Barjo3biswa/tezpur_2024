@@ -840,10 +840,20 @@ class ApplicationController extends CommonApplicationController
                 $active_session = Session::find(10);
             }
             $is_direct=Auth::User()->qualifying_exam!=null?1:0;
+            //additional condition 
+            if($request->program_name == "UG"){
+                $app_type = "CUET";
+            }else if($request->program_name == "BTECH"){
+                $app_type = "JEE";
+            }else{
+                $app_type = $request->application_type;
+            }
+
+            // Ends here
             $application = Application::create([
                 // "session_id" => $request->program_name == "MBA"?10:$active_session->id,
                 "session_id" => $active_session->id,
-                "exam_through" => $request->application_type,
+                "exam_through" => $app_type,
                 "first_name" => $request->first_name,
                 "middle_name" => $request->middle_name,
                 "last_name" => $request->last_name,
