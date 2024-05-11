@@ -1800,6 +1800,7 @@ class CommonApplicationController extends Controller
             $is_mbbt = Application::where('id',$decrypted_id)->pluck('is_mbbt');
             $is_bdes = Application::where('id',$decrypted_id)->pluck('is_bdes');
             $is_phd_prof = Application::where('id',$decrypted_id)->pluck('is_bdes');
+            $is_chinese = Application::where('id',$decrypted_id)->pluck('is_chinese');
             // dd($decrypted_id);
             // dd($is_phd);
 
@@ -1844,7 +1845,7 @@ class CommonApplicationController extends Controller
             //     return redirect()->route(get_guard().".home")->with("error", "Please Verify Your CUET University Preference");
             // }
             // 
-            if($total_cuet>=$check || $is_phd[0]==1 || $is_btech[0]==1 || $is_mba[0]==1 || $is_cuet_pg[0]==1 || $is_laterall[0]==1 || $is_mdes[0]==1 || $is_mbbt[0]==1 || $is_cuet_ug[0]==1 || $is_bdes[0]==1 || $is_phd_prof[0]==1){       
+            if($total_cuet>=$check || $is_phd[0]==1 || $is_btech[0]==1 || $is_mba[0]==1 || $is_cuet_pg[0]==1 || $is_laterall[0]==1 || $is_mdes[0]==1 || $is_mbbt[0]==1 || $is_cuet_ug[0]==1 || $is_bdes[0]==1 || $is_phd_prof[0]==1 || $is_chinese[0]==1){       
                 
                 // $check_percentile=CuetExamDetail::where('application_id',$decrypted_id)->get();
                 // dd($check_percentile);
