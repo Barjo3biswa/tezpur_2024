@@ -420,7 +420,7 @@ class CommonApplicationController extends Controller
 
         // is closed validation
         $prog_name = Auth::user()->program_name;
-        if($prog_name=="PHDPROF"){
+        if($prog_name=="PHDPROF" || $prog_name == "VISVES"){
             $prog_name = "PHD";
         }
         if($prog_name!="FOREIGN"){
@@ -1803,11 +1803,11 @@ class CommonApplicationController extends Controller
             $is_chinese = Application::where('id',$decrypted_id)->pluck('is_chinese');
             // dd($decrypted_id);
             // dd($is_phd);
-
+            // dd("ok");
             //is closed validation
             $application_type = Application::where('id',$decrypted_id)->first()->exam_through;
             $prog_name = Auth::user()->program_name;
-            if($prog_name=="PHDPROF"){
+            if($prog_name=="PHDPROF" || $prog_name=="VISVES"){
                 $prog_name = "PHD";
             }
             if($prog_name!="FOREIGN"){
@@ -1817,7 +1817,7 @@ class CommonApplicationController extends Controller
                 }
             }
             //end
-
+            
 
             $check=1;
             // Exam center validate
@@ -1845,6 +1845,7 @@ class CommonApplicationController extends Controller
             //     return redirect()->route(get_guard().".home")->with("error", "Please Verify Your CUET University Preference");
             // }
             // 
+            
             if($total_cuet>=$check || $is_phd[0]==1 || $is_btech[0]==1 || $is_mba[0]==1 || $is_cuet_pg[0]==1 || $is_laterall[0]==1 || $is_mdes[0]==1 || $is_mbbt[0]==1 || $is_cuet_ug[0]==1 || $is_bdes[0]==1 || $is_phd_prof[0]==1 || $is_chinese[0]==1){       
                 
                 // $check_percentile=CuetExamDetail::where('application_id',$decrypted_id)->get();

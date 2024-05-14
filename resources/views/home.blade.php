@@ -167,6 +167,8 @@
                             <a href="{{route("student.application.create",['id'=>Crypt::encrypt('JEE')])}}"><button class="btn btn-sm btn-primary"> Apply New Application</button></a>
                         @elseif(Auth::User()->program_name=='MBBT')
                             <a href="{{route("student.application.create",['id'=>Crypt::encrypt('MBBT')])}}"><button class="btn btn-sm btn-primary"> Apply New Application</button></a>
+                        @elseif(Auth::User()->program_name=='VISVES')
+                            <a href="{{route("student.application.create",['id'=>Crypt::encrypt('Visvesvaraya')])}}"><button class="btn btn-sm btn-primary"> Apply New Application</button></a>
                         @else
                             <a href="{{route("student.application.create",['id'=>Crypt::encrypt('TUEE')])}}"><button class="btn btn-sm btn-primary"> Apply New Application</button></a>
                         @endif

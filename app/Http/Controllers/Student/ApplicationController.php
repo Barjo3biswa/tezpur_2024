@@ -912,6 +912,7 @@ class ApplicationController extends CommonApplicationController
                 "is_cuet_pg" => $request->program_name == "PG"? 1 : 0,
                 "is_phd" => $request->program_name == "PHD"? 1 : 0,
                 "is_phd_prof" => Auth::user()->program_name == "PHDPROF"?1:0,
+                "is_visves" => Auth::user()->program_name == "VISVES"?1:0,
                 "is_btech" => $request->program_name == "BTECH"? 1 : 0,
                 "is_mba"   => $request->program_name == "MBA"?1:0,
                 "is_laterall" => $request->program_name == "LATERAL"?1:0,
@@ -1353,15 +1354,28 @@ class ApplicationController extends CommonApplicationController
             if($type=="TUEE"){
                 $program_array = ['PHD'];
             }
+        }else if($user->program_name=="VISVES"){         
+            if($type=="Visvesvaraya"){
+                $program_array = ['PHD'];
+            }
         }else{
             $program_array = explode(",", $user->program_name);
         }
         
+        $course_filter=[48,64];
 
-        $course_types =Program::with(['courses' => function ($query) {
-            $query->orderBy('name', 'asc');
-        }, "courses.program"])->where("publish_status",1)->whereIn('type',$program_array)
-        /* ->where('type',$program_filter) */->get();
+        if($type!="Visvesvaraya"){
+            $course_types =Program::with(['courses' => function ($query) {
+                $query->orderBy('name', 'asc');
+            }, "courses.program"])->where("publish_status",1)->whereIn('type',$program_array)
+            /* ->where('type',$program_filter) */->get();
+        }else{
+            $course_types =Program::with(['courses' => function ($query) use($course_filter) {
+                $query->whereIn('id',$course_filter)->orderBy('name', 'asc');
+            }, "courses.program"])->where("publish_status",1)->whereIn('type',$program_array)
+            /* ->where('type',$program_filter) */->get();
+        }
+        
 
         $castes = Caste::orderBy('order_id', 'asc')->get();
         $sports = DB::table('sports')->get();

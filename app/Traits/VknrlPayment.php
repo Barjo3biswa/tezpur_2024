@@ -47,7 +47,7 @@ trait VknrlPayment
             // //is closed validation
             $application_type = Application::where('id',$decrypted_id)->first()->exam_through;
             $prog_name = Auth::user()->program_name;
-            if($prog_name=="PHDPROF"){
+            if($prog_name=="PHDPROF" || $prog_name=="VISVES"){
                 $prog_name = "PHD";
             }
             if($prog_name!="FOREIGN"){
@@ -58,7 +58,7 @@ trait VknrlPayment
             }
             // //end
 
-
+            
             $course_ids = [];
             foreach($application->applied_courses as $course){
                 $course_ids[] = $course->course_id;
@@ -66,9 +66,11 @@ trait VknrlPayment
                     return redirect()->route("student.application.index")->with("error", "Last date for selected programm is over. Please select other programm and continue.");
                 }
             }
+            
             $courses_count =Course::whereIn("id", $course_ids)->count();
             $is_mba = Auth::user()->is_mba;
             // dd($is_mba);
+            
             $alloed_ids = explode(",", config("vknrl.ALLOW_AFTER_CLOSING_APP_IDS"));
             if($courses_count !== sizeof($course_ids) && !in_array($application->id, $alloed_ids )&& $is_mba !=1){
 
@@ -82,6 +84,7 @@ trait VknrlPayment
                 }
                 
             }
+            
         } catch (Exception $e) {
             // dd($e);
             Log::emergency($e);
@@ -157,14 +160,16 @@ trait VknrlPayment
                     6=>'st',
                     8=>'pwd',
                 ];
-                // dd("ok");  
+                // dd("test");  
                 $program_name = Auth::User()->program_name;
-                if($program_name == "PHDPROF"){
+                $exam_through = $application->exam_through;
+                if($program_name == "PHDPROF"|| $program_name=="VISVES"){
                     $program_name = "PHD";
+                    $exam_through = "TUEE";
                 }
                 $program_id = Program::where('type', $program_name)->first()->id;      
-                    
-                $amount_list = ApplicationFee::where('program_id',$program_id)->where('sub_prog',$application->exam_through)->first();
+                // dd($application->exam_through);   
+                $amount_list = ApplicationFee::where('program_id',$program_id)->where('sub_prog',$exam_through)->first();
                 if(!$amount_list ){
                     return redirect()->back()->with('error','Application Fee not found please contact technical support.');
                 }
