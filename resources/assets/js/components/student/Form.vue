@@ -7167,7 +7167,7 @@ export default {
           }
           this.step_one_form.creating = false;
           if (error.response.status == 501) {
-            this.alertMessage("danger", "You have registered in a old session. Please contact TU-technical support.");
+            this.alertMessage("danger", error.response.message);
           }else{
             this.alertMessage("danger", "Failed to create !! Please check if there any input left.");
           }      
