@@ -1177,7 +1177,7 @@
                     :name_attr="'place_residence'" :required="true" :old_value="step_two_form.place_residence"
                     :old_value_attr="'id'" @changedSelect="step_two_form.place_residence = $event"></form-select>
                 </div>
-                <div class="col-md-6" v-if="initial_step.is_mba==false && initial_step.is_btech == false && initial_step.via_exam_mdes=='TUEE' && initial_step.is_cuet_ug == false && this.application_type=='TUEE'" >
+                <div class="col-md-6" v-if="initial_step.is_phd == false  && initial_step.is_cuet_pg == false && initial_step.is_mba==false && initial_step.is_btech == false && initial_step.via_exam_mdes=='TUEE' && initial_step.is_cuet_ug == false && this.application_type=='TUEE'" >
                   <div class="panel panel-info">
                     <div class="panel-body">
                       <!--<form-select :label="'Exam Center 1'" :options="centers"
@@ -5054,7 +5054,7 @@ export default {
   data() {
     return {
       // base_url: "https://www.tezuadmissions.in/public",
-      //base_url: 'https://www.tezuadmissions.in/public',
+      base_url: 'https://www.tezuadmissions.in/public',
 
       // base_url: "http://127.0.0.1:8000",
       // base_url: "http://139.59.46.246/tezpur_admission/public/",

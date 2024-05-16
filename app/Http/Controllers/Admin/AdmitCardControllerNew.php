@@ -120,24 +120,6 @@ class AdmitCardControllerNew extends Controller
     public function generateAdmitCard()
     {
         set_time_limit(0);
-        // $date=[
-        //     'one'   => '26-05-2023',
-        //     'two'   => '26-05-2023',
-        //     'three' => '27-05-2023',
-        //     'four'  => '27-05-2023',
-        //     'five'  => '28-05-2023',
-        //     'six'   => '28-05-2023',
-        // ];
-
-        // $shift=[
-        //     'one'   => '10 AM to 12 Noon',
-        //     'two'   => '2 PM to 4 PM',
-        //     'three' => '10 AM to 12 Noon',
-        //     'four'  => '2 PM to 4 PM',
-        //     'five'  => '10 AM to 12 Noon',
-        //     'six'   => '2 PM to 4 PM',
-        // ];
-
         $date=[
             'one'   => '11-06-2024',
             'two'   => '11-06-2024',

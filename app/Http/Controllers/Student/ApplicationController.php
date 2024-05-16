@@ -633,9 +633,9 @@ class ApplicationController extends CommonApplicationController
             'permanent_state' => "required|max:255",
             'nationality' => "required|max:255",
             'place_residence' => "required|max:255",
-            'exam_center' => $isCenterRequired ? 'required' : '',
-            'exam_center1' => $isCenterRequiredii ? 'required' : '',
-            'exam_center2' => $isCenterRequiredii ? 'required' : '',
+            // 'exam_center' => $isCenterRequired ? 'required' : '',
+            // 'exam_center1' => $isCenterRequiredii ? 'required' : '',
+            // 'exam_center2' => $isCenterRequiredii ? 'required' : '',
         ];
         // if(isMbaStudent($application)){
         //     $validation_rule["exam_center"] = str_replace("required", "nullable", $validation_rule["exam_center"]);
@@ -663,9 +663,9 @@ class ApplicationController extends CommonApplicationController
         $application->permanent_state = $request->permanent_state;
         $application->nationality = $request->nationality;
         $application->place_residence = $request->place_residence;
-        $application->exam_center_id = $request->exam_center;
-        $application->exam_center_id1 = $request->exam_center1;
-        $application->exam_center_id2 = $request->exam_center2;
+        // $application->exam_center_id = $request->exam_center;
+        // $application->exam_center_id1 = $request->exam_center1;
+        // $application->exam_center_id2 = $request->exam_center2;
 
 
 
@@ -920,7 +920,8 @@ class ApplicationController extends CommonApplicationController
                 "is_bdes" => $request->program_name == "BDES"?1:0,  
                 'is_mbbt' => $request->program_name =="MBBT"?1:0,
                 'is_chinese' => $request->program_name =="CHINESE"?1:0,
-                "is_direct" => $is_direct,             
+                "is_direct" => $is_direct,  
+                'net_jrf' =>  Auth::user()->program_name == "PHD"?1:0,       
             ]);
             // dd("ok1");
             //if ($is_preference == true || $is_sub_preference == true) {

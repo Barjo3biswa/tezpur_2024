@@ -420,6 +420,11 @@ class CommonApplicationController extends Controller
 
         // is closed validation
         $prog_name = Auth::user()->program_name;
+        if($prog_name == "PHD"){
+            $application_type == 'NET_JRF';
+        }else if($prog_name == "PG"){
+            $application_type == 'GATE';
+        }
         if($prog_name=="PHDPROF" || $prog_name == "VISVES"){
             $prog_name = "PHD";
         }
@@ -1805,8 +1810,14 @@ class CommonApplicationController extends Controller
             // dd($is_phd);
             // dd("ok");
             //is closed validation
+            $application = Application::where('id',$decrypted_id)->first();
             $application_type = Application::where('id',$decrypted_id)->first()->exam_through;
             $prog_name = Auth::user()->program_name;
+            if($prog_name == "PHD" && $application->net_jrf){
+                $application_type == 'NET_JRF';
+            }else if($prog_name == "PG" && $application->is_gate){
+                $application_type == 'GATE';
+            }
             if($prog_name=="PHDPROF" || $prog_name=="VISVES"){
                 $prog_name = "PHD";
             }

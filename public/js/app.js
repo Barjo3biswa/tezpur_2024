@@ -7193,7 +7193,7 @@ vue__WEBPACK_IMPORTED_MODULE_3___default.a.use(vue_cryptojs__WEBPACK_IMPORTED_MO
     return {
       // base_url: "https://www.tezuadmissions.in/public",
       base_url: 'https://www.tezuadmissions.in/public',
-      //base_url: "http://127.0.0.1:8000",
+      // base_url: "http://127.0.0.1:8000",
       // base_url: "http://139.59.46.246/tezpur_admission/public/",
       // base_url: "http://localhost/dec/tezuadmissions_in/public/",
       singleFileUploadingProgress: false,
@@ -9084,7 +9084,7 @@ vue__WEBPACK_IMPORTED_MODULE_3___default.a.use(vue_cryptojs__WEBPACK_IMPORTED_MO
         _this7.step_one_form.creating = false;
 
         if (error.response.status == 501) {
-          _this7.alertMessage("danger", "You have registered in a old session. Please contact TU-technical support.");
+          _this7.alertMessage("danger", error.response.message);
         } else {
           _this7.alertMessage("danger", "Failed to create !! Please check if there any input left.");
         }
@@ -10019,7 +10019,7 @@ vue__WEBPACK_IMPORTED_MODULE_3___default.a.use(vue_cryptojs__WEBPACK_IMPORTED_MO
 
         if (this.initial_step.program_name_load == "BTECH") {
           limit = 7;
-          this.initial_step.course_preference_limit = 6;
+          this.initial_step.course_preference_limit = 7;
         }
 
         if (count < limit) {
@@ -20960,7 +20960,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.btn-row[data-v-92152462] {\n  margin-top: 24px;\n}\n.text-bold[data-v-92152462] {\n  font-weight: 510;\n}\n.col-checkbox[data-v-92152462] {\n  vertical-align: top;\n  width: 10%;\n  padding-left: 12px;\n  display: inline-block;\n}\n.col-checkboxii[data-v-92152462] {\n  vertical-align: top;\n  width: 10%;\n  padding-left: 12px;\n  display: inline-block;\n}\n.col-course-name[data-v-92152462] {\n  width: 87%;\n  /* padding:12px; */\n  display: inline-block;\n}\n.col-course-nameii[data-v-92152462] {\n  width: 87%;\n  /* padding:12px; */\n  display: inline-block;\n}\n.alert-blue[data-v-92152462] {\n  padding: 2px;\n  background-color: #4299e1;\n  font-weight: 600;\n  color: white;\n  text-align: center;\n  margin-left: 14px;\n  margin-right: 16px;\n}\n.text-notice[data-v-92152462] {\n  background: #ff0000b3;\n  color: white;\n}\n.marks_columns_min_width td[data-v-92152462] {\n  min-width: 100px;\n}\n@media screen and (max-width: 700px) {\ndiv.i_qualify[data-v-92152462] {\n    display: none;\n}\ndiv.choose_preference[data-v-92152462] {\n    display: none;\n}\n}", ""]);
+exports.push([module.i, "\n.btn-row[data-v-92152462] {\r\n  margin-top: 24px;\n}\n.text-bold[data-v-92152462] {\r\n  font-weight: 510;\n}\n.col-checkbox[data-v-92152462] {\r\n  vertical-align: top;\r\n  width: 10%;\r\n  padding-left: 12px;\r\n  display: inline-block;\n}\n.col-checkboxii[data-v-92152462] {\r\n  vertical-align: top;\r\n  width: 10%;\r\n  padding-left: 12px;\r\n  display: inline-block;\n}\n.col-course-name[data-v-92152462] {\r\n  width: 87%;\r\n  /* padding:12px; */\r\n  display: inline-block;\n}\n.col-course-nameii[data-v-92152462] {\r\n  width: 87%;\r\n  /* padding:12px; */\r\n  display: inline-block;\n}\n.alert-blue[data-v-92152462] {\r\n  padding: 2px;\r\n  background-color: #4299e1;\r\n  font-weight: 600;\r\n  color: white;\r\n  text-align: center;\r\n  margin-left: 14px;\r\n  margin-right: 16px;\n}\n.text-notice[data-v-92152462] {\r\n  background: #ff0000b3;\r\n  color: white;\n}\n.marks_columns_min_width td[data-v-92152462] {\r\n  min-width: 100px;\n}\n@media screen and (max-width: 700px) {\ndiv.i_qualify[data-v-92152462] {\r\n    display: none;\n}\ndiv.choose_preference[data-v-92152462] {\r\n    display: none;\n}\n}", ""]);
 
 // exports
 
@@ -56506,6 +56506,8 @@ var render = function() {
                         1
                       ),
                       _vm._v(" "),
+                      _vm.initial_step.is_phd == false &&
+                      _vm.initial_step.is_cuet_pg == false &&
                       _vm.initial_step.is_mba == false &&
                       _vm.initial_step.is_btech == false &&
                       _vm.initial_step.via_exam_mdes == "TUEE" &&
@@ -89536,8 +89538,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /var/www/tezuadmissions.in/public/resources/assets/js/app.js */"./resources/assets/js/app.js");
-module.exports = __webpack_require__(/*! /var/www/tezuadmissions.in/public/resources/assets/sass/app.scss */"./resources/assets/sass/app.scss");
+__webpack_require__(/*! C:\wamp\www\dec\tezpur_2024\resources\assets\js\app.js */"./resources/assets/js/app.js");
+module.exports = __webpack_require__(/*! C:\wamp\www\dec\tezpur_2024\resources\assets\sass\app.scss */"./resources/assets/sass/app.scss");
 
 
 /***/ }),
