@@ -52,7 +52,11 @@ trait VknrlPayment
             }
             if($prog_name!="FOREIGN"){
                 $flag = Program::where('type',$prog_name)->first();
-                if($flag->$application_type==0){
+
+                $student_id = Auth::user()->id;
+                $is_avail=DB::table('zzz_payment_allowed_students')->where('student_id',$student_id)->count();
+
+                if($flag->$application_type==0 && $is_avail==0){
                     return redirect()->back()->with('error','Application Process is already closed.');
                 }
             }

@@ -5054,9 +5054,9 @@ export default {
   data() {
     return {
       // base_url: "https://www.tezuadmissions.in/public",
-      base_url: 'https://www.tezuadmissions.in/public',
+      //base_url: 'https://www.tezuadmissions.in/public',
 
-      //base_url: "http://127.0.0.1:8000",
+      // base_url: "http://127.0.0.1:8000",
       // base_url: "http://139.59.46.246/tezpur_admission/public/",
       // base_url: "http://localhost/dec/tezuadmissions_in/public/",
       singleFileUploadingProgress: false,
