@@ -40,7 +40,7 @@
                         }elseif(in_array($department_id[0], [26])){
                             $courses=["BDES","MDES","Ph.D."];
                         }elseif(in_array($department_id[0], [7])){
-                            $courses=["UG","MBBT"];
+                            $courses=["UG","MBBT","Ph.D."];
                         }
                         else{
                             $courses=["UG","PG","Ph.D."];
