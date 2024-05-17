@@ -43,4 +43,14 @@ class ExamCenter extends Model
             'application_id'
         )->where('exam_through','TUEE')->orderby('course_id')/* ->orderby('application.first_name') */;
     }
+
+    public function applied_courses2024()
+    {
+        return $this->hasManyThrough(
+            AppliedCourse::class,
+            Application::class,
+            'exam_center_id',
+            'application_id'
+        )->where('exam_through','TUEE')->where('net_jrf','!=',1)->orderby('course_id')/* ->orderby('application.first_name') */;
+    }
 }
