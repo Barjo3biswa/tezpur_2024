@@ -39,8 +39,8 @@
                             $courses=["UG","PG","Ph.D.","B.Tech","B.Tech Lateral"];
                         }elseif(in_array($department_id[0], [26])){
                             $courses=["BDES","MDES","Ph.D."];
-                        }elseif(in_array($department_id[0], [90,91,92])){
-                            $courses=["MBBT"];
+                        }elseif(in_array($department_id[0], [7])){
+                            $courses=["UG","MBBT"];
                         }
                         else{
                             $courses=["UG","PG","Ph.D."];
