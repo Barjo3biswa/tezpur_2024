@@ -189,7 +189,7 @@ class AdmitCardControllerNew extends Controller
             $center_code=$exam->center_code;
             $center_id = $exam->id;
             foreach($exam->applied_courses as $applied){
-                // if($applied->status!='rejected'){
+                if($applied->status!='rejected'){
                     // dump($applied);
                     $group = $applied->course->exam_group;
                     $prefix=null;
@@ -221,7 +221,7 @@ class AdmitCardControllerNew extends Controller
                         DB::rollBack();
                         dd($e);
                     }  
-                // }              
+                }              
             }
         }
         return redirect()->back()->with('success','Successfully Generatyed');
