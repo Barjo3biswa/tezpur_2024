@@ -192,7 +192,7 @@ class AdmitCardControllerNew extends Controller
                     DB::beginTransaction();
                     try{      
                         //Roll no should have: Centre code/school code/ dept. code/subject code/number (begin from 001)   
-                        dump($applied->id);
+                        dump($applied->application_id);
                         $course_code = $applied->course->code;
                         $department_code = $applied->course->department->code;
                         $school_code = $applied->course->department->school->code;
