@@ -2270,7 +2270,7 @@ class CommonApplicationController extends Controller
         $exam_centers = ExamCenter::all();
 
 
-        $categories = AppliedCourse::whereHas('application', function ($query) use ($active_session,$center_id) {
+        $categories = AppliedCourse::with('application', function ($query) use ($active_session,$center_id) {
                 return $query->where('is_mba', 0)->where('is_btech',0)->where('net_jrf','!=',1)
                     ->where('session_id',$active_session->id)
                     ->whereNotNull('application_no')
