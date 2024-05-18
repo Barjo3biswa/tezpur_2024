@@ -177,7 +177,7 @@ class AdmitCardControllerNew extends Controller
         $active_session = Session::where('is_active',1)->first()->id;
         $exam_centers= ExamCenter::with(['applied_courses' => function ($query) use ($active_session) {
                                            return $query->where('session_id', '=', $active_session)
-                                            ->where('is_mba',0)->where('is_btech',0)->where('is_direct',0)
+                                            ->where('is_mba',0)->where('is_btech',0)/* ->where('is_direct',0) */
                                             ->whereNotNull('application_no')
                                             ->WhereDoesntHave('admitcard')
                                             ->where('net_jrf','!=',1)
