@@ -148,6 +148,7 @@ class AdmitCardControllerNew extends Controller
 
     public function generateAdmitCard()
     {
+        
         set_time_limit(0);
         $date=[
             'one'   => '11-06-2024',
@@ -173,71 +174,52 @@ class AdmitCardControllerNew extends Controller
             'nine'  => '3:00 PM 4:30 PM',
         ];
         
-
-        
-            $active_session = Session::where('is_active',1)->first()->id;
-            $exam_centers= ExamCenter::with(['applied_courses' => function ($query) use ($active_session) {
-                                $query->where('session_id', '=', $active_session)->where('is_mba',0)->where('is_btech',0)->where('is_direct',0)->whereNotNull('application_no')
-                                        ->WhereDoesntHave('admitcard')->orderby('first_name')->orderby('middle_name')->orderby('last_name');
-                            }])->orderBy('center_name')->get(); 
-            foreach($exam_centers as $exam){
-                $center_code=$exam->center_code;
-                $center_id = $exam->id;
-                foreach($exam->applied_courses as $applied){
-                    if($applied->status!='rejected'){
-                        $group = $applied->course->group;
-                        $prefix=null;
-                        if(in_array($applied->course_id,[22,28])){
-                            $last_rollNo=AdmitCard::where('exam_center_id',$center_id)->whereIn('course_id',[22,28])->count();
-                        }else{
-                            $last_rollNo=AdmitCard::where(['exam_center_id'=>$center_id,'course_id'=>$applied->course_id])->count();
-                        }            
-                        DB::beginTransaction();
-                        try{         
-                            $course_code = $applied->course->code;
-                            // if(in_array($course_code,['322A','320A','318A'])){
-                            //     if($course_code=='322A'){
-                            //         $course_code=322;
-                            //         $prefix=9;
-                            //     }elseif($course_code=='320A'){
-                            //         $course_code=320;
-                            //         $prefix=8;
-                            //     }elseif($course_code=='318A'){
-                            //         $course_code=318;
-                            //         $prefix=7;
-                            //     }
-                            //     $roll_no = sprintf("%03d", $last_rollNo + 1);
-                            //     $formated_roll_no = $course_code.$center_code.$prefix.$roll_no;
-                            // }else{
-                                $roll_no = sprintf("%04d", $last_rollNo + 1);
-                                $formated_roll_no = $course_code.$center_code.$prefix.$roll_no;
-                            // }
-
-                            $data=[
-                                    'applied_course_id'=> $applied->id,
-                                    'application_id'   => $applied->application_id,
-                                    'student_id'       => $applied->student_id,
-                                    'roll_no'          => $formated_roll_no,
-                                    'roll_no_uf'       => $last_rollNo,
-                                    'course_id'        => $applied->course_id,
-                                    'exam_center_id'   => $exam->id,	
-                                    'exam_time'        => $shift[$group],
-                                    'exam_date'        => $date[$group],
-                                    'session'          => $active_session,
-                            ];
-                            AdmitCard::create($data);   
-                            DB::commit();
-                        }catch(\Exception $e){
-                            DB::rollBack();
-                            // dd($applied);
-                            dd($e);
-                        }  
-                    }              
-                }
-            }              
-
-         
-        
+        $active_session = Session::where('is_active',1)->first()->id;
+        $exam_centers= ExamCenter::with(['applied_courses2024' => function ($query) use ($active_session) {
+                            $query->where('session_id', '=', $active_session)->where('is_mba',0)->where('is_btech',0)->where('is_direct',0)->whereNotNull('application_no')
+                                    ->WhereDoesntHave('admitcard')->orderby('first_name')->orderby('middle_name')->orderby('last_name');
+                        }])->where('id',9)->orderBy('center_name')->get(); 
+        // dd($exam_centers);
+        // dd($exam_centers);
+        foreach($exam_centers as $exam){
+            $center_code=$exam->center_code;
+            $center_id = $exam->id;
+            foreach($exam->applied_courses as $applied){
+                if($applied->status!='rejected'){
+                    $group = $applied->course->exam_group;
+                    $prefix=null;
+                    $last_rollNo=AdmitCard::where(['exam_center_id'=>$center_id,'course_id'=>$applied->course_id])->count();    
+                    DB::beginTransaction();
+                    try{      
+                        //Roll no should have: Centre code/school code/ dept. code/subject code/number (begin from 001)   
+                        dump($applied->id);
+                        $course_code = $applied->course->code;
+                        $department_code = $applied->course->department->code;
+                        $school_code = $applied->course->department->school->code;
+                        $roll_no = sprintf("%03d", $last_rollNo + 1);
+                        // $formated_roll_no = $course_code.$center_code.$prefix.$roll_no;
+                        $formated_roll_no = $center_code.$school_code.$department_code.$course_code.$roll_no;
+                        $data=[
+                                'applied_course_id'=> $applied->id,
+                                'application_id'   => $applied->application_id,
+                                'student_id'       => $applied->student_id,
+                                'roll_no'          => $formated_roll_no,
+                                'roll_no_uf'       => $last_rollNo,
+                                'course_id'        => $applied->course_id,
+                                'exam_center_id'   => $exam->id,	
+                                'exam_time'        => $shift[$group],
+                                'exam_date'        => $date[$group],
+                                'session'          => $active_session,
+                        ];
+                        AdmitCard::create($data);   
+                        DB::commit();
+                    }catch(\Exception $e){
+                        DB::rollBack();
+                        dd($e);
+                    }  
+                }              
+            }
+        }
         return redirect()->back()->with('success','Successfully Generatyed');
    }
 

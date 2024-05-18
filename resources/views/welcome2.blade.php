@@ -704,46 +704,44 @@
                             <div class="belowbanner-btn">
                                 <a href="{{ route('student.register', ['is_mba' => Crypt::encrypt('PG')]) }}">
                                     <img src="assets/img/personal-profile.png" alt="" width="40">
-                                    <p>PG/ B.Ed/ M.Ed Registration (through
-                                        TUEE / CUET)</p>
+                                    <p>PG/ B.Ed/ M.Ed Registration (through CUET/ M.Tech through GATE)</p>
                                 </a>
                             </div>
 
-                            <div class="belowbanner-btn">
+                            {{-- <div class="belowbanner-btn">
                                 <a href="{{ route('student.register', ['is_mba' => Crypt::encrypt('LATERAL')]) }}">
                                     <img src="assets/img/personal-profile.png" alt="" width="40">
                                     <p> B.Tech-Lateral Entry Registration (through
                                         TUEE)</p>
                                 </a>
-                            </div>
+                            </div> --}}
 
                             <div class="belowbanner-btn">
                                 <a href="{{ route('student.register', ['is_mba' => Crypt::encrypt('BDES')]) }}">
                                     <img src="assets/img/personal-profile.png" alt="" width="40">
-                                    <p> BDes  Registration (through
-                                        TUEE / UCEED)</p>
+                                    <p> BDes  Registration (through UCEED)</p>
                                 </a>
                             </div>
 
                             <div class="belowbanner-btn">
                                 <a href="{{ route('student.register', ['is_mba' => Crypt::encrypt('PHD')]) }}">
                                     <img src="assets/img/personal-profile.png" alt="" width="36">
-                                    <p>Ph.D. Registration (through TUEE)</p>
+                                    <p>Ph.D. Registration (through NET / GATE)</p>
                                 </a>
                             </div>
 
-                            <div class="belowbanner-btn">
+                            {{-- <div class="belowbanner-btn">
                                 <a href="{{ route('student.register', ['is_mba' => Crypt::encrypt('PHDPROF')]) }}">
                                     <img src="assets/img/personal-profile.png" alt="" width="36">
                                     <p>Ph.D Registration for Industry Personnel and Professionals (through TUEE) </p>
                                 </a>
-                            </div>                           
+                            </div>--}}
                             
                             <div class="belowbanner-btn">
                                 <a href="{{ route('student.register', ['is_mba' => Crypt::encrypt('MDES')]) }}">
                                     <img src="assets/img/personal-profile.png" alt="" width="40">
                                     <p>M. Des Registration (through
-                                        TUEE / CEED)</p>
+                                        {{-- TUEE / --}} CEED)</p>
                                 </a>
                             </div>
 
