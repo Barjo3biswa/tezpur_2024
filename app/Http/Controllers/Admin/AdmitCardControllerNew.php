@@ -197,7 +197,6 @@ class AdmitCardControllerNew extends Controller
                         $department_code = $applied->course->department->code;
                         $school_code = $applied->course->department->school->code;
                         $roll_no = sprintf("%03d", $last_rollNo + 1);
-                        // $formated_roll_no = $course_code.$center_code.$prefix.$roll_no;
                         $formated_roll_no = $center_code.$school_code.$department_code.$course_code.$roll_no;
                         $data=[
                                 'applied_course_id'=> $applied->id,
