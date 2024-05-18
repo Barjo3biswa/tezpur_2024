@@ -180,6 +180,7 @@ class AdmitCardControllerNew extends Controller
                                             ->where('is_mba',0)->where('is_btech',0)->where('is_direct',0)
                                             ->whereNotNull('application_no')
                                             ->WhereDoesntHave('admitcard')
+                                            ->where('net_jrf','!=',1)
                                             ->orderby('first_name')->orderby('middle_name')->orderby('last_name');
                                        }])/* ->where('id',9) */->orderBy('center_name')->get(); 
         // dd($exam_centers);

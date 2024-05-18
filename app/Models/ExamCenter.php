@@ -51,6 +51,6 @@ class ExamCenter extends Model
             Application::class,
             'exam_center_id',
             'application_id'
-        )->where('exam_through','TUEE')->where('net_jrf','!=',1)->orderby('course_id')/* ->orderby('application.first_name') */;
+        )->where('exam_through','TUEE')->orderby('course_id')/* ->orderby('application.first_name') */;
     }
 }
