@@ -176,8 +176,7 @@ class AdmitCardControllerNew extends Controller
         
         $active_session = Session::where('is_active',1)->first()->id;
         $exam_centers= ExamCenter::with(['applied_courses2024' => function ($query) use ($active_session) {
-                            $query->where('session_id', '=', $active_session)->where('is_mba',0)->where('is_btech',0)->where('is_direct',0)->whereNotNull('application_no')
-                                    ->WhereDoesntHave('admitcard')->orderby('first_name')->orderby('middle_name')->orderby('last_name');
+                            $query->WhereDoesntHave('admitcard')->orderby('first_name')->orderby('middle_name')->orderby('last_name');
                         }])->where('id',9)->orderBy('center_name')->get(); 
         // dd($exam_centers);
         // dd($exam_centers);
