@@ -2277,7 +2277,7 @@ class CommonApplicationController extends Controller
                     ->when(request('center_name'), function ($q,$center_id) {
                         $q->where('exam_center_id', $center_id);
                     });
-            })->select('application_id','course_id',DB::raw('count(applied_courses.id) as count'))
+            })->select('course_id1',DB::raw('count(applied_courses.id) as count'))
             ->where('status','!=','rejected')
             ->groupBy('course_id')
             ->join('courses','courses.id','=','course_id')
