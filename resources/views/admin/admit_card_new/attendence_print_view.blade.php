@@ -83,7 +83,7 @@
                                             <h6>Course Name: <strong>{{$course_name->name}}({{$course_name->code}})</strong></h6>
                                             <h6>No of Students: <strong>{{$count}}</strong></h6>
 
-                                            <h6>Exam Date/Time: <strong>{{$course_name->ExamGroup->exam_date}} / {{$course_name->ExamGroup->exam_time}} ({{$course_name->ExamGroup->shift}})</strong></h6>
+                                            <h6>Exam Date/Time: <strong>{{$course_name->ExamGroup->exam_date??"NA"}} / {{$course_name->ExamGroup->exam_time??"NA"}} ({{$course_name->ExamGroup->shift??"NA"}})</strong></h6>
                                         </div> 
                                     </div>                              
                                 </td>
