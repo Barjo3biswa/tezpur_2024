@@ -178,20 +178,21 @@ class AdmitCardControllerNew extends Controller
         $exam_centers= ExamCenter::with(['applied_courses2024' => function ($query) use ($active_session) {
                             $query->WhereDoesntHave('admitcard')->orderby('first_name')->orderby('middle_name')->orderby('last_name');
                         }])->where('id',9)->orderBy('center_name')->get(); 
-        dd($exam_centers);
+        // dd($exam_centers);
         // dd($exam_centers);
         foreach($exam_centers as $exam){
             $center_code=$exam->center_code;
             $center_id = $exam->id;
             foreach($exam->applied_courses as $applied){
                 if($applied->status!='rejected'){
+                    dump($applied);
                     $group = $applied->course->exam_group;
                     $prefix=null;
                     $last_rollNo=AdmitCard::where(['exam_center_id'=>$center_id,'course_id'=>$applied->course_id])->count();    
                     DB::beginTransaction();
                     try{      
                         //Roll no should have: Centre code/school code/ dept. code/subject code/number (begin from 001)   
-                        dump($applied->student_id);
+                        // dump($applied->student_id);
                         $course_code = $applied->course->code;
                         $department_code = $applied->course->department->code;
                         $school_code = $applied->course->department->school->code;
