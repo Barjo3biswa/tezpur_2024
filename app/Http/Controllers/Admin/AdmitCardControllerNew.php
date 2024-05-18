@@ -181,7 +181,7 @@ class AdmitCardControllerNew extends Controller
                                             ->whereNotNull('application_no')
                                             ->WhereDoesntHave('admitcard')
                                             ->orderby('first_name')->orderby('middle_name')->orderby('last_name');
-                                       }])->where('id',9)->orderBy('center_name')->get(); 
+                                       }])/* ->where('id',9) */->orderBy('center_name')->get(); 
         // dd($exam_centers);
         // dd($exam_centers);
         foreach($exam_centers as $exam){
