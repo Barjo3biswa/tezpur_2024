@@ -2283,7 +2283,7 @@ class CommonApplicationController extends Controller
             ->join('courses','courses.id','=','course_id')
             ->orderBy('courses.name')
             ->get();
-        dd($categories);
+        // dd($categories);
 
         return view("admin.admit_card_new.attendence-index",compact('exam_centers','categories','center_id'));
     }
