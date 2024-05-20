@@ -1,17 +1,3 @@
-@php
-    $string = "Application No: {$admit_card->active_application->application_no}\nRegistration No:
-    {$admit_card->active_application->student_id}\nName: {$admit_card->active_application->fullname}";
-    $qr_code = QrCode();
-    $qr_code
-        ->setText($string)
-        ->setSize(300)
-        ->setPadding(10)
-        ->setErrorCorrection('high')
-        ->setForegroundColor(['r' => 0, 'g' => 0, 'b' => 0, 'a' => 0])
-        ->setBackgroundColor(['r' => 255, 'g' => 255, 'b' => 255, 'a' => 0])
-        ->setLabelFontSize(16)
-        ->setImageType(QrCode()::IMAGE_TYPE_PNG);
-@endphp
 <div class="admit-card-container" id="printableArea">
     <table width="100%" {{-- style="border:2px solid black;" --}}>
         <tbody>       
@@ -31,7 +17,7 @@
                     </div>
                 </td>
                 <td style="text-align: center;">
-                    @php
+                    {{-- @php
                         $url=env('APP_URL');
                         $id = Crypt::encrypt($admit_card->active_application->id);
                         $qr_string = $url . '/admit/' . $admit_card->active_application->id;  
@@ -46,10 +32,14 @@
                             ->setLabelFontSize(16)
                             ->setImageType(QrCode()::IMAGE_TYPE_PNG);
                     @endphp
-                            {!!'<img style="width:120px;" src="data:'.$qr_code->getContentType().';base64,'.$qr_code->generate().'" />'!!}
-                    {{-- @if (config('vknrl.admit_qr_code'))
-                        {!! '<img src="data:' . $qr_code->getContentType() . ';base64,' . $qr_code->generate() . '" width="100px"/>' !!}
-                    @endif --}}
+                            {!!'<img style="width:120px;" src="data:'.$qr_code->getContentType().';base64,'.$qr_code->generate().'" />'!!} --}}
+                            @php
+                                $url=env('APP_URL');
+                                $id=Crypt::encrypt($admit_card->active_application->id);
+                                $qr_string = $url . '/admit/' . $admit_card->active_application->id;   
+                                $qr = QrCode::generate($qr_string);
+                            @endphp
+                            {!! $qr !!}
                 </td>
             </tr>
         </tbody>
