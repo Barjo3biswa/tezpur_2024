@@ -2285,7 +2285,7 @@ class CommonApplicationController extends Controller
         //     ->get();
 
         $categories = DB::table('applied_courses')
-                        ->select('course_id', DB::raw('count(*) as count'))
+                        // ->select('course_id', DB::raw('count(*) as count'))
                         ->join('applications', 'applications.id', '=', 'applied_courses.application_id')
                         ->where('is_mba', 0)
                         ->where('is_btech', 0)
@@ -2296,7 +2296,7 @@ class CommonApplicationController extends Controller
                             return $query->where('exam_center_id', $center_id);
                         })
                         ->where('applied_courses.status', '!=', 'rejected')
-                        ->groupBy('course_id')
+                        // ->groupBy('course_id')
                         ->get();
     
         dd($categories);
