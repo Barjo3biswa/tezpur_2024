@@ -240,7 +240,7 @@ class AdmitCardControllerNew extends Controller
         }
         try {      
             $admit_card = AdmitCard::with(["application.caste","application.attachments", "exam_center","applied_course_details"])->findOrFail($decrypted_id);
-            dd($admit_card->course->ExamGroup);
+            // dd($admit_card->course->ExamGroup);
         } catch (Exception $e) {
             Log::error($e);
             return redirect()
