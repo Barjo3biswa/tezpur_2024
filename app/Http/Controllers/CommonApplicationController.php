@@ -2285,7 +2285,7 @@ class CommonApplicationController extends Controller
             ->when(request('center_name'), function ($q,$center_id) {
                 $q->where('exam_center_id', $center_id);
             })
-            ->where('status','!=','rejected')
+            ->where('applied_courses.status','!=','rejected')
             ->groupBy('course_id')
             ->join('courses','courses.id','=','course_id')
             ->orderBy('courses.name')
