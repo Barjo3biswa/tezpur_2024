@@ -15,7 +15,7 @@ class AppliedCourse extends Model
     protected $guarded = ['id'];
     public function application()
     {
-        return $this->belongsTo(Application::class, "id", "application_id");
+        return $this->belongsTo(Application::class, "application_id", "id");
     }
 
     public function course()
