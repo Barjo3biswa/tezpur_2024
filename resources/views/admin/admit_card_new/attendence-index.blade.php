@@ -77,7 +77,7 @@
                                     <tr>
                                         <th>{{++$key}}</th>
                                         <th>{{$cat->course->name}}</th>
-                                        <th>{{$cat->count}}</th>
+                                        <th>{{$cat->count}} {{$cat->course_id}}</th>
                                         <th> <a href="{{route(get_route_guard() . '.print-view-attendence',['center_id'=>$center_id,'course_id'=>$cat->course_id])}}" class="btn btn-primary btn-xs">View And Print Attendence </a> </th>
                                         <th> <a href="{{route(get_route_guard() . '.print-view-attendence-admit',['center_id'=>$center_id,'course_id'=>$cat->course_id])}}" class="btn btn-primary btn-xs">Download All Admit Card </a> </th>
                                     </tr>
