@@ -2278,10 +2278,11 @@ class CommonApplicationController extends Controller
                         $q->where('exam_center_id', $center_id);
                     });
             })->select('course_id',DB::raw('count(applied_courses.id) as count'))
-            ->where(function ($query) {
-                $query->whereNotIn('status', ['rejected'])
-                    ->orWhereNull('status');
-            })
+            ->whereNotIn('status',['rejected'])
+            // ->where(function ($query) {
+            //     $query->whereNotIn('status', ['rejected'])
+            //         ->orWhereNull('status');
+            // })
             ->groupBy('course_id')
             ->join('courses','courses.id','=','course_id')
             ->orderBy('courses.name')
