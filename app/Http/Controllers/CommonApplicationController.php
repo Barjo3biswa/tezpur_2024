@@ -2271,7 +2271,7 @@ class CommonApplicationController extends Controller
 
 
         $categories = AppliedCourse::whereHas('application', function ($query) use ($active_session,$center_id) {
-                return $query->where('is_mba1', 0)->where('is_btech',0)->where('net_jrf','!=',1)
+                return $query->where('is_mba', 0)->where('is_btech',0)->where('net_jrf','!=',1)
                     ->where('session_id',$active_session->id)
                     ->whereNotNull('application_no')
                     ->when(request('center_name'), function ($q,$center_id) {
