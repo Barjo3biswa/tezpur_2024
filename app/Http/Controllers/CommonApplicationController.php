@@ -2299,7 +2299,7 @@ class CommonApplicationController extends Controller
                         ->groupBy('course_id')
                         ->get();
     
-        // dd($categories);
+        dd($categories);
 
         return view("admin.admit_card_new.attendence-index",compact('exam_centers','categories','center_id'));
     }
