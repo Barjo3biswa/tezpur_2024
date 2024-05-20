@@ -2270,19 +2270,29 @@ class CommonApplicationController extends Controller
         $exam_centers = ExamCenter::all();
 
 
-        $categories = AppliedCourse::whereHas('application', function ($query) use ($active_session,$center_id) {
-                return $query->where('is_mba', 0)->where('is_btech',0)->where('net_jrf','!=',1)
-                    ->where('session_id',$active_session->id)
-                    ->whereNotNull('application_no')
-                    ->when(request('center_name'), function ($q,$center_id) {
-                        $q->where('exam_center_id', $center_id);
-                    });
-            })->select('course_id',DB::raw('count(applied_courses.id) as count'))
-            ->where('status','!=','rejected')
-            ->groupBy('course_id')
-            ->join('courses','courses.id','=','course_id')
-            ->orderBy('courses.name')
-            ->get();
+        // $categories = AppliedCourse::whereHas('application', function ($query) use ($active_session,$center_id) {
+        //         return $query->where('is_mba', 0)->where('is_btech',0)->where('net_jrf','!=',1)
+        //             ->where('session_id',$active_session->id)
+        //             ->whereNotNull('application_no')
+        //             ->when(request('center_name'), function ($q,$center_id) {
+        //                 $q->where('exam_center_id', $center_id);
+        //             });
+        //     })->select('course_id',DB::raw('count(applied_courses.id) as count'))
+        //     ->where('status','!=','rejected')
+        //     ->groupBy('course_id')
+        //     ->join('courses','courses.id','=','course_id')
+        //     ->orderBy('courses.name')
+        //     ->get();
+
+        $categories = DB::table('applied_courses')->select('course_id',DB::raw('count(applied_courses.id) as count'))
+                            ->join('applications','applications.id','=','applied_courses.application_id')
+                            ->where('is_mba', 0)->where('is_btech',0)->where('net_jrf','!=',1)
+                            ->where('session_id',$active_session->id)
+                            ->whereNotNull('application_no')
+                            ->when(request('center_name'), function ($q,$center_id) {
+                                $q->where('exam_center_id', $center_id);
+                            })->where('applied_courses.status','!=','rejected')
+                            ->groupBy('course_id')->get();
         // dd($categories);
 
         return view("admin.admit_card_new.attendence-index",compact('exam_centers','categories','center_id'));
