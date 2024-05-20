@@ -2279,10 +2279,11 @@ class CommonApplicationController extends Controller
                         $q->where('exam_center_id', $center_id);
                     });
             })->where('status','!=','rejected')
-            ->groupBy('course_id')
-            ->join('courses','courses.id','=','course_id')
-            ->orderBy('courses.name')
-            ->get();
+            ->where('course_id',57);
+            // ->groupBy('course_id')
+            // ->join('courses','courses.id','=','course_id')
+            // ->orderBy('courses.name')
+            // ->get();
         // dd($categories);
 
         return view("admin.admit_card_new.attendence-index",compact('exam_centers','categories','center_id'));
