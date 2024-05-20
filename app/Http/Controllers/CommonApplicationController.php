@@ -2284,7 +2284,7 @@ class CommonApplicationController extends Controller
         //     ->orderBy('courses.name')
         //     ->get();
 
-        $categories = DB::table('applied_courses')->select('course_id','count(applied_courses.id) as count')
+        $categories = DB::table('applied_courses')->select('course_id','count(*) as count')
                             ->join('applications','applications.id','=','applied_courses.application_id')
                             ->where('is_mba', 0)->where('is_btech',0)->where('net_jrf','!=',1)
                             ->where('session_id',$active_session->id)
