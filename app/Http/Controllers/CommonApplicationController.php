@@ -2279,7 +2279,7 @@ class CommonApplicationController extends Controller
                         $q->where('exam_center_id', $center_id);
                     });
             })->where('status','!=','rejected')
-            ->where('course_id',57);
+            ->where('course_id',57)->groupBy('course_id')->get();
             // ->groupBy('course_id')
             // ->join('courses','courses.id','=','course_id')
             // ->orderBy('courses.name')
