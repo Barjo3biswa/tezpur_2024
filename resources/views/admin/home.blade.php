@@ -53,7 +53,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-2 col-md-2 col-sm-6">
+                                    <div class="col-lg-3 col-md-3 col-sm-6">
                                         <div class="widget">
                                             <div class="widget-heading bg-danger clearfix">
                                                 <div class="pull-left">Total Collection</div>
@@ -68,7 +68,7 @@
 
                                         </div>
                                     </div>
-                                    <div class="col-lg-2 col-md-2 col-sm-6">
+                                    <div class="col-lg-3 col-md-3 col-sm-6">
                                         <div class="widget">
                                             <div class="widget-heading bg-danger clearfix">
                                                 <div class="pull-left">Total Collection(MBA/BTECH)</div>
