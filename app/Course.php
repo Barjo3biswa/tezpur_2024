@@ -63,7 +63,7 @@ class Course extends Model
 
     public function ExamGroup()
     {
-        return $this->belongsTo(GroupMaster::class,"group","group_name");
+        return $this->belongsTo(GroupMaster::class,"exam_group","group_name");
     }
 
     public function course_seats_new()
