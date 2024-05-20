@@ -1,18 +1,4 @@
-@php
-    $url = env('APP_URL');
-    $id = Crypt::encrypt($admit_card->id);
-    $qr_string = $url . '/admit/' . $admit_card->id;
-    $qr_code = QrCode();
-    $qr_code
-        ->setText($qr_string)
-        ->setSize(300)
-        ->setPadding(10)
-        ->setErrorCorrection('high')
-        ->setForegroundColor(['r' => 0, 'g' => 0, 'b' => 0, 'a' => 0])
-        ->setBackgroundColor(['r' => 255, 'g' => 255, 'b' => 255, 'a' => 0])
-        ->setLabelFontSize(16)
-        ->setImageType(QrCode()::IMAGE_TYPE_PNG);
-@endphp
+
 <style>
     ol {
         text-align: justify
@@ -99,25 +85,12 @@ td {font-size:12px!important;} */
                 </td>
                 <td style="text-align: center;" width=20%>
                     @php
-                        $url = env('APP_URL');
-                        $id = Crypt::encrypt($admit_card->active_application->id);
-                        $qr_string = $url . '/admit/' . $admit_card->active_application->id;
-                        $qr_code = QrCode();
-                        $qr_code
-                            ->setText($qr_string)
-                            ->setSize(300)
-                            ->setPadding(10)
-                            ->setErrorCorrection('high')
-                            ->setForegroundColor(['r' => 0, 'g' => 0, 'b' => 0, 'a' => 0])
-                            ->setBackgroundColor(['r' => 255, 'g' => 255, 'b' => 255, 'a' => 0])
-                            ->setLabelFontSize(16)
-                            ->setImageType(QrCode()::IMAGE_TYPE_PNG);
+                        $url=env('APP_URL');
+                        $id=Crypt::encrypt($admit_card->active_application->id);
+                        $qr_string = $url . '/admit/' . $admit_card->active_application->id;   
+                        $qr = QrCode::generate($qr_string);
                     @endphp
-                    {!! '<img style="width:120px;" src="data:' .
-                        $qr_code->getContentType() .
-                        ';base64,' .
-                        $qr_code->generate() .
-                        '" />' !!}
+                    {!! $qr !!}
                 </td>
             </tr>
         </tbody>
