@@ -2287,8 +2287,8 @@ class CommonApplicationController extends Controller
             })
             ->where('applied_courses.status','!=','rejected')
             ->groupBy('course_id')
-            ->join('courses','courses.id','=','course_id')
-            ->orderBy('courses.name')
+            // ->join('courses','courses.id','=','course_id')
+            // ->orderBy('courses.name')
             ->get();
         // dd($categories);
 
