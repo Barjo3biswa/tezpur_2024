@@ -842,7 +842,7 @@ function getSiteSettingValue($field_name = "currency")
 function getTotalCollection($active_session_id){
     $collections1 = OnlinePaymentSuccess::where("biller_status", "captured")
         ->whereHas("application", function($query) use ($active_session_id){
-            $query->where("session_id", $active_session_id);
+            $query->where("session_id", $active_session_id)->where('is_mba',0)->where('is_btech',0);
         })->where('payment_type','application')->sum("amount");
     $collections2 = RePaymentSuccess::where("biller_status", "captured")
         ->whereHas("application", function($query) use ($active_session_id){
@@ -851,6 +851,20 @@ function getTotalCollection($active_session_id){
         ->sum("amount");
     return $collections1 + $collections2;
 }
+
+function getTotalCollectionMBA($active_session_id){
+    $collections1 = OnlinePaymentSuccess::where("biller_status", "captured")
+        ->whereHas("application", function($query) use ($active_session_id){
+            $query->where("session_id", $active_session_id)->where('is_mba',1)->where('is_btech',1);
+        })->where('payment_type','application')->sum("amount");
+    $collections2 = RePaymentSuccess::where("biller_status", "captured")
+        ->whereHas("application", function($query) use ($active_session_id){
+            $query->where("session_id", $active_session_id);
+        })
+        ->sum("amount");
+    return $collections1 + $collections2;
+}
+
 
 function getcategories(){
     return \App\Models\Application::groupBy('caste_id')->whereNotNull('application_no')->count();

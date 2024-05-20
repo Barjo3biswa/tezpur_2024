@@ -39,7 +39,7 @@
 
                                         </div>
 
-                                    <div class="col-lg-3 col-md-3 col-sm-6">
+                                    <div class="col-lg-2 col-md-2 col-sm-6">
                                         <div class="widget">
                                             <div class="widget-heading clearfix">
                                                 <div class="pull-left">Overall Registered Applicants</div>
@@ -53,7 +53,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-3 col-md-3 col-sm-6">
+                                    <div class="col-lg-2 col-md-2 col-sm-6">
                                         <div class="widget">
                                             <div class="widget-heading bg-danger clearfix">
                                                 <div class="pull-left">Total Collection</div>
@@ -64,6 +64,21 @@
                                                     <i class="fa fa-rupee"></i>
                                                 </div>
                                             <div class="pull-right number"><a href="#">{{number_format(getTotalCollection($active_session->id), 2)}}</a></div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2 col-md-2 col-sm-6">
+                                        <div class="widget">
+                                            <div class="widget-heading bg-danger clearfix">
+                                                <div class="pull-left">Total Collection(MBA/BTECH)</div>
+                                                <div class="pull-right"></div>
+                                            </div>
+                                            <div style="font-size: 28px;" class="widget-body clearfix">
+                                                <div class="pull-left">
+                                                    <i class="fa fa-rupee"></i>
+                                                </div>
+                                            <div class="pull-right number"><a href="#">{{number_format(getTotalCollectionMBA($active_session->id), 2)}}</a></div>
                                             </div>
 
                                         </div>
