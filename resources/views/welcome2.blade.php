@@ -497,7 +497,7 @@
 
                     <div class="container-fluid">
                         <div class="reveal-container">
-                            <a href="https://www.tezuadmissions.in/public/notifications/2024/date-extension-170424.pdf"><h1 class="reveal-text">Last Date Extended for TUEE till 15-05-2024</h1></a>
+                            <a href="https://www.tezuadmissions.in/public/notifications/2024/non_tuee_extension.pdf"><h1 class="reveal-text">Last Date Extended for non-TUEE till 30-05-2024</h1></a>
                         </div>
                     </div>
                     <div class="row">
