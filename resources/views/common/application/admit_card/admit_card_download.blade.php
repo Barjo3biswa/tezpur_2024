@@ -185,7 +185,7 @@ td {font-size:12px!important;} */
     <h4 style="text-align: center;">Instructions to the candidates</h4>
     <ol>
         <li>This Admit Card must be presented for verification along with at least one original (not photocopy or scanned copy), valid photo Identification card (for example: College ID, Employee ID, Driving License, Passport, PAN Card, Voter ID, Aadhaar-UUID).</li>
-        <li>This Admit Card is valid only if the candidate's photograph and signature images are legible. To ensure this, print the admit card on a A4 sized paper using a laser printer, preferably a colour photo printer.If there is any discrepancies in the admit card. Please contact, COE. TUEE and Director, TUEE (03712-273141, 03712-273142, 9957184355).</li>
+        <li>This Admit Card is valid only if the candidate's photograph and signature images are legible. To ensure this, print the admit card on a A4 sized paper using a laser printer, preferably a colour photo printer.{{-- If there is any discrepancies in the admit card. Please contact, COE. TUEE and Director, TUEE (03712-273141, 03712-273142, 9957184355). --}}</li>
         <li>Please report to the examination venue at least one hour before the commencement of the examination for identity verification. </li>
         <li>Candidates will be permitted to appear for the examination ONLY after their credentials are verified by centre officials. </li>
         <li>Candidates are advised to locate the examination centre and its accessibility at least a day before the examination, so that they can reach the centre on time for the examination.</li>
@@ -196,6 +196,6 @@ td {font-size:12px!important;} */
         <li>Candidates will NOT be permitted to enter the examination hall after the commencement of the exam.</li>
         <li>Device like non-programmable calculators are allowed. However, mobile phones and any other electronic gadgets are strictly not permitted in the examination hall.</li>
         <li>Violation of any instruction and adoption of any unfair means found in the examination hall, examinee will be booked under unfair means activity and action will be taken as per TUEE Rules.</li>
-        <li><b>Use your Roll Number will as your login ID, and your password will be your date of birth in the DDMMYYYY format</b></li>
+        <li><b>Use your Roll Number as your login ID, and your password will be your date of birth in the DDMMYYYY format</b></li>
     </ol>
 </div>
