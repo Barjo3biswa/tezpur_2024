@@ -125,23 +125,23 @@
                                         {{-- <td colspan="3"></td> --}}
                                     </tr>
                                 @endif
-                            @endforeach
-                            <tr>
-                                <td colspan=2>
-                                     <p>Invigilator sign.</p>
-                                     <p>....................................</p>
-                                     <p>Full Name (BLOCK)</p>
-                                     <p>....................................</p>
-                                </td>
-                                <td colspan=3>
-                                     <p>TUEE Observer sign.</p>
-                                     <p>....................................</p>
-                                     <p>Full Name (BLOCK)</p>
-                                     <p>....................................</p>
-                                </td>
-                            </tr>
+                            @endforeach                           
                         </tbody>
                     </table>
+                    <div>
+                        <div>
+                            <p>Invigilator sign.</p>
+                            <p>....................................</p>
+                            <p>Full Name (BLOCK)</p>
+                            <p>....................................</p>
+                        </div>
+                        <div>
+                            <p>TUEE Observer sign.</p>
+                            <p>....................................</p>
+                            <p>Full Name (BLOCK)</p>
+                            <p>....................................</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
