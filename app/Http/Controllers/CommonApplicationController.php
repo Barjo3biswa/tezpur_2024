@@ -2271,18 +2271,19 @@ class CommonApplicationController extends Controller
 
 
         $categories = AppliedCourse::whereHas('application', function ($query) use ($active_session,$center_id) {
-                return $query->where('is_mba', 0)->where('is_btech',0)->where('net_jrf','!=',1)
+                return $query->where('is_mba', 0)->where('is_btech',0)->whereIn('net_jrf',[0,2])->where('exam_through','TUEE')
+                    ->where('is_cuet_ug',0)
                     ->where('session_id',$active_session->id)
                     ->whereNotNull('application_no')
                     ->when(request('center_name'), function ($q,$center_id) {
                         $q->where('exam_center_id', $center_id);
                     });
             })->select('course_id',DB::raw('count(applied_courses.id) as count'))
-            ->whereNotIn('status',['rejected'])
-            // ->where(function ($query) {
-            //     $query->whereNotIn('status', ['rejected'])
-            //         ->orWhereNull('status');
-            // })
+            // ->whereNotIn('status',['rejected'])
+            ->where(function ($query) {
+                $query->whereNotIn('status', ['rejected'])
+                    ->orWhereNull('status');
+            })
             ->groupBy('course_id')
             ->join('courses','courses.id','=','course_id')
             ->orderBy('courses.name')
