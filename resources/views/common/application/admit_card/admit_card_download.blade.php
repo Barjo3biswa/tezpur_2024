@@ -79,7 +79,7 @@ td {font-size:12px!important;} */
                         <p style="color: #140707;margin-top:0!important;margin-bottom:0!important;">
                             NAPAAM, TEZPUR - 784028, ASSAM<br>
                             <strong>ADMIT CARD</strong><br>
-                            <strong>TEZPUR UNIVERSITY ENTRANCE EXAMINATION 2023</strong><br>
+                            <strong>TEZPUR UNIVERSITY ENTRANCE EXAMINATION 2024</strong><br>
                         </p>
                     </div>
                 </td>
@@ -176,7 +176,7 @@ td {font-size:12px!important;} */
             <td style="text-align: right;">
                 <img style="width: 100px; height: 40px; max-width: 160px; max-height: 60px;"
                     src="{{ base_path('public/director.png') }}">
-                <p><strong>Director, TUEE-2023</strong></p>
+                <p><strong>Director, TUEE-2024</strong></p>
             </td>
         </tr>
     </table>
@@ -196,5 +196,6 @@ td {font-size:12px!important;} */
         <li>Candidates will NOT be permitted to enter the examination hall after the commencement of the exam.</li>
         <li>Device like non-programmable calculators are allowed. However, mobile phones and any other electronic gadgets are strictly not permitted in the examination hall.</li>
         <li>Violation of any instruction and adoption of any unfair means found in the examination hall, examinee will be booked under unfair means activity and action will be taken as per TUEE Rules.</li>
+        <li><b>Your Roll Number will be used as your login ID, and your password will be your date of birth in the DDMMYYYY format</b></li>
     </ol>
 </div>
