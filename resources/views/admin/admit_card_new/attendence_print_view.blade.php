@@ -128,14 +128,14 @@
                             @endforeach                           
                         </tbody>
                     </table>
-                    <div>
-                        <div>
+                    <div class="main-invigilator">
+                        <div class="invigilator">
                             <p>Invigilator sign.</p>
                             <p>....................................</p>
                             <p>Full Name (BLOCK)</p>
                             <p>....................................</p>
                         </div>
-                        <div>
+                        <div class="invigilator">
                             <p>TUEE Observer sign.</p>
                             <p>....................................</p>
                             <p>Full Name (BLOCK)</p>
