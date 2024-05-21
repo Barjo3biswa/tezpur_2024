@@ -139,7 +139,7 @@
             <li>Candidates will be permitted to occupy their allotted seats 35 minutes before the scheduled start of the examination.</li>
             <li>Candidates are allowed to bring blue / black ball point pen and pencil to the examination hall.</li>
             <li>Candidates have to mark their response in the OMR sheet for scoring.</li>
-            <li>The duration of Examination will be of 2:00 hours. Candidates will NOT be permitted to leave the examination hall before the end of the test.</li>
+            <li>The duration of Examination will be of 1:30 hours. Candidates will NOT be permitted to leave the examination hall before the end of the test.</li>
             <li>Candidates will NOT be permitted to enter the examination hall after the commencement of the exam.</li>
             <li>Device like non-programmable calculators are allowed. However, mobile phones and any other electronic gadgets are strictly not permitted in the examination hall.</li>
             <li>Violation of any instruction and adoption of any unfair means found in the examination hall, examinee will be booked under unfair means activity and action will be taken as per TUEE Rules.</li>
