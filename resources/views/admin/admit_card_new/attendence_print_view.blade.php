@@ -128,7 +128,9 @@
                             @endforeach                           
                         </tbody>
                     </table>
-                    <div class="main-invigilator">
+                    <div class="main-invigilator" style="display: flex;
+                    justify-content: space-between;
+                    margin-top: 3rem;">
                         <div class="invigilator">
                             <p>Invigilator sign.</p>
                             <p>....................................</p>
