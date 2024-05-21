@@ -116,11 +116,9 @@ td {font-size:12px!important;} */
         </tr>
         <tr>
             {{-- <td><strong>Applied Program Id</strong></td>
-            <td><strong> {{ $admit_card->applied_course_details->application_number }}</strong></td> --}}     
+            <td><strong> {{ $admit_card->applied_course_details->application_number }}</strong></td> --}}
             <td><strong>Program Name</strong></td>
-            <td><strong>{{$admit_card->course->name}}({{$admit_card->course->code}})</strong></td>
-            <td><strong>Date of Birth:</strong></td>
-            <td> {{ date('d-m-Y', strtotime($admit_card->application->dob)) }}</td>
+            <td colspan=3><strong>{{$admit_card->course->name}}({{$admit_card->course->code}})</strong></td>
         </tr>
         <tr>
             <td><strong>Name</strong></td>
@@ -129,12 +127,12 @@ td {font-size:12px!important;} */
             <td> {{ $admit_card->application->gender }}</td>
         </tr>
 
-        {{-- <tr>
-            <td><strong>Category</strong></td>
-            <td> {{ strtoupper($admit_card->application->caste->name) }}</td>
+        <tr>
+            {{-- <td><strong>Category</strong></td>
+            <td> {{ strtoupper($admit_card->application->caste->name) }}</td> --}}
             <td><strong>Date of Birth:</strong></td>
-            <td> {{ date('d-m-Y', strtotime($admit_card->application->dob)) }}</td>
-        </tr> --}}
+            <td colspan=3> {{ date('d-m-Y', strtotime($admit_card->application->dob)) }}</td>
+        </tr>
 
         <tr>
             {{-- <td rowspan="2" style="text-align: center">
