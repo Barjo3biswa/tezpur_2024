@@ -64,10 +64,12 @@
                 <td> <strong>{{ $admit_card->active_application->application_no }}</strong></td>
             </tr>
             <tr>
-                <td>Applied Program Id</td>
-                <td> <strong>{{ $admit_card->applied_course_details->application_number }}</strong></td>
+                {{-- <td>Applied Program Id</td>
+                <td> <strong>{{ $admit_card->applied_course_details->application_number }}</strong></td> --}}
                 <td>Program Name</td>
                 <th> {{$admit_card->course->name}}({{$admit_card->course->code}})</th>
+                <td>Date of Birth</td>
+                <th> <strong>{{date('d-m-Y', strtotime($admit_card->application->dob))}}</strong></th>
             </tr>
             <tr>
                 <td>Name</td>
@@ -76,12 +78,12 @@
                 <th> <strong>{{ $admit_card->application->gender }}</strong></th>
             </tr>
 
-            <tr>
+            {{-- <tr>
                 <td>Category</td>
                 <td> <strong>{{ strtoupper($admit_card->application->caste->name) }}</strong></td>
                 <td>Date of Birth</td>
                 <th> <strong>{{date('d-m-Y', strtotime($admit_card->application->dob))}}</strong></th>
-            </tr>
+            </tr> --}}
             
             <tr>
                 <td rowspan="3" style="text-align: center">
