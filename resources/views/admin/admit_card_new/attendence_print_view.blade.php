@@ -127,6 +127,22 @@
                                 @endif
                             @endforeach
                         </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan=2>
+                                     <p>Invigilator sign.</p>
+                                     <p>....................................</p>
+                                     <p>Full Name (BLOCK)</p>
+                                     <p>....................................</p>
+                                </td>
+                                <td colspan=3>
+                                    <p>TUEE Observer sign.</p>
+                                     <p>....................................</p>
+                                     <p>Full Name (BLOCK)</p>
+                                     <p>....................................</p>
+                                </td>
+                            </tr>
+                        </tfoot>
                     </table>
                 </div>
             </div>
