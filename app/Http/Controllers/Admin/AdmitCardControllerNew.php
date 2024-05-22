@@ -198,7 +198,7 @@ class AdmitCardControllerNew extends Controller
                     try{      
                         //distribute to Sub center
                         $sub_center_id = null;
-                        foreach($exam_centers->subExamCenter as $sub_centers){
+                        foreach($exam->subExamCenter as $sub_centers){
                             if($sub_centers->capacity > $sub_centers->filled_out){
                                 $sub_center_id = $sub_centers->id;
                                 $sub_centers->increment('filled_out');
