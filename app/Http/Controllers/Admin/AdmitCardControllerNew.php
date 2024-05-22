@@ -193,11 +193,19 @@ class AdmitCardControllerNew extends Controller
                     // dump($applied);
                     $group = $applied->course->exam_group;
                     $prefix=null;
-                    $last_rollNo=AdmitCard::where(['exam_center_id'=>$center_id,'course_id'=>$applied->course_id])->count();    
+                    $last_rollNo=AdmitCard::where(['exam_center_id'=>$center_id,'course_id'=>$applied->course_id])->count();   
                     DB::beginTransaction();
                     try{      
-                        //Roll no should have: Centre code/school code/ dept. code/subject code/number (begin from 001)   
-                        // dump($applied->student_id);
+                        //distribute to Sub center
+                        $sub_center_id = null;
+                        foreach($exam_centers->subExamCenter as $sub_centers){
+                            if($sub_centers->capacity > $sub_centers->filled_out){
+                                $sub_center_id = $sub_centers->id;
+                                $sub_centers->increment('filled_out');
+                                break;
+                            }
+                        }
+                        //distribution ends
                         $course_code = $applied->course->code;
                         $department_code = $applied->course->department->code;
                         $school_code = $applied->course->department->school->code;
@@ -211,6 +219,7 @@ class AdmitCardControllerNew extends Controller
                                 'roll_no_uf'       => $last_rollNo,
                                 'course_id'        => $applied->course_id,
                                 'exam_center_id'   => $exam->id,	
+                                'sub_exam_center_id' => $sub_center_id,
                                 'exam_time'        => $shift[$group],
                                 'exam_date'        => $date[$group],
                                 'session'          => $active_session,

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\AppliedCourse;
 use App\Country;
+use App\SubExamCenter;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -52,5 +53,9 @@ class ExamCenter extends Model
             'exam_center_id',
             'application_id'
         )->where('exam_through','TUEE')->orderby('course_id')/* ->orderby('application.first_name') */;
+    }
+    
+    public function subExamCenter(){
+        return $this->hasMany(SubExamCenter::class, "city_id","id")->whereNotNull('application_no');
     }
 }
