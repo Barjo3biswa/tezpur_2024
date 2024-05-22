@@ -463,31 +463,38 @@ class AdmitCardControllerNew extends Controller
     //     }
     // }
 
-    public function downloadZip() {
-        $admit_cards = AdmitCard::get()->take(2);
-        $zip = new ZipArchive();
-        $zipFileName = 'admit_cards.zip';
-        $zipFilePath = '/var/www/tezuadmissions.in/public/public/' . $zipFileName;
-        // dd($zipFilePath);
-    
-        if ($zip->open($zipFilePath, ZipArchive::CREATE | ZipArchive::OVERWRITE) === TRUE) {
-            foreach ($admit_cards as $card) {
-                $photo = $card->application->passport_photo()->destination_path . '/' . $card->application->passport_photo()->file_name;
-                $sigg = $card->application->signature()->destination_path . '/' . $card->application->signature()->file_name;
-    
-                if (file_exists($photo)) {
-                    $zip->addFile($photo, 'photos/' . basename($photo));
-                }
-                if (file_exists($sigg)) {
-                    $zip->addFile($sigg, 'signatures/' . basename($sigg));
-                }
+
+
+public function downloadZip() {
+    $admit_cards = AdmitCard::get()->take(2);
+    $zip = new ZipArchive();
+    $zipFileName = 'admit_cards.zip';
+    $zipFilePath = storage_path('app/' . $zipFileName);
+
+    if ($zip->open($zipFilePath, ZipArchive::CREATE | ZipArchive::OVERWRITE) === TRUE) {
+        foreach ($admit_cards as $card) {
+            $photoPath = $card->application->passport_photo()->destination_path . '/' . $card->application->passport_photo()->file_name;
+            $sigPath = $card->application->signature()->destination_path . '/' . $card->application->signature()->file_name;
+
+            if (file_exists($photoPath) && is_readable($photoPath)) {
+                $zip->addFile($photoPath, 'photos/' . basename($photoPath));
             }
-            $zip->close();
-    
-            return response()->download($zipFilePath)/* ->deleteFileAfterSend(true) */;
-        } else {
-            return response()->json(['error' => 'Unable to create zip file'], 500);
+            if (file_exists($sigPath) && is_readable($sigPath)) {
+                $zip->addFile($sigPath, 'signatures/' . basename($sigPath));
+            }
         }
+        $zip->close();
+
+        ob_end_clean(); // Clear output buffer to avoid corruption
+
+        return response()->download($zipFilePath, $zipFileName, [
+            'Content-Type' => 'application/zip',
+            'Content-Disposition' => 'attachment; filename="' . $zipFileName . '"',
+        ])->deleteFileAfterSend(true);
+    } else {
+        return response()->json(['error' => 'Unable to create zip file'], 500);
     }
+}
+
     
 }
