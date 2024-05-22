@@ -23,6 +23,7 @@ use DB;
 use Exception;
 use Log;
 use PDF;
+use ZipArchive;
 
 class AdmitCardControllerNew extends Controller
 {
@@ -451,14 +452,40 @@ class AdmitCardControllerNew extends Controller
         dd("ok");
     }
     
-    public function downloadZip(){
+    // public function downloadZip(){
+    //     $admit_cards = AdmitCard::get();
+    //     foreach($admit_cards as $card){
+    //         $photo = $card->application->passport_photo()->destination_path.'/'.$card->application->passport_photo()->file_name;
+    //         $sigg = $card->application->signature()->destination_path.'/'.$card->application->passport_photo()->file_name;
+    //         dump($photo);
+    //         dump($sigg);
+       
+    //     }
+    // }
+
+    public function downloadZip() {
         $admit_cards = AdmitCard::get();
-        foreach($admit_cards as $card){
-            $photo = $card->application->passport_photo()->destination_path.'/'.$card->application->passport_photo()->file_name;
-            $sigg = $card->application->signature()->destination_path.'/'.$card->application->passport_photo()->file_name;
-            dump($photo);
-            dump($sigg);
-            dd("ok");
+        $zip = new ZipArchive();
+        $zipFileName = 'admit_cards.zip';
+        $zipFilePath = storage_path('app/' . $zipFileName);
+    
+        if ($zip->open($zipFilePath, ZipArchive::CREATE | ZipArchive::OVERWRITE) === TRUE) {
+            foreach ($admit_cards as $card) {
+                $photo = $card->application->passport_photo()->destination_path . '/' . $card->application->passport_photo()->file_name;
+                $sigg = $card->application->signature()->destination_path . '/' . $card->application->signature()->file_name;
+    
+                if (file_exists($photo)) {
+                    $zip->addFile($photo, 'photos/' . basename($photo));
+                }
+                if (file_exists($sigg)) {
+                    $zip->addFile($sigg, 'signatures/' . basename($sigg));
+                }
+            }
+            $zip->close();
+    
+            return response()->download($zipFilePath)->deleteFileAfterSend(true);
+        } else {
+            return response()->json(['error' => 'Unable to create zip file'], 500);
         }
     }
     
