@@ -207,6 +207,7 @@ class AdmitCardControllerNew extends Controller
                             }
                         }
                         if($sub_center_id == null){
+                            dump($group);
                             dd($applied->student_id);
                         }
                         //distribution ends
