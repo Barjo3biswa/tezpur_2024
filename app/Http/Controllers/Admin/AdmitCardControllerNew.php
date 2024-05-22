@@ -464,11 +464,11 @@ class AdmitCardControllerNew extends Controller
     // }
 
     public function downloadZip() {
-        $admit_cards = AdmitCard::get();
+        $admit_cards = AdmitCard::get()->take(2);
         $zip = new ZipArchive();
         $zipFileName = 'admit_cards.zip';
-        $zipFilePath = storage_path('app/' . $zipFileName);
-        dd($zipFilePath);
+        $zipFilePath = '/var/www/tezuadmissions.in/public/public/' . $zipFileName;
+        // dd($zipFilePath);
     
         if ($zip->open($zipFilePath, ZipArchive::CREATE | ZipArchive::OVERWRITE) === TRUE) {
             foreach ($admit_cards as $card) {
