@@ -56,6 +56,6 @@ class ExamCenter extends Model
     }
     
     public function subExamCenter(){
-        return $this->hasMany(SubExamCenter::class, "city_id","id")->whereNotNull('application_no');
+        return $this->hasMany(SubExamCenter::class, "city_id","id");
     }
 }
