@@ -484,7 +484,7 @@ class AdmitCardControllerNew extends Controller
             }
             $zip->close();
     
-            return response()->download($zipFilePath)->deleteFileAfterSend(true);
+            return response()->download($zipFilePath)/* ->deleteFileAfterSend(true) */;
         } else {
             return response()->json(['error' => 'Unable to create zip file'], 500);
         }
