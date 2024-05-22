@@ -166,6 +166,13 @@ class ApplicationController extends CommonApplicationController
             ]);
         }
 
+        if($application->exam_through == "NET_JRF"){
+            $request->validate([
+                'qualified_national_level_test' => 'required|max:255',
+                'qualified_national_level_test_mark' => 'required|max:255',
+            ]);
+        }
+
         $program_list = AppliedCourse::where('application_id', $application->id)->first();
         $is_mca = $program_list->course_id;
         // if ($is_mca == 37) {
@@ -1722,6 +1729,12 @@ class ApplicationController extends CommonApplicationController
 
             if(!$application->attachments->where("doc_name", "jee_admit_card")->count()){
                 $rules["jee_admit_card"] = str_replace("nullable", "required",$rules["prc"]);
+            }
+        }
+
+        if($application->exam_through == "NET_JRF"){
+            if(!$application->attachments->where("doc_name", "net_slet_certificate")->count()){
+                $rules["net_slet_certificate"] = str_replace("nullable", "required",$rules["net_slet_certificate"]);
             }
         }
         

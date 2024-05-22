@@ -301,10 +301,13 @@
                     <div class="col-md-12">
                       <div class="checkbox" style="padding-left:12px;">
                         <label>
-                          <input type="checkbox" v-model="initial_step.is_qualify" />I have read through the prospectus
+                          <input type="checkbox" v-model="initial_step.is_qualify" />
+                          <span v-if="this.application_type=='NET_JRF'"><b>I hereby acknowledge that I have successfully qualified for the National Level Test (NET/GATE/SLET/JRF/MPhil). 
+                            If my qualification is not valid, my application will be subject to rejection.</b></span>
+                          I have read through the prospectus
                           throughly
                         </label>
-                        <button @click="openProspectusInNewWindow()">Click Here</button>
+                        <button @click="openProspectusInNewWindow()">Click Here</button>                   
                       </div>
                       <div class="row text-center" style="padding-bottom:14px;" v-if="initial_step.is_qualify">
                         <button class="btn btn-sm btn-success" @click="goToStepOne">
@@ -5053,8 +5056,8 @@ export default {
   props: ["mode", "application_id", "count", "create_app_id", "application_type"],
   data() {
     return {
-      // base_url: "https://www.tezuadmissions.in/public",
-      base_url: 'https://www.tezuadmissions.in/public',
+      base_url: "https://www.tezuadmissions.in/public",
+      //base_url: 'https://www.tezuadmissions.in/public',
 
       // base_url: "http://127.0.0.1:8000",
       // base_url: "http://139.59.46.246/tezpur_admission/public/",

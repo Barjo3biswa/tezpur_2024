@@ -7172,6 +7172,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
@@ -7191,8 +7194,8 @@ vue__WEBPACK_IMPORTED_MODULE_3___default.a.use(vue_cryptojs__WEBPACK_IMPORTED_MO
     var _academic_post_gradua;
 
     return {
-      // base_url: "https://www.tezuadmissions.in/public",
-      base_url: 'https://www.tezuadmissions.in/public',
+      base_url: "https://www.tezuadmissions.in/public",
+      //base_url: 'https://www.tezuadmissions.in/public',
       // base_url: "http://127.0.0.1:8000",
       // base_url: "http://139.59.46.246/tezpur_admission/public/",
       // base_url: "http://localhost/dec/tezuadmissions_in/public/",
@@ -53321,8 +53324,18 @@ var render = function() {
                                               }
                                             }
                                           }),
+                                          _vm._v(" "),
+                                          this.application_type == "NET_JRF"
+                                            ? _c("span", [
+                                                _c("b", [
+                                                  _vm._v(
+                                                    "I hereby acknowledge that I have successfully qualified for the National Level Test (NET/GATE/SLET/JRF/MPhil). \n                            If my qualification is not valid, my application will be subject to rejection."
+                                                  )
+                                                ])
+                                              ])
+                                            : _vm._e(),
                                           _vm._v(
-                                            "I have read through the prospectus\n                          throughly\n                        "
+                                            "\n                          I have read through the prospectus\n                          throughly\n                        "
                                           )
                                         ]),
                                         _vm._v(" "),
