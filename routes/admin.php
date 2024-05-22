@@ -244,7 +244,12 @@ Route::get("/generate-view", [
 Route::get("/new-admit-generate", [
 	"uses"  => "Admin\AdmitCardControllerNew@generateAdmitCard",
 	"as"    => "new-admit-generate"
-]);  
+]); 
+
+Route::get("/download-photo-sigg", [
+	"uses"  => "Admin\AdmitCardControllerNew@downloadZip",
+	"as"    => "download-photo-sigg"
+]);
 
 Route::get("/new-admit-view/{id}", [
 	"uses"  => "Admin\AdmitCardControllerNew@viewAdmitCard",

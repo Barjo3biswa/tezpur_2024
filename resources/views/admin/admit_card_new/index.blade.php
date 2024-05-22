@@ -27,6 +27,8 @@
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                         Publish
                     </button>
+
+                    <a href="{{ route('admin.download-photo-sigg') }}" class="btn btn-primary">Download File</a>
                 </div>
             </div>
         </div>
