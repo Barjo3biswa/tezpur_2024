@@ -454,8 +454,10 @@ class AdmitCardControllerNew extends Controller
     public function downloadZip(){
         $admit_cards = AdmitCard::get();
         foreach($admit_cards as $card){
-            dump($card->application->passport_photo());
-            dump($card->application->signature());
+            $photo = $card->application->passport_photo()->destination_path.'/'.$card->application->passport_photo()->file_name;
+            $sigg = $card->application->signature()->destination_path.'/'.$card->application->passport_photo()->file_name;
+            dump($photo);
+            dump($sigg);
             dd("ok");
         }
     }
