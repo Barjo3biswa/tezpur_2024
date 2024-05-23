@@ -2351,7 +2351,7 @@ class CommonApplicationController extends Controller
     public function attendenceSheetViewNew(Request $request){
         $center_name=SubExamCenter::where('id',$request->cen_id)->first();
         // $course_name=Course::where('id',$request->course_id)->withTrashed()->first();
-        $querry = AdmitCard::where('sub_exam_center_id',$request->cen_id)->where('exam_group',$request->group);
+        $querry = AdmitCard::where('sub_exam_center_id1',$request->cen_id)->where('exam_group',$request->group);
         $count = $querry->count();
         $attendence = $querry->get();
         return view('admin.admit_card_new.attendence_print_view_new',compact('attendence','center_name','count'));
