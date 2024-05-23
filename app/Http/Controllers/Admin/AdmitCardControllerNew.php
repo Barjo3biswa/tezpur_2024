@@ -174,7 +174,7 @@ class AdmitCardControllerNew extends Controller
             'eight' => '12:00 PM 1:30 PM',
             'nine'  => '3:00 PM 4:30 PM',
         ];
-        //10,20,35,100
+        //10,20,30,100
         $active_session = Session::where('is_active',1)->first()->id;
         $exam_centers= ExamCenter::with(['applied_courses' => function ($query) use ($active_session) {
                                            return $query->where('session_id', '=', $active_session)
@@ -183,7 +183,12 @@ class AdmitCardControllerNew extends Controller
                                             ->WhereDoesntHave('admitcard')
                                             ->where('net_jrf','!=',1)
                                             ->orderby('first_name')->orderby('middle_name')->orderby('last_name');
-                                       }])->where('id','<=',100)->orderBy('center_name')->get(); 
+                                       }])
+                                       ->where('id','<=',10)
+                                    //    ->where('id','<=',20)
+                                    //    ->where('id','<=',30)
+                                    //    ->where('id','<=',100)
+                                       ->orderBy('center_name')->get(); 
         // dd($exam_centers);
         // dd($exam_centers);  SELECT  count(*),course_id, exam_center_id   FROM `admit_cards` GROUP by course_id, exam_center_id having exam_center_id=1 order by count(*) DESC, course_id
         foreach($exam_centers as $exam){

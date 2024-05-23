@@ -157,10 +157,10 @@ td {font-size:12px!important;} */
         <tr>
             <td><strong>Examination Center</strong></td>
             <td style="padding:2px;"> {{ $admit_card->exam_center->center_name }}
-                ({{ $admit_card->exam_center->center_code}})<br />
-                {{ $admit_card->exam_center->address }},<br />
-                {{ $admit_card->exam_center->city }},
-                {{ $admit_card->exam_center->state }}-{{ $admit_card->exam_center->pin }}.
+                {{ $admit_card->exam_center->center_code??"NA" }}<br/>
+                {{ $admit_card->sub_exam_center->address }},<br/>
+                {{ $admit_card->sub_exam_center->city }},
+                {{ $admit_card->sub_exam_center->state }} -{{ $admit_card->sub_exam_center->pin }}.
             </td>
             <td><strong>Reporting Time</strong></td>
             <td> {{$admit_card->course->ExamGroup->reporting_time}}</td>

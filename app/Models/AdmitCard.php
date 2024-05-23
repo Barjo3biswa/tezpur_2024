@@ -27,6 +27,11 @@ class AdmitCard extends Model
     public function exam_center() {
         return $this->belongsTo("\App\Models\ExamCenter", "exam_center_id", "id")->withTrashed();
     }
+
+    public function sub_exam_center() {
+        return $this->belongsTo("\App\Models\SubExamCenter", "sub_exam_center_id", "id")->withTrashed();
+    }
+
     public function active_application(){
         return $this->belongsTo("\App\Models\Application", "application_id", "id");
     }

@@ -81,7 +81,7 @@ td {font-size:12px!important;} */
                         <p style="color: #140707;margin-top:0!important;margin-bottom:0!important;">
                             NAPAAM, TEZPUR - 784028, ASSAM<br>
                             <strong>ADMIT CARD</strong><br>
-                            <strong>TEZPUR UNIVERSITY ENTRANCE EXAMINATION 2023</strong><br>
+                            <strong>TEZPUR UNIVERSITY ENTRANCE EXAMINATION 2024</strong><br>
                         </p>
                     </div>
                 </td>
@@ -130,10 +130,10 @@ td {font-size:12px!important;} */
             <td><strong>{{ $admit_card->active_application->application_no }}</strong></td>
         </tr>
         <tr>
-            <td><strong>Applied Program Id</strong></td>
-            <td><strong> {{ $admit_card->applied_course_details->application_number }}</strong></td>
+            {{-- <td><strong>Applied Program Id</strong></td>
+            <td><strong> {{ $admit_card->applied_course_details->application_number }}</strong></td> --}}
             <td><strong>Program Name</strong></td>
-            <td><strong>{{$admit_card->course->name}}({{$admit_card->course->code}})</strong></td>
+            <td colspan=2><strong>{{$admit_card->course->name}}({{$admit_card->course->code}})</strong></td>
         </tr>
         <tr>
             <td><strong>Name</strong></td>
@@ -143,10 +143,10 @@ td {font-size:12px!important;} */
         </tr>
 
         <tr>
-            <td><strong>Category</strong></td>
-            <td> {{ strtoupper($admit_card->application->caste->name) }}</td>
+            {{-- <td><strong>Category</strong></td>
+            <td> {{ strtoupper($admit_card->application->caste->name) }}</td> --}}
             <td><strong>Date of Birth:</strong></td>
-            <td> {{ date('d-m-Y', strtotime($admit_card->application->dob)) }}</td>
+            <td colspan=2> {{ date('d-m-Y', strtotime($admit_card->application->dob)) }}</td>
         </tr>
 
         <tr>
@@ -172,10 +172,10 @@ td {font-size:12px!important;} */
         <tr>
             <td><strong>Examination Center</strong></td>
             <td style="padding:2px;"> {{ $admit_card->exam_center->center_name }}
-                ({{ $admit_card->exam_center->center_code}})<br />
-                {{ $admit_card->exam_center->address }},<br />
-                {{ $admit_card->exam_center->city }},
-                {{ $admit_card->exam_center->state }}-{{ $admit_card->exam_center->pin }}.
+                {{ $admit_card->exam_center->center_code??"NA" }}<br/>
+                {{ $admit_card->sub_exam_center->address }},<br/>
+                {{ $admit_card->sub_exam_center->city }},
+                {{ $admit_card->sub_exam_center->state }} -{{ $admit_card->sub_exam_center->pin }}.
             </td>
             <td><strong>Reporting Time</strong></td>
             <td> {{$admit_card->course->ExamGroup->reporting_time}}</td>
