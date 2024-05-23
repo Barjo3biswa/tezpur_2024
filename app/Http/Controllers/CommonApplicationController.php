@@ -2342,8 +2342,8 @@ class CommonApplicationController extends Controller
         $exam_centers = ExamCenter::get();
         $center_id = $request->center_name??0;
         
-        $exam_center = ExamCenter::wehre('id',1)->first();
-        dd($exam_center);
+        $exam_center = ExamCenter::where('id',$center_id)->get();
+        // dd($exam_center);
         $group = GroupMaster::get();
         return view('admin.admit_card_new.attendence-new-index',compact('exam_centers','exam_center','group'));
     }
