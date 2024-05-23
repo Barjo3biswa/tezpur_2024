@@ -197,21 +197,45 @@ class AdmitCardControllerNew extends Controller
                     $last_rollNo=AdmitCard::where(['exam_center_id'=>$center_id,'course_id'=>$applied->course_id])->count();   
                     DB::beginTransaction();
                     try{      
+                        // //distribute to Sub center
+                        // $sub_center_id = null;
+                        // foreach($exam->subExamCenter as $sub_centers){
+                        //     // dd($sub_centers->capacity);
+                        //     if($sub_centers->capacity > $sub_centers->$group){
+                        //         $sub_center_id = $sub_centers->id;
+                        //         $sub_centers->increment($group);
+                        //         break;
+                        //     }
+                        // }
+                        // if($sub_center_id == null){
+                        //     dump($group);
+                        //     dump($sub_centers->capacity);
+                        //     dump($sub_centers->$group);
+                        //     dd($applied->student_id);
+                        // }
+                        // //distribution ends
+
                         //distribute to Sub center
                         $sub_center_id = null;
+                        $total_student_this_group = $exam->applied_courses->filter(function ($course) use ($group) {
+                            return $course->course->exam_group === $group;
+                        })->count();
                         foreach($exam->subExamCenter as $sub_centers){
-                            // dd($sub_centers->capacity);
-                            if($sub_centers->capacity > $sub_centers->$group){
+                            $total_capacity = $exam->subExamCenter->sum('capacity');
+                            $percentage_of_distribution =  ceil(($total_student_this_group/$total_capacity)*100);
+                            $to_filled_out = ceil(($percentage_of_distribution*$sub_centers->capacity)/100);
+                            if($to_filled_out > $sub_centers->$group){
                                 $sub_center_id = $sub_centers->id;
                                 $sub_centers->increment($group);
                                 break;
                             }
                         }
-                        if($sub_center_id == null){
-                            dump($group);
-                            dump($sub_centers->capacity);
-                            dump($sub_centers->$group);
-                            dd($applied->student_id);
+                        if($sub_center_id == null){ 
+                            dump('total_student_this_group: '.$total_student_this_group); 
+                            dump('total_capacity: '.$total_capacity);
+                            dump('percentage_of_distribution: '.$percentage_of_distribution);
+                            dump('to_filled_out '.$to_filled_out);
+                            dump($sub_centers->$group);dump($group);dump($sub_centers->capacity);dump($sub_centers->$group);dd($applied->student_id);
                         }
                         //distribution ends
                         $course_code = $applied->course->code;
