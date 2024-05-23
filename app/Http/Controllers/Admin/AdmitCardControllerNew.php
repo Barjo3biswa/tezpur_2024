@@ -552,6 +552,7 @@ class AdmitCardControllerNew extends Controller
     }
 
     public function downloadZip() {
+        
         $admit_cards = AdmitCard::get();
         $zip = new ZipArchive();
         $zipFileName = 'admit_cards.zip';
