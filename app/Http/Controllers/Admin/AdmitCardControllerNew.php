@@ -219,6 +219,11 @@ class AdmitCardControllerNew extends Controller
                             }
                         }
                         if($sub_center_id == null){ 
+                            dump('total_student_this_group: '.$total_student_this_group); 
+                            dump('total_capacity: '.$total_capacity);
+                            dump('percentage_of_distribution: '.$percentage_of_distribution);
+                            dump('to_filled_out '.$to_filled_out);
+                            dump($sub_centers->$group);
                             dump($group);
                             dump($sub_centers->capacity);
                             dump($sub_centers->$group);
