@@ -62,7 +62,7 @@
                                         <td>{{$sub_cen->center_name}}</td>
                                         <td>{{$grp->group_name}} </td>
                                         <td>{{getGroupNCenterCount($grp->group_name, $sub_cen->id)}}</td>
-                                        <td><a href="{{ route('admin.attendence-view-new',['group'=>$grp->group_name, 'cen_id'=>$center_name->id]) }}">View</a></td>
+                                        <td><a href="{{ route('admin.attendence-view-new',['group'=>$grp->group_name, 'cen_id'=>$sub_cen->id]) }}">View</a></td>
                                     </tr>        
                                     @endforeach
                             @endforeach
