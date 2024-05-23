@@ -471,7 +471,7 @@ class AdmitCardControllerNew extends Controller
         $zipFileName = 'admit_cards.zip';
         $zipFilePath = storage_path('app/' . $zipFileName);
     
-        if ($zip->open($zipFilePath, ZipArchive::CREATE | ZipArchive::OVERWRITE) === TRUE) {
+  if ($zip->open($zipFilePath, ZipArchive::CREATE | ZipArchive::OVERWRITE) === TRUE) {
             foreach ($admit_cards as $card) {
                 $photo = $card->roll_no . '_p.jpg';
                 $sigg = $card->roll_no . '_s.jpg';
