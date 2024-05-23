@@ -206,13 +206,15 @@ class AdmitCardControllerNew extends Controller
                             $total_capacity = $exam->subExamCenter->sum('capacity');
                             $percentage_of_distribution =  round(($total_student_this_group/$total_capacity)*100);
                             $to_filled_out = round(($percentage_of_distribution*$sub_centers->$group)/100);
+                            dump($to_filled_out);
+                            dump($sub_centers->$group);
                             if(/* $sub_centers->capacity */$to_filled_out > $sub_centers->$group){
                                 $sub_center_id = $sub_centers->id;
                                 $sub_centers->increment($group);
                                 break;
                             }
                         }
-                        if($sub_center_id == null){
+                        if($sub_center_id == null){ 
                             dump($group);
                             dump($sub_centers->capacity);
                             dump($sub_centers->$group);
