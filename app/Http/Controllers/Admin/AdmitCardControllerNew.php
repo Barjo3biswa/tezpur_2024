@@ -205,7 +205,8 @@ class AdmitCardControllerNew extends Controller
                         foreach($exam->subExamCenter as $sub_centers){
                             $total_capacity = $exam->subExamCenter->sum('capacity');
                             $percentage_of_distribution =  round(($total_student_this_group/$total_capacity)*100);
-                            if(/* $sub_centers->capacity */$percentage_of_distribution > $sub_centers->$group){
+                            $to_filled_out = round(($percentage_of_distribution*$sub_centers->$group)/100);
+                            if(/* $sub_centers->capacity */$to_filled_out > $sub_centers->$group){
                                 $sub_center_id = $sub_centers->id;
                                 $sub_centers->increment($group);
                                 break;
