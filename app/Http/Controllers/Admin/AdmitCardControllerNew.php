@@ -554,8 +554,8 @@ class AdmitCardControllerNew extends Controller
         $admit_cards = AdmitCard::get();
         $zip = new ZipArchive();
         $zipFileName = 'admit_cards.zip';
-        $zipFilePath = storage_path('app/' . $zipFileName);
-        dd($zipFilePath);
+        $zipFilePath = '/var/www/tezuadmissions.in/public/public/' . $zipFileName;
+        // dd($zipFilePath);
         if ($zip->open($zipFilePath, ZipArchive::CREATE | ZipArchive::OVERWRITE) === TRUE) {
             foreach ($admit_cards as $card) {
                 $photo = $card->roll_no . '_p.jpg';
