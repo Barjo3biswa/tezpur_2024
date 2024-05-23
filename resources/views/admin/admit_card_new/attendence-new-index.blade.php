@@ -56,10 +56,10 @@
                 <div class="panel panel-default">
                     <table width="100%" class="table table-bordered">
                         @foreach ($exam_center as $center)
-                            @foreach ($center->subExamCenter as $center_name)
+                            @foreach ($center->subExamCenter as $sub_cen)
                                     @foreach ($group as $grp)
                                     <tr>
-                                        <td>{{$center_name->name}}</td>
+                                        <td>{{$sub_cen->center_name}}</td>
                                         <td>{{$grp->group_name}} </td>
                                         <td>{{getGroupNCenterCount($grp->group_name, $center_name->id)}}</td>
                                         <td><a href="{{ route('admin.attendence-view-new',['group'=>$grp->group_name, 'cen_id'=>$center_name->id]) }}">View</a></td>
