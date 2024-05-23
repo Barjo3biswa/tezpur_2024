@@ -147,92 +147,9 @@ class AdmitCardControllerNew extends Controller
 //        return redirect()->back()->with('success','Successfully Generatyed');
 //   }
 
-//     public function generateAdmitCardwithoutSubcenter2024()
-//     {
-        
-//         set_time_limit(0);
-//         $date=[
-//             'one'   => '11-06-2024',
-//             'two'   => '11-06-2024',
-//             'three' => '11-06-2024',
-//             'four'  => '12-06-2024',
-//             'five'  => '12-06-2024',
-//             'six'   => '12-06-2024',
-//             'seven' => '13-06-2024',
-//             'eight' => '13-06-2024',
-//             'nine'  => '13-06-2024',
-//         ];
-
-//         $shift=[
-//             'one'   => '9:00 AM 10:30 AM',
-//             'two'   => '12:00 PM 1:30 PM',
-//             'three' => '3:00 PM 4:30 PM',
-//             'four'  => '9:00 AM 10:30 AM',
-//             'five'  => '10 AM to 12 Noon',
-//             'six'   => '3:00 PM 4:30 PM',
-//             'seven' => '9:00 AM 10:30 AM',
-//             'eight' => '12:00 PM 1:30 PM',
-//             'nine'  => '3:00 PM 4:30 PM',
-//         ];
-        
-//         $active_session = Session::where('is_active',1)->first()->id;
-//         $exam_centers= ExamCenter::with(['applied_courses' => function ($query) use ($active_session) {
-//                                            return $query->where('session_id', '=', $active_session)
-//                                             ->where('is_mba',0)->where('is_btech',0)/* ->where('is_direct',0) */
-//                                             ->whereNotNull('application_no')
-//                                             ->WhereDoesntHave('admitcard')
-//                                             ->where('net_jrf','!=',1)
-//                                             ->orderby('first_name')->orderby('middle_name')->orderby('last_name');
-//                                        }])/* ->where('id',9) */->orderBy('center_name')->get(); 
-//         // dd($exam_centers);
-//         // dd($exam_centers);  SELECT  count(*),course_id, exam_center_id   FROM `admit_cards` GROUP by course_id, exam_center_id having exam_center_id=1 order by count(*) DESC, course_id
-//         foreach($exam_centers as $exam){
-//             $center_code=$exam->center_code;
-//             $center_id = $exam->id;
-//             foreach($exam->applied_courses as $applied){
-//                 if($applied->status!='rejected'){
-//                     // dump($applied);
-//                     $group = $applied->course->exam_group;
-//                     $prefix=null;
-//                     $last_rollNo=AdmitCard::where(['exam_center_id'=>$center_id,'course_id'=>$applied->course_id])->count();    
-//                     DB::beginTransaction();
-//                     try{      
-//                         //Roll no should have: Centre code/school code/ dept. code/subject code/number (begin from 001)   
-//                         // dump($applied->student_id);
-//                         $course_code = $applied->course->code;
-//                         $department_code = $applied->course->department->code;
-//                         $school_code = $applied->course->department->school->code;
-//                         $roll_no = sprintf("%03d", $last_rollNo + 1);
-//                         $formated_roll_no = $center_code.$school_code.$department_code.$course_code.$roll_no;
-//                         $data=[
-//                                 'applied_course_id'=> $applied->id,
-//                                 'application_id'   => $applied->application_id,
-//                                 'student_id'       => $applied->student_id,
-//                                 'roll_no'          => $formated_roll_no,
-//                                 'roll_no_uf'       => $last_rollNo,
-//                                 'course_id'        => $applied->course_id,
-//                                 'exam_center_id'   => $exam->id,	
-//                                 'exam_time'        => $shift[$group],
-//                                 'exam_date'        => $date[$group],
-//                                 'session'          => $active_session,
-//                         ];
-//                         AdmitCard::create($data);   
-//                         DB::commit();
-//                     }catch(\Exception $e){
-//                         DB::rollBack();
-//                         dd($e);
-//                     }  
-//                 }              
-//             }
-//         }
-//         return redirect()->back()->with('success','Successfully Generatyed');
-//    }
-
-
-
-   public function generateAdmitCard()
+    public function generateAdmitCard()
     {
-        // update `sub_exam_centers` set one=0, two=0, three=0, four=0, five=0, six=0, seven=0, eight=0, nine=0
+        
         set_time_limit(0);
         $date=[
             'one'   => '11-06-2024',
@@ -282,31 +199,15 @@ class AdmitCardControllerNew extends Controller
                     try{      
                         //distribute to Sub center
                         $sub_center_id = null;
-                        $total_student_this_group = $exam->applied_courses->filter(function ($course) use ($group) {
-                            return $course->course->exam_group === $group;
-                        })->count();
-                        // dump('total_student_this_group: '.$total_student_this_group); 
-
                         foreach($exam->subExamCenter as $sub_centers){
-                            $total_capacity = $exam->subExamCenter->sum('capacity'); 
-                            // dump('total_capacity: '.$total_capacity);
-                            $percentage_of_distribution =  ceil(($total_student_this_group/$total_capacity)*100);
-                            $to_filled_out = ceil(($percentage_of_distribution*$sub_centers->capacity)/100);
-                            // dump('percentage_of_distribution: '.$percentage_of_distribution);
-                            // dump('to_filled_out '.$to_filled_out);
-                            // dump($sub_centers->$group);
-                            if(/* $sub_centers->capacity */$to_filled_out > $sub_centers->$group){
+                            // dd($sub_centers->capacity);
+                            if($sub_centers->capacity > $sub_centers->$group){
                                 $sub_center_id = $sub_centers->id;
                                 $sub_centers->increment($group);
                                 break;
                             }
                         }
-                        if($sub_center_id == null){ 
-                            dump('total_student_this_group: '.$total_student_this_group); 
-                            dump('total_capacity: '.$total_capacity);
-                            dump('percentage_of_distribution: '.$percentage_of_distribution);
-                            dump('to_filled_out '.$to_filled_out);
-                            dump($sub_centers->$group);
+                        if($sub_center_id == null){
                             dump($group);
                             dump($sub_centers->capacity);
                             dump($sub_centers->$group);
@@ -550,14 +451,26 @@ class AdmitCardControllerNew extends Controller
         
         dd("ok");
     }
+    
+    // public function downloadZip(){
+    //     $admit_cards = AdmitCard::get();
+    //     foreach($admit_cards as $card){
+    //         $photo = $card->application->passport_photo()->destination_path.'/'.$card->application->passport_photo()->file_name;
+    //         $sigg = $card->application->signature()->destination_path.'/'.$card->application->passport_photo()->file_name;
+    //         dump($photo);
+    //         dump($sigg);
+       
+    //     }
+    // }
 
+
+    
     public function downloadZip() {
-
         $admit_cards = AdmitCard::get();
         $zip = new ZipArchive();
         $zipFileName = 'admit_cards.zip';
-        $zipFilePath = '/var/www/tezuadmissions.in/public/public/' . $zipFileName;
-        // dd($zipFilePath);
+        $zipFilePath = storage_path('app/' . $zipFileName);
+    
         if ($zip->open($zipFilePath, ZipArchive::CREATE | ZipArchive::OVERWRITE) === TRUE) {
             foreach ($admit_cards as $card) {
                 $photo = $card->roll_no . '_p.jpg';
@@ -575,7 +488,7 @@ class AdmitCardControllerNew extends Controller
             $zip->close();
     
             ob_end_clean(); // Clear output buffer to avoid corruption
-           
+    
             return response()->download($zipFilePath, $zipFileName, [
                 'Content-Type' => 'application/zip',
                 'Content-Disposition' => 'attachment; filename="' . $zipFileName . '"',
