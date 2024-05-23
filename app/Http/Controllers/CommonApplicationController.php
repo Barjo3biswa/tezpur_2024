@@ -2341,8 +2341,9 @@ class CommonApplicationController extends Controller
     public function attendenceSheetNew(Request $request){
         $exam_centers = ExamCenter::get();
         $center_id = $request->center_name??0;
-        dd("ok");
+        
         $exam_center = ExamCenter::wehre('id',$center_id)->get();
+        dd("ok");
         $group = GroupMaster::get();
         return view('admin.admit_card_new.attendence-new-index',compact('exam_center','group'));
     }
