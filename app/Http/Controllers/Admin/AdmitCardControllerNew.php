@@ -184,10 +184,10 @@ class AdmitCardControllerNew extends Controller
                                             ->where('net_jrf','!=',1)
                                             ->orderby('first_name')->orderby('middle_name')->orderby('last_name');
                                        }])
-                                    //    ->where('id','<=',10)
+                                       ->where('id','<=',10)
                                     //    ->where('id','<=',20)
                                     //    ->where('id','<=',30)
-                                       ->where('id','<=',100)
+                                    //    ->where('id','<=',100)
                                        ->orderBy('center_name')->get(); 
         // dd($exam_centers);
         // dd($exam_centers);  SELECT  count(*),course_id, exam_center_id   FROM `admit_cards` GROUP by course_id, exam_center_id having exam_center_id=1 order by count(*) DESC, course_id
