@@ -201,7 +201,8 @@ class AdmitCardControllerNew extends Controller
                         $sub_center_id = null;
                         $total_student_this_group = $exam->applied_courses->with(['course'=>function ($q) use($group){
                             return $q->where('exam_group',$group);
-                        }])->count();                     
+                        }])->count(); 
+                        dd($total_student_this_group);                   
                         foreach($exam->subExamCenter as $sub_centers){
                             $percentage_of_distribution =  round(($total_student_this_group/$sub_centers->$group)*100);
                             if(/* $sub_centers->capacity */$percentage_of_distribution > $sub_centers->$group){
