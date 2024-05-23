@@ -149,7 +149,7 @@ class AdmitCardControllerNew extends Controller
 
     public function generateAdmitCard()
     {
-        
+        // update `sub_exam_centers` set one=0, two=0, three=0, four=0, five=0, six=0, seven=0, eight=0, nine=0
         set_time_limit(0);
         $date=[
             'one'   => '11-06-2024',
@@ -202,16 +202,16 @@ class AdmitCardControllerNew extends Controller
                         $total_student_this_group = $exam->applied_courses->filter(function ($course) use ($group) {
                             return $course->course->exam_group === $group;
                         })->count();
-                        dump('total_student_this_group: '.$total_student_this_group); 
+                        // dump('total_student_this_group: '.$total_student_this_group); 
 
                         foreach($exam->subExamCenter as $sub_centers){
                             $total_capacity = $exam->subExamCenter->sum('capacity'); 
-                            dump('total_capacity: '.$total_capacity);
+                            // dump('total_capacity: '.$total_capacity);
                             $percentage_of_distribution =  ceil(($total_student_this_group/$total_capacity)*100);
                             $to_filled_out = ceil(($percentage_of_distribution*$sub_centers->capacity)/100);
-                            dump('percentage_of_distribution: '.$percentage_of_distribution);
-                            dump('to_filled_out '.$to_filled_out);
-                            dump($sub_centers->$group);
+                            // dump('percentage_of_distribution: '.$percentage_of_distribution);
+                            // dump('to_filled_out '.$to_filled_out);
+                            // dump($sub_centers->$group);
                             if(/* $sub_centers->capacity */$to_filled_out > $sub_centers->$group){
                                 $sub_center_id = $sub_centers->id;
                                 $sub_centers->increment($group);
