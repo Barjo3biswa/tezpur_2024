@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\AppliedCourse;
 use App\Course;
 use App\DepartmentAssignedUser;
+use App\GroupMaster;
 use App\Http\Controllers\Controller;
 use App\Models\AdmitCard;
 use App\Models\Application;
@@ -16,6 +17,7 @@ use App\Models\ExtraExamDetail;
 use App\Models\Program;
 use App\Models\Session;
 use App\Notifications\EmailVerification;
+use App\SubExamCenter;
 use Crypt;
 use DB;
 use Exception;
@@ -2334,5 +2336,21 @@ class CommonApplicationController extends Controller
     public function reasonOf(Request $request){
         $reason=AppliedCourse::where('id',$request->course_id)->first();
         return response()->json(['success' => true, 'data' => $reason]);
+    }
+
+    public function attendenceSheetNew(Request $request){
+        $exam_centers = ExamCenter::get();
+        $exam_center = ExamCenter::wehre('id',$request->center_name)->get();
+        $group = GroupMaster::get();
+        return view('admin.admit_card_new.attendence-new-index',compact('exam_center','group'));
+    }
+
+    public function attendenceSheetViewNew(Request $request){
+        $center_name=SubExamCenter::where('id',$request->cen_id)->first();
+        // $course_name=Course::where('id',$request->course_id)->withTrashed()->first();
+        $querry = AdmitCard::where('sub_exam_center_id',$request->cen_id)->where('exam_group',$request->group);
+        $count = $querry->count();
+        $attendence = $querry->get();
+        return view('admin.admit_card_new.attendence_print_view_new',compact('attendence','center_name','course_name','count'));
     }
 }

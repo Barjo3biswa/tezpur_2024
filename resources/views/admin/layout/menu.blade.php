@@ -167,7 +167,7 @@
             <ul class="dropdown-menu">
                 <li><a href="{{ route('admin.generate-view') }}">Generate/View</a></li>
                 <li><a href="{{ route('admin.attendence') }}">Attendence</a></li>
-
+                <li><a href="{{ route('admin.attendence-new') }}">Attendence New</a></li>
                 {{-- <li><a href="{{route("admin.mcj_fix")}}">MCJ FIX</a></li> --}}
                 <li><a href="{{ route('admin.export_others') }}">Others</a></li>
 

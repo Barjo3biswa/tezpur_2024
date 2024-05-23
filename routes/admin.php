@@ -292,6 +292,16 @@ Route::get("/attendence", [
 	"as"    => "attendence"
 ]);
 
+Route::get("/attendence-new", [
+	"uses"  => "Admin\ApplicationController@attendenceSheetNew",
+	"as"    => "attendence-new"
+]);
+
+Route::get("/attendence-view-new", [
+	"uses"  => "Admin\ApplicationController@attendenceSheetViewNew",
+	"as"    => "attendence-view-new"
+]);
+
 Route::get("/print-view-attendence", [
 	"uses"  => "Admin\ApplicationController@printViewAttendenceSheet",
 	"as"    => "print-view-attendence"

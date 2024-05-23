@@ -8,6 +8,7 @@ use App\DepartmentalPermission;
 use App\DepartmentAssignedPermission;
 use App\DepartmentAssignedUser;
 use App\GenerateAppno;
+use App\Models\AdmitCard;
 use App\Models\Application;
 use App\Models\Caste;
 use App\Models\CourseSeat;
@@ -1621,4 +1622,9 @@ function checkIsMaster(Application $model/* , OnlinePaymentSuccess $current_paym
             return 0;
         }
     }
+
+function getGroupNCenterCount($group, $center)
+{
+    return AdmitCard::where('exam_group',$group)->where('sub_exam_center_id',$center)->count();
+}
 
