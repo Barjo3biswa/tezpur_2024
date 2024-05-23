@@ -466,11 +466,12 @@ class AdmitCardControllerNew extends Controller
 
     
     public function downloadZip() {
+        
         $admit_cards = AdmitCard::get();
         $zip = new ZipArchive();
         $zipFileName = 'admit_cards.zip';
         $zipFilePath = storage_path('app/' . $zipFileName);
-    
+        
         if ($zip->open($zipFilePath, ZipArchive::CREATE | ZipArchive::OVERWRITE) === TRUE) {
             foreach ($admit_cards as $card) {
                 $photo = $card->roll_no . '_p.jpg';
