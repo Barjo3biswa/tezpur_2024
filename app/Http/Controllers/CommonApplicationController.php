@@ -2354,6 +2354,6 @@ class CommonApplicationController extends Controller
         $querry = AdmitCard::where('sub_exam_center_id',$request->cen_id)->where('exam_group',$request->group);
         $count = $querry->count();
         $attendence = $querry->get();
-        return view('admin.admit_card_new.attendence_print_view_new',compact('attendence','center_name','course_name','count'));
+        return view('admin.admit_card_new.attendence_print_view_new',compact('attendence','center_name','count'));
     }
 }
