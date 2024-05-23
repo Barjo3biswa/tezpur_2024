@@ -469,7 +469,7 @@ class AdmitCardControllerNew extends Controller
         $admit_cards = AdmitCard::get();
         $zip = new ZipArchive();
         $zipFileName = 'admit_cards.zip';
-        $zipFilePath = storage_path('app/' . $zipFileName);
+        $zipFilePath = '/var/www/tezuadmissions.in/public/' . $zipFileName;
     
         if ($zip->open($zipFilePath, ZipArchive::CREATE | ZipArchive::OVERWRITE) === TRUE) {
             foreach ($admit_cards as $card) {
