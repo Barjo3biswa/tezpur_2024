@@ -260,7 +260,7 @@ class AdmitCardControllerNew extends Controller
                                 'exam_time'        => $shift[$group],
                                 'exam_date'        => $date[$group],
                                 'session'          => $active_session,
-                                'exam_group'            => $group
+                                'exam_group'       => $group
                         ];
                         AdmitCard::create($data);   
                         DB::commit();
