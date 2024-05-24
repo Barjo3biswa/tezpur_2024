@@ -208,11 +208,9 @@ class AdmitCardControllerNew extends Controller
                         $previous_sub_exam_center_id = AdmitCard::where('application_id',$applied->application_id)->first()->sub_exam_center_id;
                         if($previous_sub_exam_center_id){
                             $sub_center_id = $previous_sub_exam_center_id;
-                            SubExamCenter::where('id',$sub_center_id)->increment($group);
-
-                            
+                            SubExamCenter::where('id',$sub_center_id)->increment($group);  
                         }
-                        //avoidation ends
+                        //avoidation ends dgdrgdfgdfg
                         else{
                             foreach($exam->subExamCenter as $sub_centers){
                                 $total_capacity = $exam->subExamCenter->sum('capacity');
