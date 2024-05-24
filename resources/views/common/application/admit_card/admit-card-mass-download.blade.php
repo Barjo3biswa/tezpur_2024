@@ -173,6 +173,7 @@ td {font-size:12px!important;} */
             <td><strong>Examination Center</strong></td>
             <td style="padding:2px;"> {{ $admit_card->exam_center->center_name }}
                 {{ $admit_card->exam_center->center_code??"NA" }}<br/>
+                {{ $admit_card->sub_exam_center->center_name }},<br/>
                 {{ $admit_card->sub_exam_center->address }},<br/>
                 {{ $admit_card->sub_exam_center->city }},
                 {{ $admit_card->sub_exam_center->state }} -{{ $admit_card->sub_exam_center->pin }}.
