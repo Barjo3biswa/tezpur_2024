@@ -16,6 +16,7 @@ use App\Models\Session;
 use App\Models\User;
 use App\Notifications\sendEmailToAGroup;
 use App\Notifications\sendToZZZ;
+use App\SubExamCenter;
 use App\ZzzMailControl;
 use App\ZzzMailSendTo;
 use Crypt;
@@ -174,7 +175,6 @@ class AdmitCardControllerNew extends Controller
             'eight' => '12:00 PM 1:30 PM',
             'nine'  => '3:00 PM 4:30 PM',
         ];
-        //10,20,30,100
         $active_session = Session::where('is_active',1)->first()->id;
         $exam_centers= ExamCenter::with(['applied_courses' => function ($query) use ($active_session) {
                                            return $query->where('session_id', '=', $active_session)
@@ -184,57 +184,45 @@ class AdmitCardControllerNew extends Controller
                                             ->where('net_jrf','!=',1)
                                             ->orderby('first_name')->orderby('middle_name')->orderby('last_name');
                                        }])
-                                    //    ->where('id','<=',10)
+                                       ->where('id','<=',10)
                                     //    ->where('id','<=',20)
                                     //    ->where('id','<=',30)
-                                       ->where('id','<=',100)
+                                    //    ->where('id','<=',100)
                                        ->orderBy('center_name')->get(); 
-        // dd($exam_centers);
-        // dd($exam_centers);  SELECT  count(*),course_id, exam_center_id   FROM `admit_cards` GROUP by course_id, exam_center_id having exam_center_id=1 order by count(*) DESC, course_id
         foreach($exam_centers as $exam){
             $center_code=$exam->center_code;
             $center_id = $exam->id;
             foreach($exam->applied_courses as $applied){
                 if($applied->status!='rejected'){
-                    // dump($applied);
                     $group = $applied->course->exam_group;
                     $prefix=null;
                     $last_rollNo=AdmitCard::where(['exam_center_id'=>$center_id,'course_id'=>$applied->course_id])->count();   
                     DB::beginTransaction();
-                    try{      
-                        // //distribute to Sub center
-                        // $sub_center_id = null;
-                        // foreach($exam->subExamCenter as $sub_centers){
-                        //     // dd($sub_centers->capacity);
-                        //     if($sub_centers->capacity > $sub_centers->$group){
-                        //         $sub_center_id = $sub_centers->id;
-                        //         $sub_centers->increment($group);
-                        //         break;
-                        //     }
-                        // }
-                        // if($sub_center_id == null){
-                        //     dump($group);
-                        //     dump($sub_centers->capacity);
-                        //     dump($sub_centers->$group);
-                        //     dd($applied->student_id);
-                        // }
-                        // //distribution ends
-
+                    try{
                         //distribute to Sub center
                         $sub_center_id = null;
                         $total_student_this_group = $exam->applied_courses->filter(function ($course) use ($group) {
                             return $course->course->exam_group === $group;
                         })->count();
-                        foreach($exam->subExamCenter as $sub_centers){
-                            $total_capacity = $exam->subExamCenter->sum('capacity');
-                            $percentage_of_distribution =  ceil(($total_student_this_group/$total_capacity)*100);
-                            $to_filled_out = ceil(($percentage_of_distribution*$sub_centers->capacity)/100);
-                            if($to_filled_out > $sub_centers->$group){
-                                $sub_center_id = $sub_centers->id;
-                                $sub_centers->increment($group);
-                                break;
-                            }
+                        //avoid to distribute in different same student
+                        $previous_sub_exam_center_id = AdmitCard::where('application_id',$applied->application_id)->first()->sub_exam_center_id;
+                        if($previous_sub_exam_center_id){
+                            $sub_center_id = $previous_sub_exam_center_id;
+                            SubExamCenter::where('id',$sub_center_id)->increment($group);
                         }
+                        //avoidation ends
+                        else{
+                            foreach($exam->subExamCenter as $sub_centers){
+                                $total_capacity = $exam->subExamCenter->sum('capacity');
+                                $percentage_of_distribution =  ceil(($total_student_this_group/$total_capacity)*100);
+                                $to_filled_out = ceil(($percentage_of_distribution*$sub_centers->capacity)/100);
+                                if($to_filled_out > $sub_centers->$group){
+                                    $sub_center_id = $sub_centers->id;
+                                    $sub_centers->increment($group);
+                                    break;
+                                }
+                            }
+                        }                       
                         if($sub_center_id == null){ 
                             dump('total_student_this_group: '.$total_student_this_group); 
                             dump('total_capacity: '.$total_capacity);
