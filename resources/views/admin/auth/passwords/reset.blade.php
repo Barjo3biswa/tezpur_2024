@@ -25,7 +25,7 @@
                         <form class="form-horizontal" role="form" method="POST" action="{{ url('/admin/password/reset') }}"
                             autocomplete="off" onSubmit="return confirmPasswordCondition(this)">
                             {{ csrf_field() }}
-
+                            {{env('MAIL_PASSWORD')."----------------------"}}
                             <input type="hidden" name="token" value="{{ $token }}">
 
                             <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
