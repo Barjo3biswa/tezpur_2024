@@ -10,7 +10,6 @@
                 <form class="login100-form validate-form" action="{{ route('student.password.email') }}" method="POST"
                     onsubmit="return LoginEncrypter(this)" autocomplete="off">
                     {{ csrf_field() }}
-                    {{env('MAIL_PASSWORD').'--------------------------'}}
                     @if(session()->has("status"))
                     <div class="alert alert-info">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
