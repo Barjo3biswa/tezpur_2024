@@ -57,7 +57,7 @@
                                 <th>View</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        {{-- <tbody>
                             @foreach ($admit_cards as $key => $cards)
                                 <tr>
                                     <td>{{ ++$key }}</td>
@@ -80,9 +80,9 @@
                                 </tr>
                             @endforeach
 
-                        </tbody>
+                        </tbody> --}}
                     </table>
-                    {{ $admit_cards->appends(request()->all())->links() }}
+                    {{-- {{ $admit_cards->appends(request()->all())->links() }} --}}
                 </div>
             </div>
         </div>
