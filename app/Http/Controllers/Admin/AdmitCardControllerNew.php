@@ -209,6 +209,8 @@ class AdmitCardControllerNew extends Controller
                         if($previous_sub_exam_center_id){
                             $sub_center_id = $previous_sub_exam_center_id;
                             SubExamCenter::where('id',$sub_center_id)->increment($group);
+
+                            
                         }
                         //avoidation ends
                         else{
