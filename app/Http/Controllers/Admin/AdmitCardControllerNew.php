@@ -292,7 +292,7 @@ class AdmitCardControllerNew extends Controller
                         $group = $cards->exam_group;
                         $total_student_this_group = $student_count[$group];
                         //avoid to distribute in different subcenter same student
-                        $previous_sub_exam_center_id = AdmitCard::where('application_id',$cards->application_id)->where('exam_date',$cards->exam_date)
+                        $previous_sub_exam_center_id = AdmitCard::where('student_id',$cards->student_id)->where('exam_date',$cards->exam_date)
                                                                 ->whereNotIn('sub_exam_center_id',[0])->first();
                         if($previous_sub_exam_center_id){
                             $sub_center_id = $previous_sub_exam_center_id->sub_exam_center_id;
