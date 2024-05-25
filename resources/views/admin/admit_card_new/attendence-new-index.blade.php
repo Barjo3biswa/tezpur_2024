@@ -60,7 +60,7 @@
                                     @foreach ($group as $grp)
                                     <tr>
                                         <td>{{$sub_cen->center_name}}</td>
-                                        <td>{{$grp->group_name}} </td>
+                                        <td>{{$grp->exam_date}}({{$grp->exam_time}})</td>
                                         <td>{{getGroupNCenterCount($grp->group_name, $sub_cen->id)}}</td>
                                         <td><a href="{{ route('admin.attendence-view-new',['group'=>$grp->group_name, 'cen_id'=>$sub_cen->id]) }}">View</a></td>
                                     </tr>        
