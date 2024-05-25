@@ -280,7 +280,7 @@ class AdmitCardControllerNew extends Controller
                 $count = $exam->applied_courses->filter(function ($course) use ($group) {
                     return $course->course->exam_group === $group;
                 })->count();
-                array_push($student_count,[$group => $count]);
+                $student_count[$group] = $count;
 
             }
             dump($student_count);
