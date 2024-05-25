@@ -109,8 +109,8 @@
                             {{ $admit_card->exam_center->center_code??"NA" }}<br/>
                             {{ $admit_card->sub_exam_center->center_name }},<br/>
                             {{ $admit_card->sub_exam_center->address }},<br/>
-                            {{ $admit_card->sub_exam_center->city }},
-                            {{ $admit_card->sub_exam_center->state }} -{{ $admit_card->sub_exam_center->pin }}.
+                            city-{{ $admit_card->sub_exam_center->city }},
+                            state-{{ $admit_card->sub_exam_center->state }} {{-- -{{ $admit_card->sub_exam_center->pin }} --}}.
                     </strong></td>
                 <td>Reporting Time</td>
                 <td><strong> {{$admit_card->course->ExamGroup->reporting_time}}</strong></td>

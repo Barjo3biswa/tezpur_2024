@@ -178,8 +178,8 @@ td {font-size:12px!important;} */
                 {{ $admit_card->exam_center->center_code??"NA" }}<br/>
                 {{ $admit_card->sub_exam_center->center_name }},<br/>
                 {{ $admit_card->sub_exam_center->address }},<br/>
-                {{ $admit_card->sub_exam_center->city }},
-                {{ $admit_card->sub_exam_center->state }} -{{ $admit_card->sub_exam_center->pin }}.
+                City-{{ $admit_card->sub_exam_center->city }},
+                State-{{ $admit_card->sub_exam_center->state }} {{-- -{{ $admit_card->sub_exam_center->pin }}. --}}
             </td>
             <td><strong>Reporting Time</strong></td>
             <td> {{$admit_card->course->ExamGroup->reporting_time}}</td>
