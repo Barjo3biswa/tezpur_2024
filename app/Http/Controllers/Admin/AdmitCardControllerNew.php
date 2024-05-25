@@ -276,55 +276,58 @@ class AdmitCardControllerNew extends Controller
         $group_master = GroupMaster::get();
         foreach($exam_centers as $exam){
             $student_count = [];
-            foreach($group_master as $group ){
-                $count = $exam->applied_courses->filter(function ($course) use ($group) {
-                    return $course->course->exam_group === $group->group_name;
+            foreach($group_master as $groups ){
+                $count = $exam->applied_courses->filter(function ($course) use ($groups) {
+                    return $course->course->exam_group === $groups->group_name;
                 })->count();
-                $student_count[$group->group_name] = $count;
+                $student_count[$groups->group_name] = $count;
 
             }
-            dump($student_count);
-            // foreach($exam->AdmitCards as $cards){
-                
-            // }
+            foreach($exam->AdmitCards as $cards){
+                DB::beginTransaction();
+                try{
+                    //distribute to Sub center
+                    $sub_center_id = null;
+                    $group = $cards->exam_group;
+                    $total_student_this_group = $student_count[$group];
+                    //avoid to distribute in different subcenter same student
+                    $previous_sub_exam_center_id = AdmitCard::where('application_id',$cards->application_id)->first();
+                    if($previous_sub_exam_center_id){
+                        $sub_center_id = $previous_sub_exam_center_id->sub_exam_center_id;
+                        SubExamCenter::where('id',$sub_center_id)->increment($group);  
+                    }
+                    //avoidation ends
+                    else{
+                        foreach($exam->subExamCenter as $sub_centers){
+                            $total_capacity = $exam->subExamCenter->sum('capacity');
+                            $percentage_of_distribution =  ceil(($total_student_this_group/$total_capacity)*100);
+                            $to_filled_out = ceil(($percentage_of_distribution*$sub_centers->capacity)/100);
+                            if($to_filled_out > $sub_centers->$group){
+                                $sub_center_id = $sub_centers->id;
+                                $sub_centers->increment($group);
+                                break;
+                            }
+                        }
+                    }                       
+                    if($sub_center_id == null){ 
+                        dump('total_student_this_group: '.$total_student_this_group); 
+                        dump('total_capacity: '.$total_capacity);
+                        dump('percentage_of_distribution: '.$percentage_of_distribution);
+                        dump('to_filled_out '.$to_filled_out);
+                        dump($sub_centers->$group);dump($group);dump($sub_centers->capacity);dump($sub_centers->$group);dd($applied->student_id);
+                        dd('ok');
+                    }else{
+                        $cards->update(['sub_exam_center_id'=>$sub_center_id]);
+                    } 
+                    //distribution ends
+                    DB::commit();
+                }catch(\Exception $e){
+                    DB::rollBack();
+                    dd($e);
+                }
+            }
         }
         dd("ok");
-        // $admit_cards = AdmitCard::where('sub_exam_center_id',0)->get();
-        // foreach($admit_cards as $cards){
-        //         //distribute to Sub center
-        //         $sub_center_id = null;
-        //         $total_student_this_group = $exam->applied_courses->filter(function ($course) use ($group) {
-        //             return $course->course->exam_group === $group;
-        //         })->count();
-        //         //avoid to distribute in different same student
-        //         $previous_sub_exam_center_id = AdmitCard::where('application_id',$applied->application_id)->first();
-        //         if($previous_sub_exam_center_id){
-        //             $sub_center_id = $previous_sub_exam_center_id->sub_exam_center_id;
-        //             SubExamCenter::where('id',$sub_center_id)->increment($group);  
-        //         }
-        //         //avoidation ends
-        //         else{
-        //             foreach($exam->subExamCenter as $sub_centers){
-        //                 $total_capacity = $exam->subExamCenter->sum('capacity');
-        //                 $percentage_of_distribution =  ceil(($total_student_this_group/$total_capacity)*100);
-        //                 $to_filled_out = ceil(($percentage_of_distribution*$sub_centers->capacity)/100);
-        //                 if($to_filled_out > $sub_centers->$group){
-        //                     $sub_center_id = $sub_centers->id;
-        //                     $sub_centers->increment($group);
-        //                     break;
-        //                 }
-        //             }
-        //         }                       
-        //         if($sub_center_id == null){ 
-        //             dump('total_student_this_group: '.$total_student_this_group); 
-        //             dump('total_capacity: '.$total_capacity);
-        //             dump('percentage_of_distribution: '.$percentage_of_distribution);
-        //             dump('to_filled_out '.$to_filled_out);
-        //             dump($sub_centers->$group);dump($group);dump($sub_centers->capacity);dump($sub_centers->$group);dd($applied->student_id);
-        //         }
-        //         //distribution ends
-        // }
-
     
     }
 
