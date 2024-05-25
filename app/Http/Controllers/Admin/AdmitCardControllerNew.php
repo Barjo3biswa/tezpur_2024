@@ -269,7 +269,7 @@ class AdmitCardControllerNew extends Controller
                                         return $query->where('session_id', '=', $active_session)
                                         ->where('is_mba',0)->where('is_btech',0)/* ->where('is_direct',0) */
                                         ->whereNotNull('application_no')
-                                        ->WhereDoesntHave('admitcard')
+                                        // ->WhereDoesntHave('admitcard')
                                         ->where('net_jrf','!=',1)
                                         ->orderby('first_name')->orderby('middle_name')->orderby('last_name');
                                     }])->orderBy('center_name')->get();
