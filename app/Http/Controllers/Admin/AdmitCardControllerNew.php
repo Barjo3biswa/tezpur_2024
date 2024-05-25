@@ -292,14 +292,14 @@ class AdmitCardControllerNew extends Controller
                         $group = $cards->exam_group;
                         $total_student_this_group = $student_count[$group];
                         //avoid to distribute in different subcenter same student
-                        // $previous_sub_exam_center_id = AdmitCard::where('application_id',$cards->application_id)
-                        //                                         ->whereNotIn('sub_exam_center_id',[0])->first();
-                        // if($previous_sub_exam_center_id){
-                        //     $sub_center_id = $previous_sub_exam_center_id->sub_exam_center_id;
-                        //     SubExamCenter::where('id',$sub_center_id)->increment($group);  
-                        // }
-                        // //avoidation ends
-                        // else{
+                        $previous_sub_exam_center_id = AdmitCard::where('application_id',$cards->application_id)->where('exam_date',$cards->exam_date)
+                                                                ->whereNotIn('sub_exam_center_id',[0])->first();
+                        if($previous_sub_exam_center_id){
+                            $sub_center_id = $previous_sub_exam_center_id->sub_exam_center_id;
+                            SubExamCenter::where('id',$sub_center_id)->increment($group);  
+                        }
+                        //avoidation ends
+                        else{
                             foreach($exam->subExamCenter as $sub_centers){
                                 $total_capacity = $exam->subExamCenter->sum('capacity');
                                 // dd($total_capacity);
@@ -311,7 +311,7 @@ class AdmitCardControllerNew extends Controller
                                     break;
                                 }
                             }
-                        // }  
+                        }  
                         // dd($sub_center_id);                     
                         if($sub_center_id == null){ 
                             dump('student_id: '.$cards->student_id);
