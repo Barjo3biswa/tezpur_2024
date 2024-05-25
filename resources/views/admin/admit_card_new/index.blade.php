@@ -23,7 +23,7 @@
                 <div class="panel panel-default">
                     <a href="{{ route('admin.new-admit-generate') }}" class="btn btn-primary">Generate</a>
 
-                    <a href="{{ route('admin.new-admit-distribute-to-sub') }}" class="btn btn-primary">Generate</a>
+                    <a href="{{ route('admin.new-admit-distribute-to-sub') }}" class="btn btn-primary">Distribute</a>
                     {{-- <a href="{{ route('admin.new-admit-publish') }}" class="btn btn-primary"
                         onclick="return confirm('Are you sure you want to Publish all Admit Card?');">Publish</a> --}}
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
