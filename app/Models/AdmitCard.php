@@ -47,6 +47,11 @@ class AdmitCard extends Model
         return $this->belongsTo(Course::class,'course_id','id')->withTrashed();
     }
 
+    public function anotherCourse()
+    {
+        return $this->belongsTo(Course::class,'another_course_id','id')->withTrashed();
+    }
+
     public function Session_dtl()
     {
         return $this->belongsTo(Session::class,'session','id');

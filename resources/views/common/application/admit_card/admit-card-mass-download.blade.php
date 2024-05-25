@@ -132,8 +132,11 @@ td {font-size:12px!important;} */
         <tr>
             {{-- <td><strong>Applied Program Id</strong></td>
             <td><strong> {{ $admit_card->applied_course_details->application_number }}</strong></td> --}}
-            <td><strong>Program Name</strong></td>
-            <td colspan=2><strong>{{$admit_card->course->name}}({{$admit_card->course->code}})</strong></td>
+            <th colspan=3> {{$admit_card->course->name}}({{$admit_card->course->code}}) 
+                @if ($admit_card->anotherCourse)
+                    / {{$admit_card->anotherCourse->name}}({{$admit_card->anotherCourse->code}}) 
+                @endif
+            </th>
         </tr>
         <tr>
             <td><strong>Name</strong></td>

@@ -67,7 +67,11 @@
                 {{-- <td>Applied Program Id</td>
                 <td> <strong>{{ $admit_card->applied_course_details->application_number }}</strong></td> --}}
                 <td>Program Name</td>
-                <th colspan=3> {{$admit_card->course->name}}({{$admit_card->course->code}})</th>
+                <th colspan=3> {{$admit_card->course->name}}({{$admit_card->course->code}}) 
+                    @if ($admit_card->anotherCourse)
+                        / {{$admit_card->anotherCourse->name}}({{$admit_card->anotherCourse->code}}) 
+                    @endif
+                </th>
             </tr>
             <tr>
                 <td>Name</td>
@@ -144,7 +148,7 @@
             <li>Candidates will NOT be permitted to enter the examination hall after the commencement of the exam.</li>
             <li>Device like non-programmable calculators are allowed. However, mobile phones and any other electronic gadgets are strictly not permitted in the examination hall.</li>
             <li>Violation of any instruction and adoption of any unfair means found in the examination hall, examinee will be booked under unfair means activity and action will be taken as per TUEE Rules.</li>
-            <li><b>Use your Roll Number as your login ID, and your password will be your date of birth in the DDMMYYYY format</b></li>
+            <li><b>Use your Roll Number as your login ID and your password will be your date of birth in the DDMMYYYY format</b></li>
         </ol>
     </div>
 </div>
