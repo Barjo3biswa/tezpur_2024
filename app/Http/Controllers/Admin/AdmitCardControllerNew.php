@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\AppliedCourse;
 use App\Course;
+use App\GroupMaster;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\AdmitCard;
@@ -199,38 +200,38 @@ class AdmitCardControllerNew extends Controller
                     $last_rollNo=AdmitCard::where(['exam_center_id'=>$center_id,'course_id'=>$applied->course_id])->count();   
                     DB::beginTransaction();
                     try{
-                        //distribute to Sub center
-                        $sub_center_id = null;
-                        $total_student_this_group = $exam->applied_courses->filter(function ($course) use ($group) {
-                            return $course->course->exam_group === $group;
-                        })->count();
-                        //avoid to distribute in different same student
-                        $previous_sub_exam_center_id = AdmitCard::where('application_id',$applied->application_id)->first();
-                        if($previous_sub_exam_center_id){
-                            $sub_center_id = $previous_sub_exam_center_id->sub_exam_center_id;
-                            SubExamCenter::where('id',$sub_center_id)->increment($group);  
-                        }
-                        //avoidation ends dgdrgdfgdfg
-                        else{
-                            foreach($exam->subExamCenter as $sub_centers){
-                                $total_capacity = $exam->subExamCenter->sum('capacity');
-                                $percentage_of_distribution =  ceil(($total_student_this_group/$total_capacity)*100);
-                                $to_filled_out = ceil(($percentage_of_distribution*$sub_centers->capacity)/100);
-                                if($to_filled_out > $sub_centers->$group){
-                                    $sub_center_id = $sub_centers->id;
-                                    $sub_centers->increment($group);
-                                    break;
-                                }
-                            }
-                        }                       
-                        if($sub_center_id == null){ 
-                            dump('total_student_this_group: '.$total_student_this_group); 
-                            dump('total_capacity: '.$total_capacity);
-                            dump('percentage_of_distribution: '.$percentage_of_distribution);
-                            dump('to_filled_out '.$to_filled_out);
-                            dump($sub_centers->$group);dump($group);dump($sub_centers->capacity);dump($sub_centers->$group);dd($applied->student_id);
-                        }
-                        //distribution ends
+                        // //distribute to Sub center
+                        // $sub_center_id = null;
+                        // $total_student_this_group = $exam->applied_courses->filter(function ($course) use ($group) {
+                        //     return $course->course->exam_group === $group;
+                        // })->count();
+                        // //avoid to distribute in different same student
+                        // $previous_sub_exam_center_id = AdmitCard::where('application_id',$applied->application_id)->first();
+                        // if($previous_sub_exam_center_id){
+                        //     $sub_center_id = $previous_sub_exam_center_id->sub_exam_center_id;
+                        //     SubExamCenter::where('id',$sub_center_id)->increment($group);  
+                        // }
+                        // //avoidation ends dgdrgdfgdfg
+                        // else{
+                        //     foreach($exam->subExamCenter as $sub_centers){
+                        //         $total_capacity = $exam->subExamCenter->sum('capacity');
+                        //         $percentage_of_distribution =  ceil(($total_student_this_group/$total_capacity)*100);
+                        //         $to_filled_out = ceil(($percentage_of_distribution*$sub_centers->capacity)/100);
+                        //         if($to_filled_out > $sub_centers->$group){
+                        //             $sub_center_id = $sub_centers->id;
+                        //             $sub_centers->increment($group);
+                        //             break;
+                        //         }
+                        //     }
+                        // }                       
+                        // if($sub_center_id == null){ 
+                        //     dump('total_student_this_group: '.$total_student_this_group); 
+                        //     dump('total_capacity: '.$total_capacity);
+                        //     dump('percentage_of_distribution: '.$percentage_of_distribution);
+                        //     dump('to_filled_out '.$to_filled_out);
+                        //     dump($sub_centers->$group);dump($group);dump($sub_centers->capacity);dump($sub_centers->$group);dd($applied->student_id);
+                        // }
+                        // //distribution ends
                         $course_code = $applied->course->code;
                         $department_code = $applied->course->department->code;
                         $school_code = $applied->course->department->school->code;
@@ -244,7 +245,7 @@ class AdmitCardControllerNew extends Controller
                                 'roll_no_uf'       => $last_rollNo,
                                 'course_id'        => $applied->course_id,
                                 'exam_center_id'   => $exam->id,	
-                                'sub_exam_center_id' => $sub_center_id,
+                                'sub_exam_center_id' => 0,
                                 'exam_time'        => $shift[$group],
                                 'exam_date'        => $date[$group],
                                 'session'          => $active_session,
@@ -261,6 +262,71 @@ class AdmitCardControllerNew extends Controller
         }
         return redirect()->back()->with('success','Successfully Generatyed');
    }
+
+   public function distributeToCenter(){
+        $active_session = Session::where('is_active',1)->first()->id;
+        $exam_centers= ExamCenter::with(['applied_courses' => function ($query) use ($active_session) {
+                                        return $query->where('session_id', '=', $active_session)
+                                        ->where('is_mba',0)->where('is_btech',0)/* ->where('is_direct',0) */
+                                        ->whereNotNull('application_no')
+                                        ->WhereDoesntHave('admitcard')
+                                        ->where('net_jrf','!=',1)
+                                        ->orderby('first_name')->orderby('middle_name')->orderby('last_name');
+                                    }])->orderBy('center_name')->get();
+        $group_master = GroupMaster::get();
+        foreach($exam_centers as $exam){
+            $student_count = [];
+            foreach($group_master as $group ){
+                $count = $exam->applied_courses->filter(function ($course) use ($group) {
+                    return $course->course->exam_group === $group;
+                })->count();
+                array_push($student_count,[$group => $count]);
+
+            }
+            dump($student_count);
+            // foreach($exam->AdmitCards as $cards){
+                
+            // }
+        }
+        dd("ok");
+        // $admit_cards = AdmitCard::where('sub_exam_center_id',0)->get();
+        // foreach($admit_cards as $cards){
+        //         //distribute to Sub center
+        //         $sub_center_id = null;
+        //         $total_student_this_group = $exam->applied_courses->filter(function ($course) use ($group) {
+        //             return $course->course->exam_group === $group;
+        //         })->count();
+        //         //avoid to distribute in different same student
+        //         $previous_sub_exam_center_id = AdmitCard::where('application_id',$applied->application_id)->first();
+        //         if($previous_sub_exam_center_id){
+        //             $sub_center_id = $previous_sub_exam_center_id->sub_exam_center_id;
+        //             SubExamCenter::where('id',$sub_center_id)->increment($group);  
+        //         }
+        //         //avoidation ends
+        //         else{
+        //             foreach($exam->subExamCenter as $sub_centers){
+        //                 $total_capacity = $exam->subExamCenter->sum('capacity');
+        //                 $percentage_of_distribution =  ceil(($total_student_this_group/$total_capacity)*100);
+        //                 $to_filled_out = ceil(($percentage_of_distribution*$sub_centers->capacity)/100);
+        //                 if($to_filled_out > $sub_centers->$group){
+        //                     $sub_center_id = $sub_centers->id;
+        //                     $sub_centers->increment($group);
+        //                     break;
+        //                 }
+        //             }
+        //         }                       
+        //         if($sub_center_id == null){ 
+        //             dump('total_student_this_group: '.$total_student_this_group); 
+        //             dump('total_capacity: '.$total_capacity);
+        //             dump('percentage_of_distribution: '.$percentage_of_distribution);
+        //             dump('to_filled_out '.$to_filled_out);
+        //             dump($sub_centers->$group);dump($group);dump($sub_centers->capacity);dump($sub_centers->$group);dd($applied->student_id);
+        //         }
+        //         //distribution ends
+        // }
+
+    
+    }
 
 
 

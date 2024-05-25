@@ -58,4 +58,8 @@ class ExamCenter extends Model
     public function subExamCenter(){
         return $this->hasMany(SubExamCenter::class, "city_id","id");
     }
+
+    public function AdmitCards(){
+        return $this->hasMany(AdmitCard::class, "exam_center_id");
+    }
 }

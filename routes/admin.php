@@ -246,6 +246,11 @@ Route::get("/new-admit-generate", [
 	"as"    => "new-admit-generate"
 ]); 
 
+Route::get("/new-admit-distribute-to-sub", [
+	"uses"  => "Admin\AdmitCardControllerNew@distributeToCenter",
+	"as"    => "new-admit-distribute-to-sub"
+]); 
+
 Route::get("/download-photo-sigg", [
 	"uses"  => "Admin\AdmitCardControllerNew@downloadZip",
 	"as"    => "download-photo-sigg"
