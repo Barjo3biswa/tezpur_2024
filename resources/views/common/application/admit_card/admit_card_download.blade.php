@@ -196,7 +196,7 @@ td {font-size:12px!important;} */
         <li>Candidates are advised to locate the examination centre and its accessibility at least a day before the examination, so that they can reach the centre on time for the examination.</li>
         <li>Candidates will be permitted to occupy their allotted seats 35 minutes before the scheduled start of the examination.</li>
         <li>Candidates are allowed to bring blue / black ball point pen and pencil to the examination hall.</li>
-        <li>Candidates have to mark their response in the OMR sheet for scoring.</li>
+        {{-- <li>Candidates have to mark their response in the OMR sheet for scoring.</li> --}}
         <li>The duration of Examination will be of 1:30 hours. Candidates will NOT be permitted to leave the examination hall before the end of the test.</li>
         <li>Candidates will NOT be permitted to enter the examination hall after the commencement of the exam.</li>
         <li>Device like non-programmable calculators are allowed. However, mobile phones and any other electronic gadgets are strictly not permitted in the examination hall.</li>
