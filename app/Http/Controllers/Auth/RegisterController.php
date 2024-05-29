@@ -109,7 +109,7 @@ class RegisterController extends Controller
     {
         // dd($data['declear_tu']??0);
         // dd($data);
-        if(!in_array($data['by_mba'], ["PHD","PG","LATERAL","BTECH","MDES","UG","MBBT","MBA","FOREIGN","BDES","PHDPROF","CHINESE"])){
+        if(!in_array($data['by_mba'], ["PHD","PG","LATERAL","BTECH","MDES","UG","MBBT","MBA","FOREIGN","BDES","PHDPROF","CHINESE","VISVES"])){
             // return view('welcome2');
             throw new \Exception("Something went wrong. Try again later.");
         }
