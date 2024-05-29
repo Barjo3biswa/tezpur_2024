@@ -1830,6 +1830,15 @@ class CommonApplicationController extends Controller
                 if($flag->$application_type==0 && $is_avail==0){
                     return redirect()->back()->with('error','Application Process is already closed.');
                 }
+
+                if($application_type == "GATE"){
+                    $applied_courses = AppliedCourse::where('application_id',$decrypted_id)->get();
+                    foreach($applied_courses as $course){
+                        if(!in_array($course->course_id,[14,15,16,17,18,19,20,21,104,105])){
+                            return redirect()->back()->with('error','Application Process is already closed..');
+                        }
+                    }
+                }
             }
             //end
             
@@ -2247,6 +2256,29 @@ class CommonApplicationController extends Controller
         $pdf = PDF::loadView("common/application/admit_card/admit_card_download", compact("admit_card"));
         $pdf->setPaper('legal', 'portrait');
         return $pdf->download("Admit-card-".$admit_card->roll_no.'.pdf');
+    }
+
+
+    public function downloadInvitationAdmin(Request $request, $encrypted_id) {
+        try {
+            $decrypted_id = Crypt::decrypt($encrypted_id);
+        } catch (Exception $e) {
+            Log::error($e);
+            return redirect()->route("admin.admit-card.index")
+                    ->with("error", "Whoops! Something went wrong please try again later.");
+        }
+        try {
+            $application = Application::where('id',$decrypted_id)->where('net_jrf',1)->where('is_invited',1)->first();
+        } catch (Exception $e) {
+            Log::error($e);
+            return redirect()->back()
+                ->with("error", "Whoops! Something went wrong please try again later.");
+        }
+
+        saveLogs(auth(get_guard())->id(), auth(get_guard())->user()->name, get_guard(), "Admit card Downloaded for application no {$application->application_no}.");
+        $pdf = PDF::loadView("common/application/admit_card/invitation_card_download", compact("application"));
+        $pdf->setPaper('legal', 'portrait');
+        return $pdf->download("Provisional-Selection-Card-".$application->application_no.'.pdf');
     }
 
 

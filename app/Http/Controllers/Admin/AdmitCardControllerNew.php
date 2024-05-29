@@ -185,7 +185,7 @@ class AdmitCardControllerNew extends Controller
                                             ->where('net_jrf','!=',1)
                                             ->orderby('first_name')->orderby('middle_name')->orderby('last_name');
                                        }])
-                                    //    ->where('id','<=',10)
+                                       ->where('id',1)
                                     //    ->where('id','<=',20)
                                     //    ->where('id','<=',30)
                                     //    ->where('id','<=',100)

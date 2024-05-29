@@ -208,6 +208,11 @@ Route::get("/download-admit-card/{id}", [
 	"as"    => "download-admit-card"
 ]);
 
+Route::get("/download-invitation-card/{id}", [
+	"uses"  => "Student\ApplicationController@downloadInvitationAdmin",
+	"as"    => "download-invitation-card"
+]);
+
 Route::get("/download-score-card/{id}", [
 	"uses"  => "Student\ApplicationController@downloadScoreCard",
 	"as"    => "download-score-card"

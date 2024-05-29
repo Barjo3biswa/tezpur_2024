@@ -245,6 +245,9 @@
                                     <a href="{{ route(get_route_guard() . '.application.payment-reciept', Crypt::encrypt($application->id)) }}"
                                         target="_blank"><button type="button" class="btn btn-success btn-xs">Payment
                                             Receipt</button></a>
+                                    @if ($application->net_jrf == 1 && $application->is_invited)
+                                        <a href="{{ route(get_route_guard() . '.download-invitation-card', Crypt::encrypt($application->id)) }}"  class="btn btn-primary btn-xs">Provisional Selection Card</a>
+                                    @endif
                                     @if ($application->is_center_editable == 1)
                                         {{-- <a
                                         href="{{ route('student.application.change-exam-center', Crypt::encrypt($application->id)) }}"><button
