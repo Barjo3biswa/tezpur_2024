@@ -629,7 +629,7 @@
                             </div> --}}
 
                             <div class="belowbanner-btn">
-                                <a href="{{ route('student.register', ['is_mba' => Crypt::encrypt('PHD')]) }}">
+                                <a href="{{ route('student.register', ['is_mba' => Crypt::encrypt('VISVES')]) }}">
                                     <img src="assets/img/personal-profile.png" alt="" width="36">
                                     <p>Ph.D. Registration (Visvesvaraya)</p>
                                 </a>
