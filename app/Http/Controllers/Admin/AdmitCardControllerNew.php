@@ -190,12 +190,12 @@ class AdmitCardControllerNew extends Controller
                                     //    ->where('id','<=',30)
                                     //    ->where('id','<=',100)
                                        ->orderBy('center_name')->get(); 
-        dd($exam_centers);
+        // dd($exam_centers);
         foreach($exam_centers as $exam){
             $center_code=$exam->center_code;
             $center_id = $exam->id;
             foreach($exam->applied_courses as $applied){
-                if($applied->status!='rejected'){
+                if($applied->status!='rejected' && !in_array($applied->course_id,[86,87])){
                     $group = $applied->course->exam_group;
                     $prefix=null;
                     $last_rollNo=AdmitCard::where(['exam_center_id'=>$center_id,'course_id'=>$applied->course_id])->count();   
