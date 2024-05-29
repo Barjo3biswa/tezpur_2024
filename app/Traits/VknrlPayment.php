@@ -64,6 +64,15 @@ trait VknrlPayment
                 if($flag->$application_type==0 && $is_avail==0){
                     return redirect()->back()->with('error','Application Process is already closed.');
                 }
+
+                if($application_type == "GATE"){
+                    $applied_courses = AppliedCourse::where('application_id',$decrypted_id)->get();
+                    foreach($applied_courses as $course){
+                        if(!in_array($course->course_id,[14,15,16,17,18,19,20,21,104,105])){
+                            return redirect()->back()->with('error','Application Process is already closed..');
+                        }
+                    }
+                }
             }
             // //end
 
