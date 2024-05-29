@@ -185,7 +185,7 @@ class AdmitCardControllerNew extends Controller
                                             ->where('net_jrf','!=',1)
                                             ->orderby('first_name')->orderby('middle_name')->orderby('last_name');
                                        }])
-                                       ->where('id',1)
+                                    //    ->where('id',1)
                                     //    ->where('id','<=',20)
                                     //    ->where('id','<=',30)
                                     //    ->where('id','<=',100)
@@ -287,6 +287,7 @@ class AdmitCardControllerNew extends Controller
                 DB::beginTransaction();
                 try{
                     if($cards->sub_exam_center_id ==0){
+                        dump("ok");
                         //distribute to Sub center
                         $sub_center_id = null;
                         $group = $cards->exam_group;
