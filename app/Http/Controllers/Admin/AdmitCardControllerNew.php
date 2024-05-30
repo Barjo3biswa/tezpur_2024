@@ -564,7 +564,7 @@ class AdmitCardControllerNew extends Controller
                 $row["Sl. No."] = $key + 1;
                 $row["Roll Number (User ID)"] = $task->roll_no;
                 $row["Subjects"] = $task->course->name;
-                $row["Password (DOB in DDMMYYYY)"] = Carbon::parse($task->active_application->dob)->format('ddmmY');
+                $row["Password (DOB in DDMMYYYY)"] = Carbon::parse($task->active_application->dob)->format('d').Carbon::parse($task->active_application->dob)->format('m').Carbon::parse($task->active_application->dob)->format('Y');
                 $row["Candidate Name"] = $task->active_application->FullName;
                 $row["Mother name"] = $task->active_application->father_name??"-";
                 $row["Father name"] = $task->active_application->mother_name??"-";
