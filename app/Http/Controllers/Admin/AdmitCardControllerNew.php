@@ -510,7 +510,7 @@ class AdmitCardControllerNew extends Controller
     }
 
     public function exportOthers(){
-        $excel    = AdmitCard::get();
+        $excel    = AdmitCard::whereNotIn('id',60)->get();
         //  dd($excel);
          $fileName = "Itm_list".'.csv';
          $headers = array(
