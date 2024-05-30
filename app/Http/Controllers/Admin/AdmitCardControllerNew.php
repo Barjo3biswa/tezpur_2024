@@ -559,7 +559,6 @@ class AdmitCardControllerNew extends Controller
                 ];
 
                 $sheet->appendRow($arr);
-                $additional_no = 0;
                 $arr           = [];
 
                 $admit_card->chunk(500, function ($card) use ($sheet, &$additional_no, &$arr) {
@@ -598,9 +597,7 @@ class AdmitCardControllerNew extends Controller
                             "Scribe required by candidate" => "",	
                             "Batch" => "",
                         ];
-                        // $sheet->appendRow($arr);
                     }
-                    $additional_no = $additional_no + 500;
                 });
                 $sheet->fromArray($arr, null, 'A1', false, true);
 
