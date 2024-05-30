@@ -309,7 +309,7 @@ color:white'>Admissions to</strong></span></i><br>
                         <br /> 2024-25</span></strong> --}}
             </p>
             @if ($is_mba == 'BTECH')
-                <p align="left"><strong>Form fill up date for B. Tech. programme is extended till 20-06-2024.</strong></p>
+                <p align="center"><strong>Form fill up date for B. Tech. programme is extended till 20-06-2024.</strong></p>
             @endif
         @endif
 
