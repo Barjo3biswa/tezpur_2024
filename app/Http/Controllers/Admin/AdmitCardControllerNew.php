@@ -562,35 +562,35 @@ class AdmitCardControllerNew extends Controller
             foreach ($excel as $key=>$task) {
                 $row["Sl. No."] = $key + 1;
                 $row["Roll Number (User ID)"] = $task->roll_no;
-                $row["Subjects"] = $task->course->name;
+                $row["Subjects"] = $task->course->name??'-';
                 $row["Password (DOB in DDMMYYYY)"] = $task->active_application->dob;
-                $row["Candidate Name"] = $task->active_application->FullName;
+                $row["Candidate Name"] = $task->active_application->FullName??'-';
                 $row["Mother name"] = $task->active_application->father_name??"-";
                 $row["Father name"] = $task->active_application->mother_name??"-";
-                $row["DOB (DD-MM-YY)"] = $task->active_application->dob;
-                $row["Gender"] = $task->active_application->gender;
-                $row["Mobile"] = $task->user->mobile_no;
-                $row["Candidate Address 1"] = $task->active_application->permanent_village_town.''.$task->active_application->permanent_po;
-                $row["Candidate Address 2"] = $task->active_application->correspondence_village_town.''.$task->active_application->correspondence_po ;
+                $row["DOB (DD-MM-YY)"] = $task->active_application->dob??'-';
+                $row["Gender"] = $task->active_application->gender??'-';
+                $row["Mobile"] = $task->user->mobile_no??'-';
+                $row["Candidate Address 1"] = $task->active_application->permanent_village_town??'-'.''.$task->active_application->permanent_po??'-';
+                $row["Candidate Address 2"] = $task->active_application->correspondence_village_town??'-'.''.$task->active_application->correspondence_po??'-' ;
                 $row["Candidate Address 3"] = "-" ;
-                $row["District"] = $task->active_application->per_district->district_name ;
-                $row["State"] = $task->active_application->per_state->name ;
-                $row["Pincode"] = $task->active_application->permanent_pin ;
+                $row["District"] = $task->active_application->per_district->district_name??'-' ;
+                $row["State"] = $task->active_application->per_state->name??'-' ;
+                $row["Pincode"] = $task->active_application->permanent_pin??'-' ;
                 $row["Sify Centre Code"] = "-";
-                $row["Centre Address 1 (Centre Name)"] = $task->sub_exam_center->center_name;
-                $row["Centre Address 2 (Postal Address)"] = $task->sub_exam_center->address;
+                $row["Centre Address 1 (Centre Name)"] = $task->sub_exam_center->center_name??'-';
+                $row["Centre Address 2 (Postal Address)"] = $task->sub_exam_center->address??'-';
                 $row["Centre Address 3 (Landmark)"] = "-";
-                $row["Centre City"] = $task->sub_exam_center->city;
-                $row["Centre State"] = $task->sub_exam_center->state;
-                $row["Centre Pincode"] = $task->sub_exam_center->pin;
-                $row["Exam Date"] = $task->course->ExamGroup->exam_date;
-                $row["Exam Time"] = $task->course->ExamGroup->exam_time;
-                $row["Reporting Time"] = $task->course->ExamGroup->reporting_time;
-                $row["Entry Closing Time"] = $task->course->ExamGroup->entry_closing_time;
-                $row["Category 1 (Caste)"] = $task->active_application->caste->name;
+                $row["Centre City"] = $task->sub_exam_center->city??'-';
+                $row["Centre State"] = $task->sub_exam_center->state??'-';
+                $row["Centre Pincode"] = $task->sub_exam_center->pin??'-';
+                $row["Exam Date"] = $task->course->ExamGroup->exam_date??'-';
+                $row["Exam Time"] = $task->course->ExamGroup->exam_time??'-';
+                $row["Reporting Time"] = $task->course->ExamGroup->reporting_time??'-';
+                $row["Entry Closing Time"] = $task->course->ExamGroup->entry_closing_time??'-';
+                $row["Category 1 (Caste)"] = $task->active_application->caste->name??'-';
                 $row["Category 3 (PH)"] = $task->active_application->is_pwd==1?'Yes':'-';
                 $row["Scribe required by candidate"] = "-";
-                $row["Batch"] = $task->course->ExamGroup->group_name;
+                $row["Batch"] = $task->course->ExamGroup->group_name??'-';
 
             fputcsv($file, array(
                 $row["Sl. No."],
