@@ -297,7 +297,7 @@ class AdmitCardControllerNew extends Controller
                         //avoid to distribute in different subcenter same student
                         $previous_sub_exam_center_id = AdmitCard::where('student_id',$cards->student_id)->where('exam_date',$cards->exam_date)
                                                                 ->whereNotIn('sub_exam_center_id',[0])->first();
-                        if($previous_sub_exam_center_id){
+                        if($previous_sub_exam_center_id){ // bug in here fix before generate..
                             $sub_center_id = $previous_sub_exam_center_id->sub_exam_center_id;
                             SubExamCenter::where('id',$sub_center_id)->increment($group);  
                         }
@@ -586,9 +586,9 @@ class AdmitCardControllerNew extends Controller
                 $row["Exam Date"] = $task->course->ExamGroup->exam_date;
                 $row["Exam Time"] = $task->course->ExamGroup->exam_time;
                 $row["Reporting Time"] = $task->course->ExamGroup->reporting_time;
-                $row["Entry Closing Time"] = '-';
+                $row["Entry Closing Time"] = $task->course->ExamGroup->entry_closing_time;
                 $row["Category 1 (Caste)"] = $task->active_application->caste->name;
-                $row["Category 3 (PH)"] = $task->active_application->is_pwd==1?'Yes':'';
+                $row["Category 3 (PH)"] = $task->active_application->is_pwd==1?'Yes':'-';
                 $row["Scribe required by candidate"] = "-";
                 $row["Batch"] = $task->course->ExamGroup->group_name;
 
