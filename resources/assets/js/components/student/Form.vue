@@ -8225,6 +8225,10 @@ export default {
           limit=7;
           this.initial_step.course_preference_limit = 7;
         }
+        if(this.initial_step.course_type.type){
+          limit=7;
+          this.initial_step.course_preference_limit = 7;
+        }
         
         if (count < limit) {
           this.initial_step.is_pref_limit_exceeded = false;
@@ -8419,7 +8423,7 @@ export default {
         this.is_phd = true;
       }
       this.initial_step.course = "";
-      console.log(this.initial_step.course_type);
+      console.log(this.initial_step.course_type.type);
       this.initial_step.is_pref_limit_exceeded = false;
       this.initial_step.preference_error = "";
       this.initial_step.ready = true;
