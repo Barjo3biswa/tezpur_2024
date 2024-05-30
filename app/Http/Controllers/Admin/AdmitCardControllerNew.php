@@ -510,90 +510,128 @@ class AdmitCardControllerNew extends Controller
     }
 
     public function exportOthers(){
-        $admit_card = AdmitCard::get();
-        Excel::create('Applicants_List', function ($excel) use ($admit_card) {
-            $excel->sheet('Applicants_List', function ($sheet) use ($admit_card) {
-                $sheet->setTitle('Applicants List');
-                $headers = [
+        $excel    = AdmitCard::get();
+        //  dd($excel);
+         $fileName = "Itm_list".'.csv';
+         $headers = array(
+             "Content-type"        => "text/csv",
+             "Content-Disposition" => "attachment; filename=$fileName",
+             "Pragma"              => "no-cache",
+             "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
+             "Expires"             => "0",
+         );
+
+         $columns = array(
                     "Sl. No.",
                     "Roll Number (User ID)",
-                    // "Subjects",
-                    // "Password (DOB in DDMMYYYY)",
-                    // "Candidate Name",
-                    // "Mother name",
-                    // "Father name",
-                    // "DOB (DD-MM-YY)",
-                    // "Gender",
-                    // "Mobile",
-                    // "Candidate",
-                    // "Address 1",
-                    // "Candidate Address 2",
-                    // "Candidate Address 3",
-                    // "District",
-                    // "State",
-                    // "Pincode",
-                    // "Sify Centre Code",
-                    // "Centre Address 1 (Centre Name)",
-                    // "Centre Address 2 (Postal Address)",
-                    // "Centre Address 3 (Landmark)",
-                    // "Centre City",
-                    // "Centre State",
-                    // "Centre Pincode",
-                    // "Exam Date",
-                    // "Exam Time",
-                    // "Reporting Time",
-                    // "Entry Closing Time",
-                    // "Category 1 (Caste)",
-                    // "Category 3 (PH)",
-                    // "Scribe required by candidate",
-                    // "Batch",
-                ];
-                $sheet->appendRow($headers);
-                $sheet->cells('A1:AG1', function ($cells) {
-                    $cells->setFontWeight('bold');
-                });
-                $data = [];
-                foreach ($admit_card as $key => $record) {
-                    $data[] = [
-                        "Sl. No." => $key + 1,
-                        "Roll Number (User ID)" => $record->roll_no,
-                        // "Subjects" => "",
-                        // "Password (DOB in DDMMYYYY)" => "",
-                        // "Candidate Name" => "",
-                        // "Mother name" => "",
-                        // "Father name" => "",
-                        // "DOB (DD-MM-YY)" => "",
-                        // "Gender" => "",
-                        // "Mobile" => "",
-                        // "Candidate" => "",
-                        // "Address 1" => "",
-                        // "Candidate Address 2" => "",
-                        // "Candidate Address 3" => "",
-                        // "District" => "",
-                        // "State" => "",
-                        // "Pincode" => "",
-                        // "Sify Centre Code" => "",
-                        // "Centre Address 1 (Centre Name)" => "",
-                        // "Centre Address 2 (Postal Address)" => "",
-                        // "Centre Address 3 (Landmark)" => "",
-                        // "Centre City" => "",
-                        // "Centre State" => "",
-                        // "Centre Pincode" => "",
-                        // "Exam Date" => "",
-                        // "Exam Time" => "",
-                        // "Reporting Time" => "",
-                        // "Entry Closing Time" => "",
-                        // "Category 1 (Caste)" => "",
-                        // "Category 3 (PH)" => "",
-                        // "Scribe required by candidate" => "",
-                        // "Batch" => "",
-                    ];
-                }
-                dd($data);
-                // Append the data array to the sheet
-                $sheet->fromArray($data, null, 'A2', false, false);
-            });
-        })->download('xlsx');
+                    "Subjects",
+                    "Password (DOB in DDMMYYYY)",
+                    "Candidate Name",
+                    "Mother name",
+                    "Father name",
+                    "DOB (DD-MM-YY)",
+                    "Gender",
+                    "Mobile",
+                    "Candidate",
+                    "Address 1",
+                    "Candidate Address 2",
+                    "Candidate Address 3",
+                    "District",
+                    "State",
+                    "Pincode",
+                    "Sify Centre Code",
+                    "Centre Address 1 (Centre Name)",
+                    "Centre Address 2 (Postal Address)",
+                    "Centre Address 3 (Landmark)",
+                    "Centre City",
+                    "Centre State",
+                    "Centre Pincode",
+                    "Exam Date",
+                    "Exam Time",
+                    "Reporting Time",
+                    "Entry Closing Time",
+                    "Category 1 (Caste)",
+                    "Category 3 (PH)",
+                    "Scribe required by candidate",
+                    "Batch"
+                );
+
+         $callback = function () use ($excel, $columns) {
+            $file = fopen('php://output', 'w');
+            fputcsv($file, $columns);
+            $count = 0;
+             foreach ($excel as $key=>$task) {
+                $row["Sl. No."] = $key + 1;
+                $row["Roll Number (User ID)"] = $task->roll_no;
+                $row["Subjects"] = "";
+                $row["Password (DOB in DDMMYYYY)"] = "";
+                $row["Candidate Name"] = "";
+                $row["Mother name"] = "";
+                $row["Father name"] = "";
+                $row["DOB (DD-MM-YY)"] = "";
+                $row["Gender"] = "";
+                $row["Mobile"] = "";
+                $row["Candidate"] = "";
+                $row["Address 1"] = "";
+                $row["Candidate Address 2"] = "";
+                $row["Candidate Address 3"] = "";
+                $row["District"] = "";
+                $row["State"] = "";
+                $row["Pincode"] = "";
+                $row["Sify Centre Code"] = "";
+                $row["Centre Address 1 (Centre Name)"] = "";
+                $row["Centre Address 2 (Postal Address)"] = "";
+                $row["Centre Address 3 (Landmark)"] = "";
+                $row["Centre City"] = "";
+                $row["Centre State"] = "";
+                $row["Centre Pincode"] = "";
+                $row["Exam Date"] = "";
+                $row["Exam Time"] = "";
+                $row["Reporting Time"] = "";
+                $row["Entry Closing Time"] = "";
+                $row["Category 1 (Caste)"] = "";
+                $row["Category 3 (PH)"] = "";
+                $row["Scribe required by candidate"] = "";
+                $row["Batch"] = "";
+
+                fputcsv($file, array(
+                    $row["Sl. No."],
+                    $row["Roll Number (User ID)"],
+                    $row["Subjects"],
+                    $row["Password (DOB in DDMMYYYY)"],
+                    $row["Candidate Name"],
+                    $row["Mother name"],
+                    $row["Father name"],
+                    $row["DOB (DD-MM-YY)"],
+                    $row["Gender"],
+                    $row["Mobile"],
+                    $row["Candidate"],
+                    $row["Address 1"],
+                    $row["Candidate Address 2"],
+                    $row["Candidate Address 3"],
+                    $row["District"],
+                    $row["State"],
+                    $row["Pincode"],
+                    $row["Sify Centre Code"],
+                    $row["Centre Address 1 (Centre Name)"],
+                    $row["Centre Address 2 (Postal Address)"],
+                    $row["Centre Address 3 (Landmark)"],
+                    $row["Centre City"],
+                    $row["Centre State"],
+                    $row["Centre Pincode"],
+                    $row["Exam Date"],
+                    $row["Exam Time"],
+                    $row["Reporting Time"],
+                    $row["Entry Closing Time"],
+                    $row["Category 1 (Caste)"],
+                    $row["Category 3 (PH)"],
+                    $row["Scribe required by candidate"],
+                    $row["Batch"],
+                ));
+             }
+             fclose($file);
+        };
+        return response()->stream($callback, 200, $headers);
     }
     
     
