@@ -510,17 +510,10 @@ class AdmitCardControllerNew extends Controller
     }
 
     public function exportOthers(){
-        // Retrieve all admit card records
         $admit_card = AdmitCard::get();
-    
-        // Create the Excel file
         Excel::create('Applicants_List', function ($excel) use ($admit_card) {
-            // Create a sheet within the Excel file
             $excel->sheet('Applicants_List', function ($sheet) use ($admit_card) {
-                // Set the title of the sheet
                 $sheet->setTitle('Applicants List');
-    
-                // Define the headers for the Excel file
                 $headers = [
                     "Sl. No.",
                     "Roll Number (User ID)",
@@ -555,19 +548,11 @@ class AdmitCardControllerNew extends Controller
                     // "Scribe required by candidate",
                     // "Batch",
                 ];
-    
-                // Append the headers to the sheet
                 $sheet->appendRow($headers);
-    
-                // Set the header row to bold
                 $sheet->cells('A1:AG1', function ($cells) {
                     $cells->setFontWeight('bold');
                 });
-    
-                // Initialize the data array
                 $data = [];
-    
-                // Iterate through each admit card and populate the data array
                 foreach ($admit_card as $key => $record) {
                     $data[] = [
                         "Sl. No." => $key + 1,
@@ -604,7 +589,7 @@ class AdmitCardControllerNew extends Controller
                         // "Batch" => "",
                     ];
                 }
-    
+                dd($data);
                 // Append the data array to the sheet
                 $sheet->fromArray($data, null, 'A2', false, false);
             });
