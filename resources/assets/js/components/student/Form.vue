@@ -8221,12 +8221,7 @@ export default {
         });
         var limit =this.initial_step.pref_limit;
         this.initial_step.course_preference_limit = 2;
-        console.log(this.initial_step.program_name_load);
         if(this.initial_step.program_name_load == "BTECH"){
-          limit=7;
-          this.initial_step.course_preference_limit = 7;
-        }
-        if(this.initial_step.is_btech){
           limit=7;
           this.initial_step.course_preference_limit = 7;
         }
@@ -8424,7 +8419,7 @@ export default {
         this.is_phd = true;
       }
       this.initial_step.course = "";
-      console.log(this.initial_step.course_type.type);
+      // console.log(this.initial_step.course_type);
       this.initial_step.is_pref_limit_exceeded = false;
       this.initial_step.preference_error = "";
       this.initial_step.ready = true;
