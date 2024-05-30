@@ -573,24 +573,24 @@ class AdmitCardControllerNew extends Controller
                 $row["Candidate Address 1"] = $task->active_application->permanent_village_town.''.$task->active_application->permanent_po;
                 $row["Candidate Address 2"] = $task->active_application->correspondence_village_town.''.$task->active_application->correspondence_po ;
                 $row["Candidate Address 3"] = "-" ;
-                $row["District"] = $task->active_application->per_district->name ;
+                $row["District"] = $task->active_application->per_district->district_name ;
                 $row["State"] = $task->active_application->per_state->name ;
                 $row["Pincode"] = $task->active_application->permanent_pin ;
-                $row["Sify Centre Code"] = "";
-                $row["Centre Address 1 (Centre Name)"] = "";
-                $row["Centre Address 2 (Postal Address)"] = "";
-                $row["Centre Address 3 (Landmark)"] = "";
-                $row["Centre City"] = "";
-                $row["Centre State"] = "";
-                $row["Centre Pincode"] = "";
-                $row["Exam Date"] = "";
-                $row["Exam Time"] = "";
-                $row["Reporting Time"] = "";
-                $row["Entry Closing Time"] = "";
-                $row["Category 1 (Caste)"] = "";
-                $row["Category 3 (PH)"] = "";
-                $row["Scribe required by candidate"] = "";
-                $row["Batch"] = "";
+                $row["Sify Centre Code"] = "-";
+                $row["Centre Address 1 (Centre Name)"] = $task->sub_exam_center->center_name;
+                $row["Centre Address 2 (Postal Address)"] = $task->sub_exam_center->address;
+                $row["Centre Address 3 (Landmark)"] = "-";
+                $row["Centre City"] = $task->sub_exam_center->city;
+                $row["Centre State"] = $task->sub_exam_center->state;
+                $row["Centre Pincode"] = $task->sub_exam_center->pin;
+                $row["Exam Date"] = $task->course->ExamGroup->exam_date;
+                $row["Exam Time"] = $task->course->ExamGroup->exam_time;
+                $row["Reporting Time"] = $task->course->ExamGroup->reporting_time;
+                $row["Entry Closing Time"] = '-';
+                $row["Category 1 (Caste)"] = $task->active_application->caste->name;
+                $row["Category 3 (PH)"] = $task->active_application->is_pwd==1?'Yes':'';
+                $row["Scribe required by candidate"] = "-";
+                $row["Batch"] = $task->course->ExamGroup->group_name;
 
             fputcsv($file, array(
                 $row["Sl. No."],
