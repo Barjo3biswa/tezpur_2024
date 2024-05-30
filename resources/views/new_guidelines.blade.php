@@ -308,6 +308,9 @@ color:white'>Admissions to</strong></span></i><br>
                         style='font-size:12.0pt;font-family:Roboto;color:white'>&nbsp;
                         <br /> 2024-25</span></strong> --}}
             </p>
+            @if ($is_mba == 'BTECH')
+                <p align="left"><strong>Form fill up date for B. Tech. programme is extended till 20-06-2024.</strong></p>
+            @endif
         @endif
 
         @if ($is_mba == 'CHINESE')
@@ -860,8 +863,6 @@ color:white'>Admissions to</strong></span></i><br>
                 once the registration process is completed .</strong></p>
     @endif
 
-    @if ($is_mba == 'BTECH')
-    <p align="left"><strong>Form fill up date for B. Tech. programme is extended till 20-06-2024.</strong></p>
-    @endif
+    
 
 </div>
