@@ -560,12 +560,12 @@ class AdmitCardControllerNew extends Controller
             $file = fopen('php://output', 'w');
             fputcsv($file, $columns);
             $count = 0;
-             foreach ($excel as $key=>$task) {
+            foreach ($excel as $key=>$task) {
                 $row["Sl. No."] = $key + 1;
                 $row["Roll Number (User ID)"] = $task->roll_no;
-                $row["Subjects"] = "";
-                $row["Password (DOB in DDMMYYYY)"] = "";
-                $row["Candidate Name"] = "";
+                $row["Subjects"] = $task->course->name;
+                $row["Password (DOB in DDMMYYYY)"] = $task->active_application->dob;
+                $row["Candidate Name"] = $task->active_application->FullName;
                 $row["Mother name"] = "";
                 $row["Father name"] = "";
                 $row["DOB (DD-MM-YY)"] = "";
@@ -594,42 +594,42 @@ class AdmitCardControllerNew extends Controller
                 $row["Scribe required by candidate"] = "";
                 $row["Batch"] = "";
 
-                fputcsv($file, array(
-                    $row["Sl. No."],
-                    $row["Roll Number (User ID)"],
-                    $row["Subjects"],
-                    $row["Password (DOB in DDMMYYYY)"],
-                    $row["Candidate Name"],
-                    $row["Mother name"],
-                    $row["Father name"],
-                    $row["DOB (DD-MM-YY)"],
-                    $row["Gender"],
-                    $row["Mobile"],
-                    $row["Candidate"],
-                    $row["Address 1"],
-                    $row["Candidate Address 2"],
-                    $row["Candidate Address 3"],
-                    $row["District"],
-                    $row["State"],
-                    $row["Pincode"],
-                    $row["Sify Centre Code"],
-                    $row["Centre Address 1 (Centre Name)"],
-                    $row["Centre Address 2 (Postal Address)"],
-                    $row["Centre Address 3 (Landmark)"],
-                    $row["Centre City"],
-                    $row["Centre State"],
-                    $row["Centre Pincode"],
-                    $row["Exam Date"],
-                    $row["Exam Time"],
-                    $row["Reporting Time"],
-                    $row["Entry Closing Time"],
-                    $row["Category 1 (Caste)"],
-                    $row["Category 3 (PH)"],
-                    $row["Scribe required by candidate"],
-                    $row["Batch"],
-                ));
-             }
-             fclose($file);
+            fputcsv($file, array(
+                $row["Sl. No."],
+                $row["Roll Number (User ID)"],
+                $row["Subjects"],
+                $row["Password (DOB in DDMMYYYY)"],
+                $row["Candidate Name"],
+                $row["Mother name"],
+                $row["Father name"],
+                $row["DOB (DD-MM-YY)"],
+                $row["Gender"],
+                $row["Mobile"],
+                $row["Candidate"],
+                $row["Address 1"],
+                $row["Candidate Address 2"],
+                $row["Candidate Address 3"],
+                $row["District"],
+                $row["State"],
+                $row["Pincode"],
+                $row["Sify Centre Code"],
+                $row["Centre Address 1 (Centre Name)"],
+                $row["Centre Address 2 (Postal Address)"],
+                $row["Centre Address 3 (Landmark)"],
+                $row["Centre City"],
+                $row["Centre State"],
+                $row["Centre Pincode"],
+                $row["Exam Date"],
+                $row["Exam Time"],
+                $row["Reporting Time"],
+                $row["Entry Closing Time"],
+                $row["Category 1 (Caste)"],
+                $row["Category 3 (PH)"],
+                $row["Scribe required by candidate"],
+                $row["Batch"],
+            ));
+            }
+            fclose($file);
         };
         return response()->stream($callback, 200, $headers);
     }

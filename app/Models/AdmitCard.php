@@ -71,4 +71,9 @@ class AdmitCard extends Model
     {
         return $this->belongsTo(TueeResult::class,'roll_no','roll_no')/* ->where('publish',1) */;
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class,'student_id','id')/* ->where('publish',1) */;
+    }
 }
