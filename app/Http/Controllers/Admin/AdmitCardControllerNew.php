@@ -24,6 +24,7 @@ use Crypt;
 use DB;
 use Exception;
 use Log;
+use Maatwebsite\Excel\Facades\Excel;
 use PDF;
 use ZipArchive;
 
@@ -509,42 +510,102 @@ class AdmitCardControllerNew extends Controller
     }
 
     public function exportOthers(){
-        //http://127.0.0.1:8000/admin/export_others
-        //https://www.tezuadmissions.in/public/admin/export_others
-        $application=Application::where([
-                                    'is_phd'=>1,
-                                    // 'application_no'!=null,
-                                    'session_id' =>11,
-                                ])->whereNotNull('application_no')->get();
-        // dd($application);
-        try{
-            foreach($application as $app){
-                $qualifications=[];
-                foreach($app->other_qualifications as $key=>$oth){
-                    $qualification = [
-                        'exam_' . ($key + 1) => [
-                            'exam_name' => $oth->exam_name,
-                            'marks' => $oth->marks_percentage
-                        ]
-                    ];
-                    array_push($qualifications, $qualification);
-                }
-                // dump(json_encode($qualifications));
-                $data=[
-                'student_id'     =>	$app->student_id,
-                'application_id' => $app->id,	
-                'application_no' =>	$app->application_no,
-                'qualification' =>json_encode($qualifications)
+        
+        $admit_card = AdmitCard::get();
+        
+        Excel::create('Applicants List ', function ($excel) use ($admit_card) {
+            $excel->sheet('Applicants List ', function ($sheet) use ($admit_card) {
+                $sheet->setTitle('Applicants List');
+
+                $sheet->cells('A1:G1', function ($cells) {
+                    $cells->setFontWeight('bold');
+                });
+                $sheet->setAutoSize(true);
+                // $sheet->fromArray($arr, null, 'A1', false, true);
+                $arr = [
+                    "Sl. No." => "",	
+                    "Roll Number (User ID)" => "",	
+                    "Subjects" => "",	
+                    "Password (DOB in DDMMYYYY)" => "",	
+                    "Candidate Name" => "",	
+                    "Mother name" => "",	
+                    "Father name" => "",	
+                    "DOB (DD-MM-YY)" => "",	
+                    "Gender" => "",	
+                    "Mobile" => "",	
+                    "Candidate" => "", 
+                    "address1" => "",	
+                    "Candidate address2" => "",	
+                    "Candidate address3" => "",	
+                    "District" => "",	
+                    "State" => "",	
+                    "Pincode" => "",	
+                    "Sify Centre Code" => "",	
+                    "Centre Address 1 (Centre Name)" => "",	
+                    "Centre Address 2 (Postal Address)" => "",	
+                    "Centre Adress 3 (Landmark)" => "", 	
+                    "Centre City" => "",	
+                    "Centre State" => "",	
+                    "Centre Pincode" => "",	
+                    "Exam Date" => "",	
+                    "Exam Time" => "",	
+                    "Reporting Time" => "",	
+                    "Entry Closing Time" => "",	
+                    "Category 1 (Caste)" => "",	
+                    "Category 3 (PH)" => "",	
+                    "Scribe required by candidate" => "",	
+                    "Batch" => "",
+
                 ];
 
-                DB::table('zzz_other_qualifications')->insert($data);
-                //  dump($data);
-            }
-        }catch(\Exception $ex){
-            dd($ex);
-        }
-        
-        dd("ok");
+                $sheet->appendRow($arr);
+                $additional_no = 0;
+                $arr           = [];
+
+                $admit_card->chunk(500, function ($card) use ($sheet, &$additional_no, &$arr) {
+                    foreach ($card as $key => $record) {
+                        $arr[] = [
+                            "Sl. No." => $key,	
+                            "Roll Number (User ID)" => $record->roll_no,	
+                            "Subjects" => "",	
+                            "Password (DOB in DDMMYYYY)" => "",	
+                            "Candidate Name" => "",	
+                            "Mother name" => "",	
+                            "Father name" => "",	
+                            "DOB (DD-MM-YY)" => "",	
+                            "Gender" => "",	
+                            "Mobile" => "",	
+                            "Candidate" => "", 
+                            "address1" => "",	
+                            "Candidate address2" => "",	
+                            "Candidate address3" => "",	
+                            "District" => "",	
+                            "State" => "",	
+                            "Pincode" => "",	
+                            "Sify Centre Code" => "",	
+                            "Centre Address 1 (Centre Name)" => "",	
+                            "Centre Address 2 (Postal Address)" => "",	
+                            "Centre Adress 3 (Landmark)" => "", 	
+                            "Centre City" => "",	
+                            "Centre State" => "",	
+                            "Centre Pincode" => "",	
+                            "Exam Date" => "",	
+                            "Exam Time" => "",	
+                            "Reporting Time" => "",	
+                            "Entry Closing Time" => "",	
+                            "Category 1 (Caste)" => "",	
+                            "Category 3 (PH)" => "",	
+                            "Scribe required by candidate" => "",	
+                            "Batch" => "",
+                        ];
+                        // $sheet->appendRow($arr);
+                    }
+                    $additional_no = $additional_no + 500;
+                });
+                $sheet->fromArray($arr, null, 'A1', false, true);
+
+            });
+        })->download('xlsx');
     }
     
     // public function downloadZip(){
