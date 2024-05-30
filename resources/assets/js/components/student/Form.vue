@@ -8225,10 +8225,10 @@ export default {
           limit=7;
           this.initial_step.course_preference_limit = 7;
         }
-        if(this.initial_step.course_type.type){
-          limit=7;
-          this.initial_step.course_preference_limit = 7;
-        }
+        // if(this.initial_step.course_type.type){
+        //   limit=7;
+        //   this.initial_step.course_preference_limit = 7;
+        // }
         
         if (count < limit) {
           this.initial_step.is_pref_limit_exceeded = false;
