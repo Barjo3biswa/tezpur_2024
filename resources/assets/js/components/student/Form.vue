@@ -8221,6 +8221,7 @@ export default {
         });
         var limit =this.initial_step.pref_limit;
         this.initial_step.course_preference_limit = 2;
+        console.log(this.initial_step.program_name_load);
         if(this.initial_step.program_name_load == "BTECH"){
           limit=7;
           this.initial_step.course_preference_limit = 7;
