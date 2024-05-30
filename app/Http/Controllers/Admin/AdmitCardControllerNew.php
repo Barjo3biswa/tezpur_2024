@@ -532,8 +532,7 @@ class AdmitCardControllerNew extends Controller
                     "DOB (DD-MM-YY)",
                     "Gender",
                     "Mobile",
-                    "Candidate",
-                    "Address 1",
+                    "Candidate Address 1",
                     "Candidate Address 2",
                     "Candidate Address 3",
                     "District",
@@ -566,18 +565,17 @@ class AdmitCardControllerNew extends Controller
                 $row["Subjects"] = $task->course->name;
                 $row["Password (DOB in DDMMYYYY)"] = $task->active_application->dob;
                 $row["Candidate Name"] = $task->active_application->FullName;
-                $row["Mother name"] = "";
-                $row["Father name"] = "";
-                $row["DOB (DD-MM-YY)"] = "";
-                $row["Gender"] = "";
-                $row["Mobile"] = "";
-                $row["Candidate"] = "";
-                $row["Address 1"] = "";
-                $row["Candidate Address 2"] = "";
-                $row["Candidate Address 3"] = "";
-                $row["District"] = "";
-                $row["State"] = "";
-                $row["Pincode"] = "";
+                $row["Mother name"] = $task->active_application->father_name??"-";
+                $row["Father name"] = $task->active_application->mother_name??"-";
+                $row["DOB (DD-MM-YY)"] = $task->active_application->dob;
+                $row["Gender"] = $task->active_application->gender;
+                $row["Mobile"] = $task->user->mobile_no;
+                $row["Candidate Address 1"] = $task->active_application->permanent_village_town.''.$task->active_application->permanent_po;
+                $row["Candidate Address 2"] = $task->active_application->correspondence_village_town.''.$task->active_application->correspondence_po ;
+                $row["Candidate Address 3"] = "-" ;
+                $row["District"] = $task->active_application->per_district->name ;
+                $row["State"] = $task->active_application->per_state->name ;
+                $row["Pincode"] = $task->active_application->permanent_pin ;
                 $row["Sify Centre Code"] = "";
                 $row["Centre Address 1 (Centre Name)"] = "";
                 $row["Centre Address 2 (Postal Address)"] = "";
@@ -605,8 +603,7 @@ class AdmitCardControllerNew extends Controller
                 $row["DOB (DD-MM-YY)"],
                 $row["Gender"],
                 $row["Mobile"],
-                $row["Candidate"],
-                $row["Address 1"],
+                $row["Candidate Address 1"],
                 $row["Candidate Address 2"],
                 $row["Candidate Address 3"],
                 $row["District"],
