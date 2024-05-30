@@ -510,100 +510,107 @@ class AdmitCardControllerNew extends Controller
     }
 
     public function exportOthers(){
-        
+        // Retrieve all admit card records
         $admit_card = AdmitCard::get();
-        
-        Excel::create('Applicants List ', function ($excel) use ($admit_card) {
-            $excel->sheet('Applicants List ', function ($sheet) use ($admit_card) {
+    
+        // Create the Excel file
+        Excel::create('Applicants_List', function ($excel) use ($admit_card) {
+            // Create a sheet within the Excel file
+            $excel->sheet('Applicants_List', function ($sheet) use ($admit_card) {
+                // Set the title of the sheet
                 $sheet->setTitle('Applicants List');
-
-                $sheet->cells('A1:G1', function ($cells) {
+    
+                // Define the headers for the Excel file
+                $headers = [
+                    "Sl. No.",
+                    "Roll Number (User ID)",
+                    "Subjects",
+                    "Password (DOB in DDMMYYYY)",
+                    "Candidate Name",
+                    "Mother name",
+                    "Father name",
+                    "DOB (DD-MM-YY)",
+                    "Gender",
+                    "Mobile",
+                    "Candidate",
+                    "Address 1",
+                    "Candidate Address 2",
+                    "Candidate Address 3",
+                    "District",
+                    "State",
+                    "Pincode",
+                    "Sify Centre Code",
+                    "Centre Address 1 (Centre Name)",
+                    "Centre Address 2 (Postal Address)",
+                    "Centre Address 3 (Landmark)",
+                    "Centre City",
+                    "Centre State",
+                    "Centre Pincode",
+                    "Exam Date",
+                    "Exam Time",
+                    "Reporting Time",
+                    "Entry Closing Time",
+                    "Category 1 (Caste)",
+                    "Category 3 (PH)",
+                    "Scribe required by candidate",
+                    "Batch",
+                ];
+    
+                // Append the headers to the sheet
+                $sheet->appendRow($headers);
+    
+                // Set the header row to bold
+                $sheet->cells('A1:AG1', function ($cells) {
                     $cells->setFontWeight('bold');
                 });
-                $sheet->setAutoSize(true);
-                // $sheet->fromArray($arr, null, 'A1', false, true);
-                $arr = [
-                    "Sl. No." => "",	
-                    "Roll Number (User ID)" => "",	
-                    "Subjects" => "",	
-                    "Password (DOB in DDMMYYYY)" => "",	
-                    "Candidate Name" => "",	
-                    "Mother name" => "",	
-                    "Father name" => "",	
-                    "DOB (DD-MM-YY)" => "",	
-                    "Gender" => "",	
-                    "Mobile" => "",	
-                    "Candidate" => "", 
-                    "address1" => "",	
-                    "Candidate address2" => "",	
-                    "Candidate address3" => "",	
-                    "District" => "",	
-                    "State" => "",	
-                    "Pincode" => "",	
-                    "Sify Centre Code" => "",	
-                    "Centre Address 1 (Centre Name)" => "",	
-                    "Centre Address 2 (Postal Address)" => "",	
-                    "Centre Adress 3 (Landmark)" => "", 	
-                    "Centre City" => "",	
-                    "Centre State" => "",	
-                    "Centre Pincode" => "",	
-                    "Exam Date" => "",	
-                    "Exam Time" => "",	
-                    "Reporting Time" => "",	
-                    "Entry Closing Time" => "",	
-                    "Category 1 (Caste)" => "",	
-                    "Category 3 (PH)" => "",	
-                    "Scribe required by candidate" => "",	
-                    "Batch" => "",
-
-                ];
-
-                $sheet->appendRow($arr);
-                $arr           = [];
-
-                $admit_card->chunk(500, function ($card) use ($sheet, &$additional_no, &$arr) {
-                    foreach ($card as $key => $record) {
-                        $arr[] = [
-                            "Sl. No." => $key,	
-                            "Roll Number (User ID)" => $record->roll_no,	
-                            "Subjects" => "",	
-                            "Password (DOB in DDMMYYYY)" => "",	
-                            "Candidate Name" => "",	
-                            "Mother name" => "",	
-                            "Father name" => "",	
-                            "DOB (DD-MM-YY)" => "",	
-                            "Gender" => "",	
-                            "Mobile" => "",	
-                            "Candidate" => "", 
-                            "address1" => "",	
-                            "Candidate address2" => "",	
-                            "Candidate address3" => "",	
-                            "District" => "",	
-                            "State" => "",	
-                            "Pincode" => "",	
-                            "Sify Centre Code" => "",	
-                            "Centre Address 1 (Centre Name)" => "",	
-                            "Centre Address 2 (Postal Address)" => "",	
-                            "Centre Adress 3 (Landmark)" => "", 	
-                            "Centre City" => "",	
-                            "Centre State" => "",	
-                            "Centre Pincode" => "",	
-                            "Exam Date" => "",	
-                            "Exam Time" => "",	
-                            "Reporting Time" => "",	
-                            "Entry Closing Time" => "",	
-                            "Category 1 (Caste)" => "",	
-                            "Category 3 (PH)" => "",	
-                            "Scribe required by candidate" => "",	
-                            "Batch" => "",
-                        ];
-                    }
-                });
-                $sheet->fromArray($arr, null, 'A1', false, true);
-
+    
+                // Initialize the data array
+                $data = [];
+    
+                // Iterate through each admit card and populate the data array
+                foreach ($admit_card as $key => $record) {
+                    $data[] = [
+                        "Sl. No." => $key + 1,
+                        "Roll Number (User ID)" => $record->roll_no,
+                        "Subjects" => "",
+                        "Password (DOB in DDMMYYYY)" => "",
+                        "Candidate Name" => "",
+                        "Mother name" => "",
+                        "Father name" => "",
+                        "DOB (DD-MM-YY)" => "",
+                        "Gender" => "",
+                        "Mobile" => "",
+                        "Candidate" => "",
+                        "Address 1" => "",
+                        "Candidate Address 2" => "",
+                        "Candidate Address 3" => "",
+                        "District" => "",
+                        "State" => "",
+                        "Pincode" => "",
+                        "Sify Centre Code" => "",
+                        "Centre Address 1 (Centre Name)" => "",
+                        "Centre Address 2 (Postal Address)" => "",
+                        "Centre Address 3 (Landmark)" => "",
+                        "Centre City" => "",
+                        "Centre State" => "",
+                        "Centre Pincode" => "",
+                        "Exam Date" => "",
+                        "Exam Time" => "",
+                        "Reporting Time" => "",
+                        "Entry Closing Time" => "",
+                        "Category 1 (Caste)" => "",
+                        "Category 3 (PH)" => "",
+                        "Scribe required by candidate" => "",
+                        "Batch" => "",
+                    ];
+                }
+    
+                // Append the data array to the sheet
+                $sheet->fromArray($data, null, 'A2', false, false);
             });
         })->download('xlsx');
     }
+    
     
     // public function downloadZip(){
     //     $admit_cards = AdmitCard::get();
