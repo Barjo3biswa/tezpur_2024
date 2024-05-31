@@ -145,11 +145,13 @@ class CommonApplicationController extends Controller
             }elseif($request->CUET == "B.Tech Lateral"){
                 $application->where('is_laterall',1);
             }elseif($request->CUET == "Ph.D."){
-                $application->where('is_phd',1);
+                $application->where('is_phd',1)->where('is_visves',0);
             }elseif($request->CUET =="BDES"){
                 $application->where('is_bdes',1);
             }elseif($request->CUET =="MDES"){
                 $application->where('is_mdes',1);
+            }elseif($request->CUET =="Visvesvaraya"){
+                $application->where('is_visves',1);
             }
         }
 

@@ -1335,11 +1335,13 @@ function gettotalCouser()
         }elseif($progtype == "B.Tech Lateral"){
             $application->where('is_laterall',1);
         }elseif($progtype == "Ph.D."){
-            $application->where('is_phd',1);
+            $application->where('is_phd',1)->where('is_visves',0);
         }elseif($progtype=="BDES"){
             $application->where('is_bdes',1);
         }elseif($progtype=="MDES"){
             $application->where('is_mdes',1);
+        }elseif($progtype =="Visvesvaraya"){
+            $application->where('is_visves',1);
         }
 
         if($type!="ALL"){

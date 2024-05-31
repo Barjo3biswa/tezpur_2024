@@ -35,6 +35,8 @@
                         $department_id = DB::table("department_assigned_users")->where('department_user_id',$user_id)->pluck("department_id");
                         if(in_array(auth("department_user")->id(),[178,180,181,182])){
                             $courses=["B.Tech"];
+                        }if(in_array(auth("department_user")->id(),[184])){
+                            $courses=["Visvesvaraya"];
                         }elseif(in_array($department_id[0], [8,9,10,12,13,25])){
                             $courses=["UG","PG","Ph.D.","B.Tech","B.Tech Lateral"];
                         }elseif(in_array($department_id[0], [26])){
@@ -63,6 +65,8 @@
                                             @if(in_array($cour,['PG']))
                                                 <span style="font-size: xx-small;">TUEE:</span> <a href="{{route(get_route_guard().".application.index", ["session" => $session->id ?? "", "status" => "all", "CUET"=>$cour, "EXAM_THROUGH"=>"TUEE"])}}">{{getTotalApplicationCountDepartment($session->id ?? "",$cour,"all","TUEE")}}</a>
                                                 <span style="font-size: xx-small;">CUET:</span> <a href="{{route(get_route_guard().".application.index", ["session" => $session->id ?? "", "status" => "all", "CUET"=>$cour, "EXAM_THROUGH"=>"CUET"])}}">{{getTotalApplicationCountDepartment($session->id ?? "",$cour,"all","CUET")}}</a>
+                                            @elseif(in_array($cour,['Visvesvaraya']))
+                                                <span style="font-size: xx-small;">VISVES:</span> <a href="{{route(get_route_guard().".application.index", ["session" => $session->id ?? "", "status" => "all", "CUET"=>$cour, "EXAM_THROUGH"=>"VISVES"])}}">{{getTotalApplicationCountDepartment($session->id ?? "",$cour,"all","VISVES")}}</a>
                                             @elseif(in_array($cour,['MDES']))
                                                 <span style="font-size: xx-small;">TUEE:</span> <a href="{{route(get_route_guard().".application.index", ["session" => $session->id ?? "", "status" => "all", "CUET"=>$cour, "EXAM_THROUGH"=>"TUEE"])}}">{{getTotalApplicationCountDepartment($session->id ?? "",$cour,"all","TUEE")}}</a>
                                                 <span style="font-size: xx-small;">CEED:</span> <a href="{{route(get_route_guard().".application.index", ["session" => $session->id ?? "", "status" => "all", "CUET"=>$cour, "EXAM_THROUGH"=>"CEED"])}}">{{getTotalApplicationCountDepartment($session->id ?? "",$cour,"all","CEED")}}</a>
@@ -93,6 +97,8 @@
                                             @if(in_array($cour,['PG']))
                                                 <span style="font-size: xx-small;">TUEE:</span> <a href="{{route(get_route_guard().".application.index", ["session" => $session->id ?? "", "status" => "accepted" , "CUET"=>$cour, "EXAM_THROUGH"=>"TUEE"])}}">{{getTotalApplicationCountDepartment($session->id ?? "",$cour,"accepted","TUEE")}}</a>
                                                 <span style="font-size: xx-small;">CUET:</span> <a href="{{route(get_route_guard().".application.index", ["session" => $session->id ?? "", "status" => "accepted" , "CUET"=>$cour, "EXAM_THROUGH"=>"CUET"])}}">{{getTotalApplicationCountDepartment($session->id ?? "",$cour,"accepted","CUET")}}</a>
+                                            @elseif(in_array($cour,['Visvesvaraya']))
+                                                <span style="font-size: xx-small;">VISVES:</span> <a href="{{route(get_route_guard().".application.index", ["session" => $session->id ?? "", "status" => "accepted", "CUET"=>$cour, "EXAM_THROUGH"=>"VISVES"])}}">{{getTotalApplicationCountDepartment($session->id ?? "",$cour,"accepted","VISVES")}}</a>
                                             @elseif(in_array($cour,['MDES']))
                                                 <span style="font-size: xx-small;">TUEE:</span> <a href="{{route(get_route_guard().".application.index", ["session" => $session->id ?? "", "status" => "accepted" , "CUET"=>$cour, "EXAM_THROUGH"=>"TUEE"])}}">{{getTotalApplicationCountDepartment($session->id ?? "",$cour,"accepted","TUEE")}}</a>
                                                 <span style="font-size: xx-small;">CEED:</span> <a href="{{route(get_route_guard().".application.index", ["session" => $session->id ?? "", "status" => "accepted" , "CUET"=>$cour, "EXAM_THROUGH"=>"CEED"])}}">{{getTotalApplicationCountDepartment($session->id ?? "",$cour,"accepted","CEED")}}</a>
@@ -125,6 +131,9 @@
                                             @if(in_array($cour,['PG','MDES']))
                                                 <span style="font-size: xx-small;">TUEE:</span> <a href="{{route(get_route_guard().".application.index", ["session" => $session->id ?? "", "status" => "on_hold" , "CUET"=>$cour, "EXAM_THROUGH"=>"TUEE"])}}">{{getTotalApplicationCountDepartment($session->id ?? "",$cour,"on_hold","TUEE")}}</a>
                                                 <span style="font-size: xx-small;">CUET:</span> <a href="{{route(get_route_guard().".application.index", ["session" => $session->id ?? "", "status" => "on_hold" , "CUET"=>$cour, "EXAM_THROUGH"=>"CUET"])}}">{{getTotalApplicationCountDepartment($session->id ?? "",$cour,"on_hold","CUET")}}</a>
+                                            @elseif(in_array($cour,['Visvesvaraya']))
+                                                <span style="font-size: xx-small;">VISVES:</span> <a href="{{route(get_route_guard().".application.index", ["session" => $session->id ?? "", "status" => "on_hold", "CUET"=>$cour, "EXAM_THROUGH"=>"VISVES"])}}">{{getTotalApplicationCountDepartment($session->id ?? "",$cour,"on_hold","VISVES")}}</a>
+                                            
                                             @elseif(in_array($cour,['MDES']))
                                                 <span style="font-size: xx-small;">TUEE:</span> <a href="{{route(get_route_guard().".application.index", ["session" => $session->id ?? "", "status" => "on_hold" , "CUET"=>$cour, "EXAM_THROUGH"=>"TUEE"])}}">{{getTotalApplicationCountDepartment($session->id ?? "",$cour,"on_hold","TUEE")}}</a>
                                                 <span style="font-size: xx-small;">CEED:</span> <a href="{{route(get_route_guard().".application.index", ["session" => $session->id ?? "", "status" => "on_hold" , "CUET"=>$cour, "EXAM_THROUGH"=>"CEED"])}}">{{getTotalApplicationCountDepartment($session->id ?? "",$cour,"on_hold","CEED")}}</a>
@@ -157,6 +166,9 @@
                                             @if(in_array($cour,['PG','MDES']))
                                                 <span style="font-size: xx-small;">TUEE:</span> <a href="{{route(get_route_guard().".application.index", ["session" => $session->id ?? "", "status" => "rejected" , "CUET"=>$cour, "EXAM_THROUGH"=>"TUEE"])}}">{{getTotalApplicationCountDepartment($session->id ?? "",$cour,"rejected","TUEE")}}</a>
                                                 <span style="font-size: xx-small;">CUET:</span> <a href="{{route(get_route_guard().".application.index", ["session" => $session->id ?? "", "status" => "rejected" , "CUET"=>$cour, "EXAM_THROUGH"=>"CUET"])}}">{{getTotalApplicationCountDepartment($session->id ?? "",$cour,"rejected","CUET")}}</a>
+                                            @elseif(in_array($cour,['Visvesvaraya']))
+                                                <span style="font-size: xx-small;">VISVES:</span> <a href="{{route(get_route_guard().".application.index", ["session" => $session->id ?? "", "status" => "rejected", "CUET"=>$cour, "EXAM_THROUGH"=>"VISVES"])}}">{{getTotalApplicationCountDepartment($session->id ?? "",$cour,"rejected","VISVES")}}</a>
+                                            
                                             @elseif(in_array($cour,['MDES']))
                                                 <span style="font-size: xx-small;">TUEE:</span> <a href="{{route(get_route_guard().".application.index", ["session" => $session->id ?? "", "status" => "rejected" , "CUET"=>$cour, "EXAM_THROUGH"=>"TUEE"])}}">{{getTotalApplicationCountDepartment($session->id ?? "",$cour,"rejected","TUEE")}}</a>
                                                 <span style="font-size: xx-small;">CEED:</span> <a href="{{route(get_route_guard().".application.index", ["session" => $session->id ?? "", "status" => "rejected" , "CUET"=>$cour, "EXAM_THROUGH"=>"CEED"])}}">{{getTotalApplicationCountDepartment($session->id ?? "",$cour,"rejected","CEED")}}</a>
