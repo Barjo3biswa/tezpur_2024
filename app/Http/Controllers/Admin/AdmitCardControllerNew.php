@@ -177,16 +177,19 @@ class AdmitCardControllerNew extends Controller
             'eight' => '12:00 PM 1:30 PM',
             'nine'  => '3:00 PM 4:30 PM',
         ];
+
+        $regenerate_ids = DB::table('admit_cards_regenerate')->select('application_id')->where('status',1)->get();
         $active_session = Session::where('is_active',1)->first()->id;
-        $exam_centers= ExamCenter::with(['applied_courses' => function ($query) use ($active_session) {
+        $exam_centers= ExamCenter::with(['applied_courses' => function ($query) use ($active_session, $regenerate_ids) {
                                            return $query->where('session_id', '=', $active_session)
                                             ->where('is_mba',0)->where('is_btech',0)/* ->where('is_direct',0) */
                                             ->whereNotNull('application_no')
                                             ->WhereDoesntHave('admitcard')
                                             ->where('net_jrf','!=',1)
+                                            ->whereIn('id',[$regenerate_ids])
                                             ->orderby('first_name')->orderby('middle_name')->orderby('last_name');
                                        }])
-                                       ->where('id',30)
+                                    //    ->where('id',30)
                                     //    ->where('id','<=',20)
                                     //    ->where('id','<=',30)
                                     //    ->where('id','<=',100)
