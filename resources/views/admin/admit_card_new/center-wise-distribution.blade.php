@@ -1,7 +1,7 @@
 @extends('admin.layout.auth')
 
 @section('css')
-    {{-- <link rel="stylesheet" href="{{ asset('css/datatables.min.css') }}"> --}}
+    <link rel="stylesheet" href="{{ asset('css/datatables.min.css') }}">
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.0.2/css/buttons.dataTables.css">
 @endsection
@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-default">
-                    <table class="table table-responsive" id="latest_testing">
+                    <table class="table table-responsive" id="example">
                         <thead>                         
                             <tr>
                                 <th>#</th>
@@ -56,8 +56,9 @@
 @endsection
 
 @section('js')
+<!-- Load jQuery first -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-{{-- <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script> --}}
+<!-- Load DataTables and buttons extension -->
 <script src="https://cdn.datatables.net/2.0.8/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/3.0.2/js/dataTables.buttons.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
@@ -65,9 +66,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
 <script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.html5.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.print.min.js"></script>
+
 <script>
     $(document).ready(function() {
-        $('#latest_testing').DataTable({
+        $('#example').DataTable({
             dom: 'Bfrtip',
             buttons: [
                 'copy', 'csv', 'excel', 'pdf', 'print'
