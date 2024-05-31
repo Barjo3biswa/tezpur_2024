@@ -25,5 +25,5 @@
     $flag = AdmitCard::where('student_id',$student_id)->where('publish',1);
 @endphp
 @if ($flag)
-<li><a target="_blank" href="http://thepracticetest.in/exam/ta_options.php"><i class="fa fa-cloud-download"></i> TUEE Demo Test</a></li>  
+<li><a target="_blank" href="http://thepracticetest.in/exam/setup.php?key=dGV6cHVyX3ByYWN0aWNlX3Rlc3RfMjkwNTIwMjQ="><i class="fa fa-cloud-download"></i> TUEE Demo Test</a></li>  
 @endif
