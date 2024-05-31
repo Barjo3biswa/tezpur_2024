@@ -33,15 +33,15 @@
                                     <td>{{ $sub->city_name }}</td>
                                     <td>{{ $sub->center_name }}</td>
                                     <td>{{ $sub->capacity }}</td>
-                                    <td><a href="{{ route('admin.attendence-view-new',['group'=>'one', 'cen_id'=>$sub->id]) }}" target="_blank">{{ $sub->students->where('exam_group', 'one')->count() }}</a></td>
-                                    <td><a href="{{ route('admin.attendence-view-new',['group'=>'two', 'cen_id'=>$sub->id]) }}" target="_blank">{{ $sub->students->where('exam_group', 'two')->count() }}</a></td>
-                                    <td><a href="{{ route('admin.attendence-view-new',['group'=>'three', 'cen_id'=>$sub->id]) }}" target="_blank">{{ $sub->students->where('exam_group', 'three')->count() }}</a></td>
-                                    <td><a href="{{ route('admin.attendence-view-new',['group'=>'four', 'cen_id'=>$sub->id]) }}" target="_blank">{{ $sub->students->where('exam_group', 'four')->count() }}</a></td>
-                                    <td><a href="{{ route('admin.attendence-view-new',['group'=>'five', 'cen_id'=>$sub->id]) }}" target="_blank">{{ $sub->students->where('exam_group', 'five')->count() }}</a></td>
-                                    <td><a href="{{ route('admin.attendence-view-new',['group'=>'six', 'cen_id'=>$sub->id]) }}" target="_blank">{{ $sub->students->where('exam_group', 'six')->count() }}</a></td>
-                                    <td><a href="{{ route('admin.attendence-view-new',['group'=>'seven', 'cen_id'=>$sub->id]) }}" target="_blank">{{ $sub->students->where('exam_group', 'seven')->count() }}</a></td>
-                                    <td><a href="{{ route('admin.attendence-view-new',['group'=>'eight', 'cen_id'=>$sub->id]) }}" target="_blank">{{ $sub->students->where('exam_group', 'eight')->count() }}</a></td>
-                                    <td><a href="{{ route('admin.attendence-view-new',['group'=>'nine', 'cen_id'=>$sub->id]) }}" target="_blank">{{ $sub->students->where('exam_group', 'nine')->count() }}</a></td>
+                                    <td><a href="{{ route('admin.attendence-view-new',['group'=>'one', 'cen_id'=>$sub->id]) }}" target="_blank">{{ $sub->students->where('publish',1)->where('exam_group', 'one')->count() }}</a></td>
+                                    <td><a href="{{ route('admin.attendence-view-new',['group'=>'two', 'cen_id'=>$sub->id]) }}" target="_blank">{{ $sub->students->where('publish',1)->where('exam_group', 'two')->count() }}</a></td>
+                                    <td><a href="{{ route('admin.attendence-view-new',['group'=>'three', 'cen_id'=>$sub->id]) }}" target="_blank">{{ $sub->students->where('publish',1)->where('exam_group', 'three')->count() }}</a></td>
+                                    <td><a href="{{ route('admin.attendence-view-new',['group'=>'four', 'cen_id'=>$sub->id]) }}" target="_blank">{{ $sub->students->where('publish',1)->where('exam_group', 'four')->count() }}</a></td>
+                                    <td><a href="{{ route('admin.attendence-view-new',['group'=>'five', 'cen_id'=>$sub->id]) }}" target="_blank">{{ $sub->students->where('publish',1)->where('exam_group', 'five')->count() }}</a></td>
+                                    <td><a href="{{ route('admin.attendence-view-new',['group'=>'six', 'cen_id'=>$sub->id]) }}" target="_blank">{{ $sub->students->where('publish',1)->where('exam_group', 'six')->count() }}</a></td>
+                                    <td><a href="{{ route('admin.attendence-view-new',['group'=>'seven', 'cen_id'=>$sub->id]) }}" target="_blank">{{ $sub->students->where('publish',1)->where('exam_group', 'seven')->count() }}</a></td>
+                                    <td><a href="{{ route('admin.attendence-view-new',['group'=>'eight', 'cen_id'=>$sub->id]) }}" target="_blank">{{ $sub->students->where('publish',1)->where('exam_group', 'eight')->count() }}</a></td>
+                                    <td><a href="{{ route('admin.attendence-view-new',['group'=>'nine', 'cen_id'=>$sub->id]) }}" target="_blank">{{ $sub->students->where('publish',1)->where('exam_group', 'nine')->count() }}</a></td>
                                 </tr>
                             @endforeach                       
                         </tbody>

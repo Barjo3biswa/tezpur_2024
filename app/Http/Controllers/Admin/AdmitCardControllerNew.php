@@ -689,7 +689,7 @@ class AdmitCardControllerNew extends Controller
 
     public function centerWiseDistribution(){
         $groups = GroupMaster::get();
-        $sub_center = SubExamCenter::where('publish',1)->get();
+        $sub_center = SubExamCenter::get();
         // foreach($sub_center as $cen){
         //     dd($cen->students);
         // }
