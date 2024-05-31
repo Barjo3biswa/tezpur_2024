@@ -178,7 +178,11 @@ class AdmitCardControllerNew extends Controller
             'nine'  => '3:00 PM 4:30 PM',
         ];
 
-        $regenerate_ids = DB::table('admit_cards_regenerate')->select('application_id')->where('status',1)->get();
+        $all_to_be = DB::table('admit_cards_regenerate')->select('application_id')->where('status',1)->get();
+        $regenerate_ids = [];
+        foreach($all_to_be as $gen){
+            array_push($regenerate_ids,$gen->application_id);
+        }
         dd($regenerate_ids);
         $active_session = Session::where('is_active',1)->first()->id;
         $exam_centers= ExamCenter::with(['applied_courses' => function ($query) use ($active_session, $regenerate_ids) {
