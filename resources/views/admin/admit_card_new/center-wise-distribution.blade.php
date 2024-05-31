@@ -1,4 +1,4 @@
-{{-- @extends('admin.layout.auth') --}}
+@extends('admin.layout.auth')
 
 @section('css')
     {{-- <link rel="stylesheet" href="{{ asset('css/datatables.min.css') }}"> --}}
