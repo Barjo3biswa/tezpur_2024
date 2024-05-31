@@ -191,7 +191,7 @@ class AdmitCardControllerNew extends Controller
                                             ->whereNotNull('application_no')
                                             ->WhereDoesntHave('admitcard')
                                             ->where('net_jrf','!=',1)
-                                            ->whereIn('id',[$regenerate_ids])
+                                            ->whereIn('applications.id',[$regenerate_ids])
                                             ->orderby('first_name')->orderby('middle_name')->orderby('last_name');
                                        }])
                                     //    ->where('id',30)
