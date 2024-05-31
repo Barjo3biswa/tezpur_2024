@@ -344,11 +344,11 @@ class CommonApplicationController extends Controller
         $castes = Caste::all();
         $sessions = Session::whereHas("applications")->pluck("name",  "id");
 
-        if($request->get("visvesvaraya")){
+        // if($request->get("visvesvaraya")){
             
-            $application = $application->whereDate("created_at",">=", "2023-09-14")->where('session_id',11);
-            // dd($application->get());
-        }
+        //     $application = $application->whereDate("created_at",">=", "2023-09-14")->where('session_id',11);
+        //     // dd($application->get());
+        // }
 
         if($request->get("Qualified")){
             $application->whereIn('net_jrf',[1]);
