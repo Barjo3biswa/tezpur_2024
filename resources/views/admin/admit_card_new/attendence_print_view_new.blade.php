@@ -80,7 +80,7 @@
                                     <td> --}}
                                         <div class="centre-details">
                                             <h6>Center Name: <strong>{{$center_name->center_name}}</strong></h6>
-                                            <h6>{{$groups}}</h6>
+                                            <h6>{{$groups->exam_date}} - ({{$groups->exam_time}})</h6>
                                             {{-- <h6>Course Name: <strong>{{$course_name->name}}({{$course_name->code}})</strong></h6> --}}
                                             <h6>No of Students: <strong>{{$count}}</strong></h6>
 
