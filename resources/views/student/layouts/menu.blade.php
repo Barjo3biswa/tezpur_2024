@@ -18,3 +18,12 @@
 {{-- @if (config("vknrl.show_vacancy_positions")) --}}
 {{-- <li><a href="{{route("student.vacancy.index")}}" style="background: red;color:white !important;"> Vacancy Positions.<span class="label label-default blink">New</span></a> </li> --}}
 {{-- @endif --}}
+
+@php
+    $student_id  = Auth::user()->id;
+    use App\Models\AdmitCard;
+    $flag = AdmitCard::where('student_id',$student_id)->where('publish',1);
+@endphp
+@if ($flag)
+<li><a target="_blank" href="http://thepracticetest.in/exam/ta_options.php"><i class="fa fa-cloud-download"></i> TUEE Demo Test</a></li>  
+@endif
