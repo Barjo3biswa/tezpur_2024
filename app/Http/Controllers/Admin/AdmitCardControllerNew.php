@@ -183,7 +183,7 @@ class AdmitCardControllerNew extends Controller
         foreach($all_to_be as $gen){
             array_push($regenerate_ids,$gen->application_id);
         }
-        dd($regenerate_ids);
+        // dd($regenerate_ids);
         $active_session = Session::where('is_active',1)->first()->id;
         $exam_centers= ExamCenter::with(['applied_courses' => function ($query) use ($active_session, $regenerate_ids) {
                                            return $query->where('session_id', '=', $active_session)
