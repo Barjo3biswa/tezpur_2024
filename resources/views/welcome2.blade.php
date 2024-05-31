@@ -701,12 +701,12 @@
                                 </a>
                             </div> --}}
 
-                            <div class="belowbanner-btn">
+                            {{-- <div class="belowbanner-btn">
                                 <a href="{{ route('student.register', ['is_mba' => Crypt::encrypt('PG')]) }}">
                                     <img src="assets/img/personal-profile.png" alt="" width="40">
                                     <p>PG/ B.Ed/ M.Ed Registration (through CUET/ M.Tech through GATE)</p>
                                 </a>
-                            </div>
+                            </div> --}}
 
                             {{-- <div class="belowbanner-btn">
                                 <a href="{{ route('student.register', ['is_mba' => Crypt::encrypt('LATERAL')]) }}">
@@ -716,19 +716,19 @@
                                 </a>
                             </div> --}}
 
-                            <div class="belowbanner-btn">
+                            {{-- <div class="belowbanner-btn">
                                 <a href="{{ route('student.register', ['is_mba' => Crypt::encrypt('BDES')]) }}">
                                     <img src="assets/img/personal-profile.png" alt="" width="40">
                                     <p> BDes  Registration (through UCEED)</p>
                                 </a>
-                            </div>
+                            </div> --}}
 
-                            <div class="belowbanner-btn">
+                            {{-- <div class="belowbanner-btn">
                                 <a href="{{ route('student.register', ['is_mba' => Crypt::encrypt('PHD')]) }}">
                                     <img src="assets/img/personal-profile.png" alt="" width="36">
                                     <p>Ph.D. Registration (through NET / GATE)</p>
                                 </a>
-                            </div>
+                            </div> --}}
 
                             {{-- <div class="belowbanner-btn">
                                 <a href="{{ route('student.register', ['is_mba' => Crypt::encrypt('PHDPROF')]) }}">
@@ -737,13 +737,13 @@
                                 </a>
                             </div>--}}
                             
-                            <div class="belowbanner-btn">
+                            {{-- <div class="belowbanner-btn">
                                 <a href="{{ route('student.register', ['is_mba' => Crypt::encrypt('MDES')]) }}">
                                     <img src="assets/img/personal-profile.png" alt="" width="40">
                                     <p>M. Des Registration (through
-                                        {{-- TUEE / --}} CEED)</p>
+                                        TUEE / CEED)</p>
                                 </a>
-                            </div>
+                            </div> --}}
 
                             <div class="belowbanner-btn">
                                 <a href="{{ route('student.register', ['is_mba' => Crypt::encrypt('UG')]) }}">
@@ -760,12 +760,12 @@
                             </div>
 
 
-                            <div class="belowbanner-btn">
+                            {{-- <div class="belowbanner-btn">
                                 <a href="{{ route('student.register', ['is_mba' => Crypt::encrypt('FOREIGN')]) }}">
                                     <img src="assets/img/personal-profile.png" alt="" width="40">
                                     <p>Registration For International Student</p>
                                 </a>
-                            </div>
+                            </div> --}}
 
                             {{-- <div class="belowbanner-btn">
                                 <a href="http://www.tezu.ernet.in/soe/jossa-csab.html" target="_blank">
@@ -782,12 +782,12 @@
                                 </a>
                             </div>
 
-                            <div class="belowbanner-btn">
+                            {{-- <div class="belowbanner-btn">
                                 <a href="https://pgcuet.samarth.ac.in/index.php/app/info/eligibility?q=TEZU" target="_blank">
                                     <img src="assets/img/registration3.png" alt="" width="40">
                                     <p>PG Programme through CUET PG 2024</p>
                                 </a>
-                            </div>
+                            </div> --}}
 
                             <div class="belowbanner-btn">
                                 <a href="https://cuetug.ntaonline.in/universities/eligibility/Mzk=" target="_blank">
