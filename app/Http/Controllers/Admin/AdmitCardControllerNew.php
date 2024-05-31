@@ -179,6 +179,7 @@ class AdmitCardControllerNew extends Controller
         ];
 
         $regenerate_ids = DB::table('admit_cards_regenerate')->select('application_id')->where('status',1)->get();
+        dd($regenerate_ids);
         $active_session = Session::where('is_active',1)->first()->id;
         $exam_centers= ExamCenter::with(['applied_courses' => function ($query) use ($active_session, $regenerate_ids) {
                                            return $query->where('session_id', '=', $active_session)
