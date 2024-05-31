@@ -11,6 +11,6 @@ class SubExamCenter extends Model
     use SoftDeletes;
     protected $guarded = ["id"];
     public function students(){
-        return $this->hasMany(AdmitCard::class, 'id','sub_exam_center_id');
+        return $this->hasMany(AdmitCard::class, 'sub_exam_center_id','id');
     }
 }
