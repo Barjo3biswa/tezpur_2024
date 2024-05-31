@@ -1,9 +1,11 @@
 @extends('admin.layout.auth')
+
 @section('css')
-    {{-- <link rel="stylesheet" href="{{ asset('css/datatables.min.css') }}"> --}}
+    <link rel="stylesheet" href="{{ asset('css/datatables.min.css') }}">
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.0.2/css/buttons.dataTables.css">
 @endsection
+
 @section('content')
     <div class="container">
         <div class="row">
@@ -30,19 +32,19 @@
                         <tbody>  
                             @foreach ($sub_center as $key=>$sub)
                                 <tr>
-                                    <td>{{++$key}}</td>
-                                    <td>{{$sub->city_name}}</td>
-                                    <td>{{$sub->center_name}}</td>
-                                    <td>{{$sub->capacity}}</td>
-                                    <td>{{$sub->students->where('exam_group','one')->count()}}</td>
-                                    <td>{{$sub->students->where('exam_group','two')->count()}}</td>
-                                    <td>{{$sub->students->where('exam_group','three')->count()}}</td>
-                                    <td>{{$sub->students->where('exam_group','four')->count()}}</td>
-                                    <td>{{$sub->students->where('exam_group','five')->count()}}</td>
-                                    <td>{{$sub->students->where('exam_group','six')->count()}}</td>
-                                    <td>{{$sub->students->where('exam_group','seven')->count()}}</td>
-                                    <td>{{$sub->students->where('exam_group','eight')->count()}}</td>
-                                    <td>{{$sub->students->where('exam_group','nine')->count()}}</td>
+                                    <td>{{ ++$key }}</td>
+                                    <td>{{ $sub->city_name }}</td>
+                                    <td>{{ $sub->center_name }}</td>
+                                    <td>{{ $sub->capacity }}</td>
+                                    <td>{{ $sub->students->where('exam_group', 'one')->count() }}</td>
+                                    <td>{{ $sub->students->where('exam_group', 'two')->count() }}</td>
+                                    <td>{{ $sub->students->where('exam_group', 'three')->count() }}</td>
+                                    <td>{{ $sub->students->where('exam_group', 'four')->count() }}</td>
+                                    <td>{{ $sub->students->where('exam_group', 'five')->count() }}</td>
+                                    <td>{{ $sub->students->where('exam_group', 'six')->count() }}</td>
+                                    <td>{{ $sub->students->where('exam_group', 'seven')->count() }}</td>
+                                    <td>{{ $sub->students->where('exam_group', 'eight')->count() }}</td>
+                                    <td>{{ $sub->students->where('exam_group', 'nine')->count() }}</td>
                                 </tr>
                             @endforeach                       
                         </tbody>
@@ -52,7 +54,6 @@
         </div>
     </div>
 @endsection
-
 
 @section('js')
 <script src="https://cdn.datatables.net/2.0.8/js/jquery.dataTables.min.js"></script>
