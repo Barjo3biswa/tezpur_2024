@@ -678,6 +678,13 @@ class AdmitCardControllerNew extends Controller
             return response()->json(['error' => 'Unable to create zip file'], 500);
         }
     }
+
+    public function centerWiseDistribution(){
+        $groups = GroupMaster::get();
+        $sub_center = SubExamCenter::get();
+
+        return view('admin.admit_card_new.center-wise-distribution', compact('groups','sub_center'));
+    }
     
     
 }

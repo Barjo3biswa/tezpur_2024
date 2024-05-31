@@ -241,6 +241,11 @@ Route::get("/generate-view", [
 	"as"    => "generate-view"
 ]);
 
+Route::get("/center-wise-distribution", [
+	"uses"  => "Admin\AdmitCardControllerNew@centerWiseDistribution",
+	"as"    => "center-wise-distribution"
+]);
+
 Route::get("/new-admit-generate", [
 	"uses"  => "Admin\AdmitCardControllerNew@generateAdmitCard",
 	"as"    => "new-admit-generate"
@@ -301,6 +306,7 @@ Route::get("/attendence-new", [
 	"uses"  => "Admin\ApplicationController@attendenceSheetNew",
 	"as"    => "attendence-new"
 ]);
+
 
 Route::get("/attendence-view-new", [
 	"uses"  => "Admin\ApplicationController@attendenceSheetViewNew",

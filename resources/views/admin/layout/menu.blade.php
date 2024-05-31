@@ -170,6 +170,7 @@
                 <li><a href="{{ route('admin.attendence-new') }}">Attendence New</a></li>
                 {{-- <li><a href="{{route("admin.mcj_fix")}}">MCJ FIX</a></li> --}}
                 <li><a href="{{ route('admin.export_others') }}">Others</a></li>
+                <li><a href="{{ route('admin.center-wise-distribution') }}">Center Wise Distribution</a></li>
 
             </ul>
         </li>
