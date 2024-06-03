@@ -1337,7 +1337,11 @@ function gettotalCouser()
         }elseif($progtype == "Ph.D."){
             $application->where('is_phd',1)->where('is_visves',0);
         }elseif($progtype=="BDES"){
-            $application->where('is_bdes',1);
+            if($type=="JEE"){
+                $application->where('is_btech',1);
+            }else{
+                $application->where('is_bdes',1);
+            }
         }elseif($progtype=="MDES"){
             $application->where('is_mdes',1);
         }elseif($progtype =="Visvesvaraya"){
