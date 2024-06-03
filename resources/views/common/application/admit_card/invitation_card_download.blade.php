@@ -104,17 +104,22 @@ td {font-size:12px!important;} */
 
     <table width="100%" class="table-2">
         <tr>
-            <td width=20% rowspan="5" style="text-align: center;height:200px;" >
+            <td width=20% rowspan="6" style="text-align: center;height:200px;" >
                 <img style="max-width: 121px; height:150px;border:1px solid"
                     src="{{ base_path('public/uploads/' . $application->student_id . '/' . $application->id . '/' . $application->passport_photo()->file_name ?? 'NA') }}">
             </td>
-            
+            <td colspan=4>
+                <strong>You have been provisionally selected for Personal Interview.
+                For date and venue of Personal Interview, visit <a href="https://www.tezu.ernet.in/">https://www.tezu.ernet.in/</a>  
+                or <a href="https://www.tezuadmissions.in/public/regularly">https://www.tezuadmissions.in/public</a> regularly.
+                </strong>
+            </td>
             {{-- <td width=15%><strong>Roll No</strong></td>
             <td width=25%> <strong>{{ $admit_card->roll_no }}</strong></td>
             <td width=12%><strong>Exam Date/Time</strong></td>
-            <td width=28%> <strong>{{ $admit_card->course->ExamGroup->exam_date }} &nbsp; {{ $admit_card->course->ExamGroup->exam_time }}</strong></td>
+            <td width=28%> <strong>{{ $admit_card->course->ExamGroup->exam_date }} &nbsp; {{ $admit_card->course->ExamGroup->exam_time }}</strong></td> --}}
         </tr>
-        <tr> --}}
+        <tr>
             <td><strong>Registration No</strong></td>
             <td><strong> {{$application->student_id}}</strong></td>
             <td><strong>Application No</strong></td>

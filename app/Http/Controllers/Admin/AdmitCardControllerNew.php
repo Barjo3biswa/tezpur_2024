@@ -560,7 +560,9 @@ class AdmitCardControllerNew extends Controller
                     "Category 1 (Caste)",
                     "Category 3 (PH)",
                     "Scribe required by candidate",
-                    "Batch"
+                    "Batch",
+                    "PWD Percentage",
+                    "Disability Details"
                 );
 
          $callback = function () use ($excel, $columns) {
@@ -598,7 +600,9 @@ class AdmitCardControllerNew extends Controller
                 $row["Category 1 (Caste)"] = $task->active_application->caste->name??'-';
                 $row["Category 3 (PH)"] = $task->active_application->is_pwd==1?'Yes':'-';
                 $row["Scribe required by candidate"] = "-";
-                $row["Batch"] = $task->course->ExamGroup->group_name??'-';
+                $row["Batch"] = $task->course->ExamGroup->exam_slot??'-';
+                $row["PWD Percentage"] = $task->active_application->pwd_percentage??'-';
+                $row["Disability Details"] = $task->active_application->person_with_disablity??'-';
 
             fputcsv($file, array(
                 $row["Sl. No."],
@@ -632,6 +636,8 @@ class AdmitCardControllerNew extends Controller
                 $row["Category 3 (PH)"],
                 $row["Scribe required by candidate"],
                 $row["Batch"],
+                $row["PWD Percentage"],
+                $row["Disability Details"],
             ));
             }
             fclose($file);
