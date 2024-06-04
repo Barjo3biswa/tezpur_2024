@@ -621,7 +621,7 @@ function departments_array()
 function programmes_array()
 {
     $programmes = Course::query();
-    $department_wise = departments_user_wise();
+    $department_wise = departments_user_wiseNew();
     // dd($department_wise);
     $programmes->where('FilterFlag',1)->withTrashed()->when(auth("department_user")->check(), function($query, $department_wise){
         if(in_array(auth("department_user")->id(), [1, 35])){
@@ -876,6 +876,12 @@ function departments_user_wise(){
     return DepartmentAssignedUser::where("department_user_id", auth("department_user")->id())
                                     ->pluck("department_id", "department_id")->toArray();
 }
+
+function departments_user_wiseNew(){
+    return DepartmentAssignedUser::where("department_user_id", auth("department_user")->id())
+                                    ->pluck("department_id")->toArray();
+}
+
 function btechCourseIds(){
     return [72, 73, 74, 75, 76, 77, 111];
 }
