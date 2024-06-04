@@ -626,7 +626,7 @@ function programmes_array()
     if(in_array(auth("department_user")->id(),[178,180,181,182])){
        array_push($department_wise,26);
     }
-    dd($department_wise);
+    // dd($department_wise);
     $programmes->where('FilterFlag',1)->withTrashed()->when(auth("department_user")->check(), function($query){
         if(in_array(auth("department_user")->id(), [1, 35])){
             return $query->whereIn("id", btechCourseIds());
