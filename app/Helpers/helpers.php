@@ -644,9 +644,9 @@ function programmes_array()
         // else{            
         //     $query->whereNotIn("id", btechCourseIds());
         // }
-        return $query->whereIn("department_id", $department_wise/* departments_user_wise() */);
+        return $query->whereIn("department_id", $department_wise);
     });
-    $programmes->when(!auth("student")->check(), function($query, $department_wise){
+    $programmes->when(!auth("student")->check(), function($query){
         return $query->withTrashed();
     });
     return ["" => "--SELECT--"] + $programmes->orderBy("name", "ASC")->pluck("name", "id")->toArray();
