@@ -622,6 +622,10 @@ function programmes_array()
 {
     $programmes = Course::query();
     // return [72, 73, 74, 75, 76, 77, 111];
+    $department_wise = departments_user_wise();
+    if(in_array(auth("department_user")->id(),[178,180,181,182])){
+       array_push($department_wise,26);
+    }
     
     $programmes->where('FilterFlag',1)->withTrashed()->when(auth("department_user")->check(), function($query){
         if(in_array(auth("department_user")->id(), [1, 35])){
@@ -644,7 +648,7 @@ function programmes_array()
         // else{            
         //     $query->whereNotIn("id", btechCourseIds());
         // }
-        return $query->whereIn("department_id", departments_user_wise());
+        return $query->whereIn("department_id", $department_wise);
     });
     $programmes->when(!auth("student")->check(), function($query){
         return $query->withTrashed();
@@ -873,7 +877,8 @@ function getcategories(){
 }
 
 function departments_user_wise(){
-    return DepartmentAssignedUser::where("department_user_id", auth("department_user")->id())->pluck("department_id", "department_id")->toArray();
+    return DepartmentAssignedUser::where("department_user_id", auth("department_user")->id())
+                                    ->pluck("department_id", "department_id")->toArray();
 }
 function btechCourseIds(){
     return [72, 73, 74, 75, 76, 77, 111];
