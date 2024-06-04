@@ -31,8 +31,8 @@ trait ApplicationExport
         // dd($applications->is_cuet_ug);
         $cuet_subjects = CuetSubject::get();
         // dd($applications->first());
-        Excel::create('Applications visvesvaraya'/*  . getActiveSession()->name */, function ($excel) use ($applications, $cuet_subjects) {
-            $excel->sheet('Applications visvesvaraya'/*  . getActiveSession()->name */, function ($sheet) use ($applications, $cuet_subjects) {
+        Excel::create('Applications'/*  . getActiveSession()->name */, function ($excel) use ($applications, $cuet_subjects) {
+            $excel->sheet('Applications'/*  . getActiveSession()->name */, function ($sheet) use ($applications, $cuet_subjects) {
                 // dd("ok");
                 $sheet->setTitle('Applications');
 
