@@ -108,7 +108,7 @@
                                         <strong>Registration No:</strong> {{$atten->application->student_id}}<br/>
                                         <strong>Application No:</strong> {{$atten->application->application_no}}<br/>
                                         {{-- <strong>Gender:</strong> {{$atten->application->gender}}<br/> --}}
-                                        <strong>Course:</strong> {{$atten->course->name}}<br/>
+                                        <strong>Subject:</strong> {{$atten->course->name}}<br/>
                                     </td></td>
                                     <td><img style="height:100px; width: 90px; border: 1px solid black; "
                                             src="{{ route('common.download.image', [$atten->active_application->student_id, $atten->active_application->id, $atten->active_application->passport_photo()->file_name ?? 'NA']) }}">
