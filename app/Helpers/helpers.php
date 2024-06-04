@@ -621,8 +621,9 @@ function departments_array()
 function programmes_array()
 {
     $programmes = Course::query();
+    $department_wise = departments_user_wise();
     // dd($department_wise);
-    $programmes->where('FilterFlag',1)->withTrashed()->when(auth("department_user")->check(), function($query){
+    $programmes->where('FilterFlag',1)->withTrashed()->when(auth("department_user")->check(), function($query, $department_wise){
         if(in_array(auth("department_user")->id(), [1, 35])){
             return $query->whereIn("id", btechCourseIds());
             // all english except chinese
@@ -645,7 +646,7 @@ function programmes_array()
         // }
         return $query->whereIn("department_id", departments_user_wise());
     });
-    $programmes->when(!auth("student")->check(), function($query){
+    $programmes->when(!auth("student")->check(), function($query, $department_wise){
         return $query->withTrashed();
     });
     return ["" => "--SELECT--"] + $programmes->orderBy("name", "ASC")->pluck("name", "id")->toArray();
