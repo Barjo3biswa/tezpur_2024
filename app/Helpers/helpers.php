@@ -627,7 +627,7 @@ function programmes_array()
        array_push($department_wise,26);
     }
     
-    $programmes->where('FilterFlag',1)->withTrashed()->when(auth("department_user")->check(), function($query){
+    $programmes->where('FilterFlag',1)->withTrashed()->when(auth("department_user")->check(), function($query, $department_wise){
         if(in_array(auth("department_user")->id(), [1, 35])){
             return $query->whereIn("id", btechCourseIds());
             // all english except chinese
