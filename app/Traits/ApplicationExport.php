@@ -116,6 +116,9 @@ trait ApplicationExport
                     "Proposed Area Of Resarch"    => "Proposed Area Of Resarch",
                     "qualified_national_level_test"  => "qualified_national_level_test",
                     "qualified_national_level_test_mark" => "qualified_national_level_test_mark",
+                    "cuet_roll_no" => "cuet_roll_no",
+                    "cuet_form_no" => "cuet_form_no",
+                    "cuet_year" => "cuet_year",
                 ];
                 for ($val=1; $val <=8; $val++) { 
                     $arr[] = "Exam name $val";
@@ -223,7 +226,10 @@ trait ApplicationExport
 
                        
                         "qualified_national_level_test" => $application->application_academic->qualified_national_level_test?? "NA",
-                        'qualified_national_level_test_mark' => $application->application_academic->qualified_national_level_test_mark??"NA"
+                        'qualified_national_level_test_mark' => $application->application_academic->qualified_national_level_test_mark??"NA",
+                        "cuet_roll_no" => $application->application_academic->cuet_roll_no?? "NA",
+                        "cuet_form_no" => $application->application_academic->cuet_form_no?? "NA",
+                        "cuet_year" => $application->application_academic->cuet_year?? "NA",
                     ];
 
 
