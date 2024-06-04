@@ -621,7 +621,7 @@ function departments_array()
 function programmes_array()
 {
     $programmes = Course::query();
-
+    // return [72, 73, 74, 75, 76, 77, 111];
     
     $programmes->where('FilterFlag',1)->withTrashed()->when(auth("department_user")->check(), function($query){
         if(in_array(auth("department_user")->id(), [1, 35])){
@@ -639,7 +639,7 @@ function programmes_array()
         }elseif(in_array(auth("department_user")->id(),[42])){
             $query->whereIn("id", [89,90,91,92,93,94,95]);
         }elseif(in_array(auth("department_user")->id(),[178,180,181,182])){
-            $query->whereIn("id", [72,73,74,75,76,77,83]);
+            $query->whereIn("id", [72,73,74,75,76,77,83,111]);
         }
         // else{            
         //     $query->whereNotIn("id", btechCourseIds());
