@@ -621,11 +621,6 @@ function departments_array()
 function programmes_array()
 {
     $programmes = Course::query();
-    // return [72, 73, 74, 75, 76, 77, 111];
-    $department_wise = departments_user_wise();
-    if(in_array(auth("department_user")->id(),[178,180,181,182])){
-       array_push($department_wise,26);
-    }
     // dd($department_wise);
     $programmes->where('FilterFlag',1)->withTrashed()->when(auth("department_user")->check(), function($query){
         if(in_array(auth("department_user")->id(), [1, 35])){
