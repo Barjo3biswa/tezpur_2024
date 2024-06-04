@@ -876,7 +876,7 @@ function departments_user_wise(){
     return DepartmentAssignedUser::where("department_user_id", auth("department_user")->id())->pluck("department_id", "department_id")->toArray();
 }
 function btechCourseIds(){
-    return [72, 73, 74, 75, 76, 77];
+    return [72, 73, 74, 75, 76, 77, 111];
 }
 function application_dept_filters($application){
 
