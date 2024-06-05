@@ -533,6 +533,7 @@ class AdmitCardControllerNew extends Controller
                     "Sl. No.",
                     "Roll Number (User ID)",
                     "Subjects",
+                    "Course Code",
                     "Password (DOB in DDMMYYYY)",
                     "Candidate Name",
                     "Mother name",
@@ -573,6 +574,7 @@ class AdmitCardControllerNew extends Controller
                 $row["Sl. No."] = $key + 1;
                 $row["Roll Number (User ID)"] = $task->roll_no;
                 $row["Subjects"] = $task->course->name??'-';
+                $row["Course Code"]= $task->course->code??'-';
                 $row["Password (DOB in DDMMYYYY)"] = $task->active_application->dob;
                 $row["Candidate Name"] = $task->active_application->FullName??'-';
                 $row["Mother name"] = $task->active_application->father_name??"-";
@@ -608,6 +610,7 @@ class AdmitCardControllerNew extends Controller
                 $row["Sl. No."],
                 $row["Roll Number (User ID)"],
                 $row["Subjects"],
+                $row["Course Code"],
                 $row["Password (DOB in DDMMYYYY)"],
                 $row["Candidate Name"],
                 $row["Mother name"],
