@@ -130,7 +130,9 @@ td {font-size:12px!important;} */
             <td><strong> {{ $admit_card->applied_course_details->application_number }}</strong></td> --}}
             <td><strong>Program Name</strong></td>
             <th colspan=3>  @foreach($application->applied_courses as $applied)
-                                {{$applied->course->name}}({{$applied->course->code}}) <br/>
+                                @if(!$applied->admitcard)
+                                    {{$applied->course->name}}({{$applied->course->code}}) <br/>
+                                @endif
                             @endforeach
             </th>
         </tr>

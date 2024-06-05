@@ -2280,6 +2280,15 @@ class CommonApplicationController extends Controller
             return redirect()->back()
                 ->with("error", "Whoops! Something went wrong please try again later.");
         }
+        $flag = 0;
+        foreach($application->applied_courses as $applied){
+            if($applied->admitcard){
+                $flag =$flag+1;
+            }
+        }
+        if($flag == 0){
+            return redirect()->back()->with("error", "Whoops! Something went wrong please contact technical support.");
+        }
 
         saveLogs(auth(get_guard())->id(), auth(get_guard())->user()->name, get_guard(), "Admit card Downloaded for application no {$application->application_no}.");
         $pdf = PDF::loadView("common/application/admit_card/invitation_card_download", compact("application"));
