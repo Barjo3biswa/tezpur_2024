@@ -188,17 +188,17 @@ class DashboardCntroller extends Controller
         }
         
         //////update is phd through net/jrf/etc
-        $application = Application::where('is_phd',1)->where('session_id',13)->WhereNotNull('application_no')->where('net_jrf',0)->get();
+        // $application = Application::where('is_phd',1)->where('session_id',13)->WhereNotNull('application_no')->where('net_jrf',0)->get();
         
-        foreach($application as $app){
-            if ($app->isNetJrfthird || $app->isNetJrfQualifiedSecond){
-                Application::where('id',$app->id)->update(['net_jrf'=>1]);
-                // $app->update(['net_jrf',1]);
-            }else{
-                Application::where('id',$app->id)->update(['net_jrf'=>2]);
-                // $app->update(['net_jrf',2]);
-            }
-        }
+        // foreach($application as $app){
+        //     if ($app->isNetJrfthird || $app->isNetJrfQualifiedSecond){
+        //         Application::where('id',$app->id)->update(['net_jrf'=>1]);
+        //         // $app->update(['net_jrf',1]);
+        //     }else{
+        //         Application::where('id',$app->id)->update(['net_jrf'=>2]);
+        //         // $app->update(['net_jrf',2]);
+        //     }
+        // }
         // dd("ok");
         /////Ends
         // dd($active_session);
