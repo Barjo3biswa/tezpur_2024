@@ -2282,11 +2282,12 @@ class CommonApplicationController extends Controller
         }
         $flag = 0;
         foreach($application->applied_courses as $applied){
+            // dump()
             if($applied->admitcard){
                 $flag =$flag+1;
             }
         }
-        if($flag == 0){
+        if($flag == $application->applied_courses->count()){
             return redirect()->back()->with("error", "Whoops! Something went wrong please contact technical support.");
         }
 
