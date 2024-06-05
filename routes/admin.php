@@ -424,3 +424,8 @@ Route::get("/failed-payments", [
 	"uses"  => "Admin\ApplicationController@failedPayments",
 	"as"    => "failed-payments"
 ]);
+
+Route::get("/download-invitation-card/{id}", [
+	"uses"  => "Student\ApplicationController@downloadInvitationAdmin",
+	"as"    => "download-invitation-card"
+]);
