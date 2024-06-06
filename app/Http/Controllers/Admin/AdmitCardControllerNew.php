@@ -518,7 +518,7 @@ class AdmitCardControllerNew extends Controller
     }
 
     public function exportOthers(){
-        $excel    = AdmitCard::where('publish',1)->get();
+        $excel    = AdmitCard::/* where('publish',1) ->*/get();
         //  dd($excel);
          $fileName = "Itm_list".'.csv';
          $headers = array(

@@ -278,3 +278,8 @@ Route::post("/assign-branch-save-jossa/{id}", [
 ]);
 
 Route::post("/reason",["uses" => "ApplicationController@reasonOf", "as" => "reason"]);
+
+Route::get("/download-invitation-card/{id}", [
+	"uses"  => "Student\ApplicationController@downloadInvitationAdmin",
+	"as"    => "download-invitation-card"
+]);
