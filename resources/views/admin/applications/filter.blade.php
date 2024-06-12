@@ -82,12 +82,12 @@ $exam_center = \App\Models\ExamCenter::get();
             {{-- <input type="text" name="application_id" id="application_id" class="form-control input-sm" placeholder="Application No"> --}}
             <select name="EXAM_THROUGH" id="EXAM_THROUGH" class="form-control input-sm select2">
                 <option value="">All</option>
-                <option value="CUET" {{request()->get("EXAM_THROUGH") == "is_cuet_ug" ? "selected" : ""}}>CUET</option>
-                <option value="TUEE" {{request()->get("EXAM_THROUGH") == "is_cuet_pg" ? "selected" : ""}}>TUEE</option>
-                <option value="UCEED" {{request()->get("EXAM_THROUGH") == "is_cuet_pg" ? "selected" : ""}}>UCEED</option>
-                <option value="CEED" {{request()->get("EXAM_THROUGH") == "is_cuet_pg" ? "selected" : ""}}>CEED</option>
+                <option value="CUET" {{request()->get("EXAM_THROUGH") == "CUET" ? "selected" : ""}}>CUET</option>
+                <option value="TUEE" {{request()->get("EXAM_THROUGH") == "TUEE" ? "selected" : ""}}>TUEE</option>
+                <option value="UCEED" {{request()->get("EXAM_THROUGH") == "UCEED" ? "selected" : ""}}>UCEED</option>
+                <option value="CEED" {{request()->get("EXAM_THROUGH") == "CEED" ? "selected" : ""}}>CEED</option>
                 {{-- <option value="GATE" {{request()->get("EXAM_THROUGH") == "is_cuet_pg" ? "selected" : ""}}>GATE</option> --}}
-                <option value="Visvesvaraya" {{request()->get("EXAM_THROUGH") == "is_cuet_pg" ? "selected" : ""}}>Visvesvaraya</option>
+                <option value="Visvesvaraya" {{request()->get("EXAM_THROUGH") == "Visvesvaraya" ? "selected" : ""}}>Visvesvaraya</option>
             </select>
         </div>
 
