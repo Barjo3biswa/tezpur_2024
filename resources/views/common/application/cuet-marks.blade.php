@@ -29,6 +29,10 @@
                     {{-- Integrated B.Sc.B.Ed. && Integrated M.Com.(4+1 Years as per NEP 2020)--}}
                         <div class="row">
                             <div class="col-md-4">
+                                <label for="">Roll No</label>
+                                <input type="number" class="form-control" name="roll_no[]" value="">
+                            </div>
+                            <div class="col-md-4">
                                 <label for="">Paper Code</label>
                                 <select name="course_code[]" class="form-control" readonly required>
                                     <option value="1" selected>English</option>
@@ -36,49 +40,84 @@
                             </div>
                             <div class="col-md-4">
                                 <label for="">CUET Total Marks (Obtained)</label>
-                                <input type="text" class="form-control" name="marks[]" required>
+                                <input type="number" class="form-control" name="marks[]" required>
                             </div>
-
+                            
                             {{-- <div class="col-md-4">
                                 <label for="">CUET Percentile Score</label>
                                 <input type="text" class="form-control" name="percentile[]" required>
                             </div> --}}
                         </div>
+                        <br>
                     @endif
-
+                    
                     @php
                         $count=0;
                     @endphp
-                    @foreach ($application->applied_courses as $key=>$applied)
-                        @foreach ($applied->cuet_course_code as $course)
-                            <div class="row">
-                                <div class="col-md-4">
-                                    @if ($count == 0 && $application->is_cuet_pg==1)
-                                        <label for="">Paper Code</label>
-                                    @endif
-                                    <select name="course_code[]" class="form-control" readonly>
-                                        <option value="{{$course->id}}" selected>{{$course->subject_name}}</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-4">
-                                    @if ($count == 0 && $application->is_cuet_pg==1)
-                                        <label for="">Total Marks (Obtained)</label>
-                                    @endif
-                                    <input type="text" class="form-control" name="marks[]" value="{{ old('marks.' . $count) }}">
-                                </div>
-                                {{-- <div class="col-md-4">
-                                    @if ($count == 0 && $application->is_cuet_pg==1)
-                                        <label for="">CUET Percentile Score</label>
-                                    @endif
-                                    <input type="text" class="form-control" name="percentile[]" value="{{ old('percentile.' . $count) }}">
-                                </div> --}}
-                            </div> 
-                            @php
-                                $count = $count+1;
-                            @endphp
-                            <br>
-                        @endforeach   
-                    @endforeach  
+
+                    @if ($application->is_cuet_ug==1)
+                        @foreach ($application->applied_courses as $key=>$applied)
+                            @foreach ($applied->cuet_course_code as $course)
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <input type="number" class="form-control" name="roll_no[]" value="roll_no">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <select name="course_code[]" class="form-control" readonly>
+                                            <option value="{{$course->id}}" selected>{{$course->subject_name}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="number" class="form-control" name="marks[]" value="{{ old('marks.' . $count) }}">
+                                    </div>
+                                    {{-- <div class="col-md-4">
+                                        @if ($count == 0 && $application->is_cuet_pg==1)
+                                            <label for="">CUET Percentile Score</label>
+                                        @endif
+                                        <input type="text" class="form-control" name="percentile[]" value="{{ old('percentile.' . $count) }}">
+                                    </div> --}}
+                                </div> 
+                                @php
+                                    $count = $count+1;
+                                @endphp
+                                <br>
+                            @endforeach   
+                        @endforeach 
+                    @endif
+
+                    @if ($application->is_cuet_pg==1)
+                        @foreach ($application->applied_courses as $key=>$applied)
+                            @foreach ($applied->cuet_course_code as $course)
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        @if ($count == 0 && $application->is_cuet_pg==1)
+                                            <label for="">Paper Code</label>
+                                        @endif
+                                        <select name="course_code[]" class="form-control" readonly>
+                                            <option value="{{$course->id}}" selected>{{$course->subject_name}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        @if ($count == 0 && $application->is_cuet_pg==1)
+                                            <label for="">Total Marks (Obtained)</label>
+                                        @endif
+                                        <input type="number" class="form-control" name="marks[]" value="{{ old('marks.' . $count) }}">
+                                    </div>
+                                    {{-- <div class="col-md-4">
+                                        @if ($count == 0 && $application->is_cuet_pg==1)
+                                            <label for="">CUET Percentile Score</label>
+                                        @endif
+                                        <input type="text" class="form-control" name="percentile[]" value="{{ old('percentile.' . $count) }}">
+                                    </div> --}}
+                                </div> 
+                                @php
+                                    $count = $count+1;
+                                @endphp
+                                <br>
+                            @endforeach   
+                        @endforeach 
+                    @endif
+                     
                     
                     <div class="row">
                         <div class="col-md-4">

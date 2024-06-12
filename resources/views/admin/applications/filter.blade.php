@@ -77,15 +77,27 @@ $exam_center = \App\Models\ExamCenter::get();
             </select>
         </div>
 
-        
+        <div class="col-sm-3">
+            <label for="program" class="label-control">CUET/ TUEE:</label>
+            {{-- <input type="text" name="application_id" id="application_id" class="form-control input-sm" placeholder="Application No"> --}}
+            <select name="EXAM_THROUGH" id="EXAM_THROUGH" class="form-control input-sm select2">
+                <option value="">All</option>
+                <option value="CUET" {{request()->get("EXAM_THROUGH") == "is_cuet_ug" ? "selected" : ""}}>CUET</option>
+                <option value="TUEE" {{request()->get("EXAM_THROUGH") == "is_cuet_pg" ? "selected" : ""}}>TUEE</option>
+                <option value="UCEED" {{request()->get("EXAM_THROUGH") == "is_cuet_pg" ? "selected" : ""}}>UCEED</option>
+                <option value="CEED" {{request()->get("EXAM_THROUGH") == "is_cuet_pg" ? "selected" : ""}}>CEED</option>
+                <option value="GATE" {{request()->get("EXAM_THROUGH") == "is_cuet_pg" ? "selected" : ""}}>GATE</option>
+                <option value="Visvesvaraya" {{request()->get("EXAM_THROUGH") == "is_cuet_pg" ? "selected" : ""}}>Visvesvaraya</option>
+            </select>
+        </div>
 
         <div class="col-sm-3">
             <label for="program" class="label-control">UG/PG/PHD:</label>
             {{-- <input type="text" name="application_id" id="application_id" class="form-control input-sm" placeholder="Application No"> --}}
             <select name="ug_pg" id="ug_pg" class="form-control input-sm select2">
                 <option value="">All</option>
-                <option value="is_cuet_ug" {{request()->get("ug_pg") == "is_cuet_ug" ? "selected" : ""}}>CUET-UG</option>
-                <option value="is_cuet_pg" {{request()->get("ug_pg") == "is_cuet_pg" ? "selected" : ""}}>CUET-PG</option>
+                <option value="is_cuet_ug" {{request()->get("ug_pg") == "is_cuet_ug" ? "selected" : ""}}>UG</option>
+                <option value="is_cuet_pg" {{request()->get("ug_pg") == "is_cuet_pg" ? "selected" : ""}}>PG</option>
                 <option value="is_phd" {{request()->get("ug_pg") == "is_phd" ? "selected" : ""}}>PHD</option>
             </select>
         </div>

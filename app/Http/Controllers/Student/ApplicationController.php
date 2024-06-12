@@ -2222,7 +2222,7 @@ class ApplicationController extends CommonApplicationController
         }elseif($application->is_cuet_pg==1){
             $flag=DB::table('programs')->where('id',2)->first()->cuet_marks;
         }
-
+        // dd($application);
         if($application->cuet_status==1){
             return redirect()->back()->with('error','Already Updated');
         }
@@ -2279,7 +2279,7 @@ class ApplicationController extends CommonApplicationController
             if ($application->cuet_exam_details()) {
                 $application->cuet_exam_details()->delete();
             }
-
+            $flag = 0;
             for ($i = 0; $i < count($request->course_code); $i++) {
                 $sub_name = CuetSubject::where('id',$request->course_code[$i])->first()->subject_name;
                 if($request->marks[$i] || $request->percentile[$i]){
@@ -2298,7 +2298,10 @@ class ApplicationController extends CommonApplicationController
                     //         return redirect()->back()->withInput()->withErrors($validator);
                     //     }
                     // }
+                    // dump($request->marks[$i]);
+                    $flag = $flag+1;
                     $quali = CuetExamDetail::create([
+                        'roll_no' => $request->roll_no[$i]??'',
                         'application_id' => $decrypted,
                         'student_id' => $application->student_id,
                         'subjects' => $sub_name,
@@ -2308,7 +2311,10 @@ class ApplicationController extends CommonApplicationController
                 }
                 
             }
-
+            // dd($flag);
+            if($flag == 0 || $flag == 1 && $application->is_cuet_ug==1){
+                return redirect()->back()->with('error','Please Enter Marks.');
+            }
             $uploaded_docs = $this->storeDocs($request, $application);
             $attachment_data = [];
             $deleted_condition = [];
