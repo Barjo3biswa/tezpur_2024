@@ -91,6 +91,9 @@ $exam_center = \App\Models\ExamCenter::get();
             </select>
         </div>
 
+    </div>
+    <br>
+    <div class="row">
         <div class="col-sm-3">
             <label for="program" class="label-control">UG/PG/PHD:</label>
             {{-- <input type="text" name="application_id" id="application_id" class="form-control input-sm" placeholder="Application No"> --}}
@@ -101,10 +104,6 @@ $exam_center = \App\Models\ExamCenter::get();
                 <option value="is_phd" {{request()->get("ug_pg") == "is_phd" ? "selected" : ""}}>PHD</option>
             </select>
         </div>
-
-    </div>
-    <br>
-    <div class="row">
         <div class="col-sm-3">
             <label for="aplicant_name" class="label-control">Applicant Name:</label>
             <input type="text" name="aplicant_name" id="aplicant_name" class="form-control input-sm"
