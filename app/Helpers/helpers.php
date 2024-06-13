@@ -1349,8 +1349,12 @@ function gettotalCouser()
             $application->where('is_visves',1);
         }
 
+        $exam_type = [$type];
+        if($type == 'TUEE'){
+            $exam_type = ['TUEE','GATE'];
+        }
         if($type!="ALL"){
-            $application->where('exam_through',$type);
+            $application->whereIn('exam_through',$exam_type);
         }
 
         $program_array=programmes_array();

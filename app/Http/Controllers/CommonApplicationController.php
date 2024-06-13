@@ -158,9 +158,13 @@ class CommonApplicationController extends Controller
                 $application->where('is_visves',1);
             }
         }
+        $exam_type = [$request->EXAM_THROUGH];
+        if($request->EXAM_THROUGH == 'TUEE'){
+            $exam_type = ['TUEE','GATE'];
+        }
 
         if(isset($request->EXAM_THROUGH)){
-           $application->where('exam_through', $request->EXAM_THROUGH);
+           $application->whereIn('exam_through', $exam_type);
         }
         
         $this->applicationStatusFilter($request, $application);
