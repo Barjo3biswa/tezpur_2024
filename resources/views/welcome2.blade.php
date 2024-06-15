@@ -1002,7 +1002,7 @@
                                         @elseif($updates->is_hyperlink==2)
                                             target="_blank"
                                             href="{{ $updates->folder_name . '/' . $updates->file_name }}"
-                                        @elseif($updates->is_hyperlink==2)
+                                        @elseif($updates->is_hyperlink==3)
                                             target="_blank"
                                             href="{{ $updates->link }}"
                                         @else
