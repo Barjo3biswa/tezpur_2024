@@ -1002,6 +1002,9 @@
                                         @elseif($updates->is_hyperlink==2)
                                             target="_blank"
                                             href="{{ $updates->folder_name . '/' . $updates->file_name }}"
+                                        @elseif($updates->is_hyperlink==2)
+                                            target="_blank"
+                                            href="{{ $updates->link }}"
                                         @else
                                         href="javascript:void(0)"
                                         @endif>{{ $updates->heading }}
@@ -1012,7 +1015,8 @@
                                                     <span class="badge badge-danger blink"> Updated </span>
                                                 @endif
                                             <span class="text-info date">{{ \Carbon\Carbon::parse($updates->date)->format('d-M-Y') }}</span>
-                                        </a></li>
+                                        </a>
+                                    </li>
                                 @endforeach
                                 {{-- <li><a target="_blank" href="{{asset("notifications/2023/TUEE2023_ProgrammeSchedule.pdf")}}">TUEE Program Schedule &nbsp;<span class="badge badge-danger blink">New</span><span class="text-info date">24-Mar-2023</span> </a></li> --}}
 
