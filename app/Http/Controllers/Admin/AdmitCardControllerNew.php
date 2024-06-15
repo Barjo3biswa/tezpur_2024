@@ -484,7 +484,7 @@ class AdmitCardControllerNew extends Controller
            
             // $mail_control=ZzzMailControl::first();
             // $message = $mail_control->message;
-            $sendable_person = ZzzMailSendTo::where('is_send',0)->get()->take(50);
+            $sendable_person = ZzzMailSendTo::where('is_send',0)->get()->take(100);
             
             foreach($sendable_person as $mail){
                 // if($mail->application_no!=null){

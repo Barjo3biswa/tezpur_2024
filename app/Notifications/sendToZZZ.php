@@ -51,7 +51,7 @@ class sendToZZZ extends Notification
             ->greeting('Urgent Information. LAST CHANCE!!')
             ->line('Dear Applicant,')
             ->line($this->message)
-            ->line('Failure to do so will result in your application being subject to rejection. Ignore if the information is already updated.')
+            ->line('Failure to do so will result in your application being subject to rejection. Ignore this mail if the information is already updated.')
             ->line('Do Not Reply To This Mail.')
             ->cc($this->cc);
     }
