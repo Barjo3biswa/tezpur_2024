@@ -66,6 +66,25 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-3">
+                                Select Course Seat Type
+                            </div>
+                            <div class="col-md-8">
+                                
+                                <select name="course_seat_type" class="js-example-basic-single" style="width:100% !important" required autocomplete="off">
+                                    <option value="">Select</option>
+                                    @foreach($CourseSeatTypeMaster as $key=>$seat_type)
+                                        <option value="{{$seat_type->id}}" @if($seat_type->id == old('seat_type_id')) selected @endif >{{$seat_type->name}}</option>
+                                    @endforeach
+                                </select>
+                            
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="form-group">
                         <div class="row">
                             <div class="col-md-3">

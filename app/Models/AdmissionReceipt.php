@@ -55,11 +55,13 @@ class AdmissionReceipt extends Model
     public function generateRollNumber()
     {
         $course = Course::withTrashed()->find($this->course_id);
+        $current_session = Session::where('is_active',1)->first()->id;
         // counting all previous admitted student to the same course/programm
         // first time its return zero
         if(!in_array($this->course_id,[79])){
         $count = AdmissionReceipt::where("course_id", $this->course_id)
             ->whereYear("created_at", date("Y"))
+            ->where('session_id',$current_session)
             ->where("id", "<", $this->id)
             ->withTrashed()
             ->count();
@@ -74,6 +76,7 @@ class AdmissionReceipt extends Model
 
             $countII = AdmissionReceipt::where("course_id", 79)
             ->whereYear("created_at", date("Y"))
+            ->where('session_id',$current_session)
             ->where("id", "<", $this->id)
             ->withTrashed()
             ->count();

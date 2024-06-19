@@ -69,8 +69,11 @@ class newAdmissionController extends Controller
         }
 
         $list=MeritMaster::where('course_id',$course_id )->get();
+        $merit_master = MeritMaster::where('id',$request->merit_master_id)->first();
         $admission_cat = CourseSeat::with('admissionCategory')
-            ->where('course_id', $course_id)->orderBy('admission_order')->get();
+                                    ->where('course_id', $course_id)
+                                    ->where('course_seat_type_id', $merit_master->course_seat_type_id??'')
+                                    ->orderBy('admission_order')->get();
 
 
         $merit_lists = $merit_lists->get();
@@ -91,7 +94,7 @@ class newAdmissionController extends Controller
         $course_seat  = CourseSeats::where('course_id', $course_id)->where('admission_category_id', $admission_cat)->first();
        
         $currentDate = Carbon::now()->format('Y-m-d');
-        $admissionDate = Carbon::parse($course_seat->admission_date)->format('Y-m-d');
+        $admissionDate = $course_seat->admission_date ? Carbon::parse($course_seat->admission_date)->format('Y-m-d') : null;
         if ($currentDate !== $admissionDate) {
             return redirect()->back()->with('error', 'Please wait till Admission Date for this admission category.');
         }
@@ -246,11 +249,13 @@ class newAdmissionController extends Controller
         /////ends
 
         $currentDate = Carbon::now()->format('Y-m-d');
-        $admissionDate = Carbon::parse($course_seat->admission_date)->format('Y-m-d');
+        $admissionDate = $course_seat->admission_date ? Carbon::parse($course_seat->admission_date)->format('Y-m-d') : null;
         if ($currentDate !== $admissionDate) {
             return redirect()->back()->with('error', 'Please wait till Admission Date for this admission category.');
         }
-        
+        // dump($currentDate);
+        // dump($admissionDate);
+        // dd("ok");
         DB::beginTransaction();
         try {
             if ($available_seat > $eligible_students->count()) {$available_seat = $eligible_students->count();} //handle list index out of range
@@ -361,8 +366,9 @@ class newAdmissionController extends Controller
     public function loadCategory(Request $request)
     {
 
+        $merit_master = MeritMaster::where('id', $request->merit_master_id)->first();
         $admission_categories = CourseSeat::with('admissionCategory')
-            ->where('course_id', $request->course_id)
+            ->where('course_id', $request->course_id)->where('course_seat_type_id',$merit_master->course_seat_type_id)
         /* ->where('admission_flag','!=','Closed') */->orderBy('admission_order')->get();
         return response()->json(['success' => true, 'data' => $admission_categories]);
 
@@ -517,8 +523,15 @@ class newAdmissionController extends Controller
             $merit_lists = $merit_lists->where('merit_master_id', $merit_master_id);
         }
         if ($request->has('admission_cat')) {
-            $course_seat    = CourseSeats::where('course_id', $course_id)->where('admission_category_id', $request->admission_cat)->first();
-            if ($request->submit == "Process" && $course_seat->invitation_flag==0) {         
+            $merit_master = MeritMaster::where('id',$merit_master_id)->first();
+            $course_seat    = CourseSeats::where('course_id', $course_id)
+                                            ->where('course_seat_type_id', $merit_master->course_seat_type_id)
+                                            ->where('admission_category_id', $request->admission_cat)
+                                            ->first();
+            if(!$course_seat){
+                return redirect()->back()->with('error','Course Seat Not Found');
+            }
+            if ($request->submit == "Process" && $course_seat->invitation_flag==0) {       
                 $available_seat = $course_seat->total_seats - $course_seat->total_seats_applied;
                 $count          = $request->ratio * $available_seat;
                 if ($request->admission_cat == 7) { //for pwd
@@ -552,8 +565,12 @@ class newAdmissionController extends Controller
             }
         }
         $list=MeritMaster::where('course_id',$course_id )->get();
+        $merit_master = MeritMaster::where('id',$request->merit_master_id)->first();
         $admission_cat = CourseSeat::with('admissionCategory')
-            ->where('course_id', $course_id)->orderBy('admission_order')->get();
+                                    ->where('course_id', $course_id)
+                                    ->where('course_seat_type_id', $merit_master->course_seat_type_id??'')
+                                    ->orderBy('admission_order')->get();
+        // dd($admission_cat);
         $merit_lists = $merit_lists->get();
 
         if (auth("admin")->check()) {
@@ -629,6 +646,7 @@ class newAdmissionController extends Controller
     }
 
     public function holdSeatOnline($id){
+        // dd("ok");
         try {
             $decrypted = Crypt::decrypt($id);
         } catch (\Exception $e) {
@@ -640,6 +658,7 @@ class newAdmissionController extends Controller
             $valid_till=Carbon::parse($valid_ml->valid_till);
             // dd($valid_till);
             $date_to      = $valid_till->copy()->addHours(4);
+            // dd($date_to);
             MeritList::where('id',$decrypted)->update(['new_status'=>'time_extended',
                                                         'valid_till'=>$date_to, ]);
             $course_seat=CourseSeat::where('course_id',$valid_ml->course_id)->where('admission_category_id',$valid_ml->admission_category_id)->first();

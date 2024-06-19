@@ -39,6 +39,7 @@ Route::group(['prefix' => 'merit'], function () {
     Route::post("/store",["uses" => "Admin\MeritController@store", "as" => "merit.store"]);
     Route::get("/index",["uses" => "Admin\MeritController@index", "as" => "merit.index"]);
 	Route::post("/merit-master",["uses" => "Admin\MeritController@meritMaster", "as" => "merit.master"]);
+	Route::post("/merit-master-new",["uses" => "Admin\MeritController@meritMasterNew", "as" => "merit.master-new"]);
 	Route::get("/admission-receipt/{id}", [
 		"uses"	=> "Admin\MeritController@admissionPaymentReceipt",
 		"as"	=> "merit.admission-receipt"
