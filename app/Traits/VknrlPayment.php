@@ -44,6 +44,9 @@ trait VknrlPayment
         try {
             $application = Application::with("online_payment_tried", "online_payments_succeed")->find($decrypted_id);
 
+            if($application->is_cuet_pg==1){
+                return redirect()->back()->with(["error" => "Try Again.", "status" => false], 501);
+            }
             // //is closed validation
             $application_type = Application::where('id',$decrypted_id)->first()->exam_through;
             $prog_name = Auth::user()->program_name;

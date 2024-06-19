@@ -13,7 +13,7 @@
         "hesto/multi-auth": "^2.0",
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
-        "maatwebsite/excel": "~2.1.0",
+        "maatwebsite/excel": "*",
         "mews/captcha": "^2.2",
         "payabbhi/payabbhi-php": "^1.0",
         "pusher/pusher-php-server": "^7.2",
