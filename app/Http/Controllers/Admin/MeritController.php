@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Course;
+use App\CourseSeatTypeMaster;
 use App\Http\Controllers\Controller;
 use App\Models\AdmissionCategory;
 use App\Models\Application;
@@ -118,7 +119,9 @@ class MeritController extends CommomMeritController
     {
         //
         $courses = Course::withTrashed()->get();
-        return view('admin.merit.create', compact('courses'));
+        $CourseSeatTypeMaster = CourseSeatTypeMaster::get();
+        // dd($CourseSeatTypeMaster);
+        return view('admin.merit.create', compact('courses','CourseSeatTypeMaster'));
     }
 
     public function meritMaster(Request $request)
@@ -128,6 +131,19 @@ class MeritController extends CommomMeritController
         $course_id            = $request->course_id;
         $admission_categories = AdmissionCategory::with(['CourseSeats' => function ($query) use ($course_id) {
             $query->where('course_id', $course_id);
+        }])->where('status', 1)->get();
+        return response()->json(['success' => true, 'data' => $courses, 'admission_categories' => $admission_categories]);
+
+    }
+
+    public function meritMasterNew(Request $request)
+    {
+        //
+        $courses              = MeritMaster::where('id', $request->merit_master)->first();
+        $course_id            = $courses->course_id;
+        $course_seat_type_id = $courses->course_seat_type_id;
+        $admission_categories = AdmissionCategory::with(['CourseSeats' => function ($query) use ($course_id, $course_seat_type_id) {
+            $query->where('course_id', $course_id)->where('course_seat_type_id', $course_seat_type_id);
         }])->where('status', 1)->get();
         return response()->json(['success' => true, 'data' => $courses, 'admission_categories' => $admission_categories]);
 
@@ -189,6 +205,7 @@ class MeritController extends CommomMeritController
                     $message                        = [];
                     $master                         = [];
                     $master['name']                 = $request->name;
+                    $master['course_seat_type_id']     = $request->course_seat_type;
                     $master['session_year']         = $session_year;
                     $master['course_id']            = $request->course_id;
                     $master['initial_opening_date'] = $request->date_from;
@@ -196,6 +213,7 @@ class MeritController extends CommomMeritController
                     $master['processing_technique'] = $request->processing_technique;
                     $master['merit_or_waiting']     = $request->list_type;
                     $master['admission_by_whom']    = $request->admission_technique;
+                    // dd($master);
                     $merit_master                   = MeritMaster::create($master);
                     // dd("ok");
                     //MeritList::where('course_id',$request->course_id)->where('status','!=',2)->where('status','!=',3)->update(['status'=>'4']);

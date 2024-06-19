@@ -417,6 +417,19 @@ class MeritController extends CommomMeritController
 
     }
 
+    public function meritMasterNew(Request $request)
+    {
+        //
+        $courses              = MeritMaster::where('id', $request->merit_master)->first();
+        $course_id            = $courses->course_id;
+        $course_seat_type_id = $courses->course_seat_type_id;
+        $admission_categories = AdmissionCategory::with(['CourseSeats' => function ($query) use ($course_id, $course_seat_type_id) {
+            $query->where('course_id', $course_id)->where('course_seat_type_id', $course_seat_type_id);
+        }])->where('status', 1)->get();
+        return response()->json(['success' => true, 'data' => $courses, 'admission_categories' => $admission_categories]);
+
+    }
+
     public function seatPositions(Request $request)
     {
         $course_id = $request->course_id;

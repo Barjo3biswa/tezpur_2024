@@ -572,15 +572,14 @@
                                     <img src="assets/img/personal-profile.png" alt="" width="36">
                                     <p>Ph.D. (through TUEE) Registration</p>
                                 </a>
-                            </div>
+                            </div> --}}
                             <div class="belowbanner-btn">
                                 <a href="{{ route('student.register', ['is_mba' => Crypt::encrypt('PG')]) }}">
                                     <img src="assets/img/personal-profile.png" alt="" width="40">
-                                    <p>MA / MSc / M.Tech / MCA / LLM / B.Ed. / PG-Diploma (through
-                                        TUEE) Registration</p>
+                                    <p>M. TECH. IN SEMICONDUCTOR TECHNOLOGY (through ECE) Registration</p>
                                 </a>
                             </div>
-                            <div class="belowbanner-btn">
+                            {{-- <div class="belowbanner-btn">
                                 <a href="{{ route('student.register', ['is_mba' => Crypt::encrypt('LATERAL')]) }}">
                                     <img src="assets/img/personal-profile.png" alt="" width="40">
                                     <p>B.Tech-Lateral Entry (through TUEE) Registration</p>

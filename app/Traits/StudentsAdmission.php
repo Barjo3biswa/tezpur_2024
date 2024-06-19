@@ -11,6 +11,7 @@ use App\Models\MeritList;
 use App\Models\MeritMaster;
 use App\Models\OnlinePaymentProcessing;
 use App\Models\OnlinePaymentSuccess;
+use App\Models\Session as ModelsSession;
 use App\Models\User;
 use App\Services\PaymentHandlerService;
 use Crypt;
@@ -23,6 +24,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Webpatser\Uuid\Uuid;
 use Pusher\Pusher;
+use Session;
 
 /**
  * Trait for student admission
@@ -35,7 +37,7 @@ trait StudentsAdmission
     // payment processing
     public function admissionProcessPayment(Request $request, $encrypted_id)
     {
-    //    dd("ok");
+       
        
         try {
             $decrypted_id = Crypt::decrypt($encrypted_id);
@@ -145,20 +147,23 @@ trait StudentsAdmission
             // $client        = new Client($accessId, $secretKey);
             $paymentHanlderService = new PaymentHandlerService;
             $tried_records = $merit_list->online_admission_payment_tried->last();
+            // dd($tried_records);
             if ($tried_records) {
                 // $previous_order = $client->order->retrieve($tried_records->order_id);
                 $previous_order = $paymentHanlderService->orderFetchByOrderId($tried_records->order_id);
-
+                // dd($previous_order);
                 // $tried_records->succed_payments()->delete();
                 // $order_status = (isset($previous_order["status"]) ? $previous_order["status"] : $previous_order->status);
                 // if (strtolower($order_status) == "paid") {
                 if (PaymentHandlerService::isOrderPaid($previous_order)) {
                     $payments_data = $previous_order->payments();
+                    // dd($payments_data);
                     foreach ($payments_data->items as $index => $payment) {
                         // dd($payment);
                         // only if payment is done captured status
                         // if ($payment->status == "captured") {
                         if (PaymentHandlerService::isPaymentPaid($payment)) {
+                            // dd("ok");
                             $online_payment = OnlinePaymentSuccess::create([
                                 "application_id"    => $application->id,
                                 "student_id"        => $application->student_id,
@@ -186,6 +191,9 @@ trait StudentsAdmission
                     return redirect()->back()->with("success", "Your Payment is already done.");
                 }
             }
+
+            
+
             // check order if already payment
             // end of checking order payment
             // $order = $client->order->create([
@@ -513,6 +521,7 @@ trait StudentsAdmission
 
     private function changeApplicationAnyDetails(Application $application, OnlinePaymentSuccess $online_payment, MeritList $merit_list)
     {
+        // dd("ok");
         $was_hold=0;
         if($merit_list->new_status=="time_extended"){
             $was_hold=1;
@@ -553,11 +562,18 @@ trait StudentsAdmission
                 "status"            => 1,
             ]);
         }
+        
         $this->setFeeStructure($merit_list);
+        
         [$amount, $currency_value, $last_receipt] = $this->getAdmissionAmount($application);
+        
         $fees = $this->fee_structure;
+        
+        $current_session = ModelsSession::where('is_active',1)->first()->id;
+        // dd($current_session);
         $admission_receipt_data = [
             "uuid"              => Uuid::generate()->string,
+            'session_id'        => $current_session,
             "receipt_no"        => date("Y"),
             "student_id"        => $merit_list->student_id,
             "application_id"    => $application->id,
@@ -576,6 +592,7 @@ trait StudentsAdmission
             'hostel_name'  => $merit_list->hostel_name,
             "room_no"      => $merit_list->room_no
         ];
+        
         $admission_receipt = AdmissionReceipt::create($admission_receipt_data);
         $admission_collections = [];
         foreach($fees->feeStructures as $fee){
@@ -590,6 +607,7 @@ trait StudentsAdmission
                 "is_free"        => $fee->is_free,
             ];
         }
+        
         $admission_receipt->collections()->createMany($admission_collections);
         // prev count logic
         $prev_count = AdmissionReceipt::where("id", "<=", $admission_receipt->id)->withTrashed()->count();
@@ -600,7 +618,7 @@ trait StudentsAdmission
         $flag=0;
         while($flag < 1){
             $admission_receipt->roll_number = $admission_receipt->generateRollNumber();
-            $check = AdmissionReceipt::where('roll_number',$admission_receipt->roll_number)->count();
+            $check = AdmissionReceipt::where('roll_number',$admission_receipt->roll_number)->where('session_id',$current_session)->count();
             if($check==0){
                 $flag=1;
             }

@@ -30,6 +30,7 @@ Route::group(['prefix' => 'merit'], function () {
 
     Route::post("/ab-pre-commit/{id}",["uses" => "MeritController@presentAbsentCommit", "as" => "merit.ab-pre-commit"]);
 	Route::post("/merit-master",["uses" => "MeritController@meritMaster", "as" => "merit.master"]);
+    Route::post("/merit-master-new",["uses" => "MeritController@meritMasterNew", "as" => "merit.master-new"]);
     Route::get("/payment",["uses" => "MeritController@payment", "as" => "merit.payment"]);
     Route::post("/checklist",["uses" => "MeritController@saveChecklist", "as" => "merit.checklist"]);
     

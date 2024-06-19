@@ -21,11 +21,11 @@
                             @if($applied_preference)
                             <option value="1" {{$applied_preference->preference==1?'selected':''}}>1</option>
                             <option value="2" {{$applied_preference->preference==2?'selected':''}}>2</option>
-                            <option value="3" {{$applied_preference->preference==3?'selected':''}}>3</option>
+                            {{-- <option value="3" {{$applied_preference->preference==3?'selected':''}}>3</option> --}}
                             @else
                             <option value="1">1</option>
                             <option value="2">2</option>
-                            <option value="3">3</option>
+                            {{-- <option value="3">3</option> --}}
                             @endif
                         </select>
                     </div>

@@ -319,30 +319,7 @@
                 else{
                     $('#merit_master_id').html('');
                     toastr.error('No merit list found', 'Oops!')
-                }
-                var quota = '<div class="col-md-8 table-responsive"><table class="table">';
-                quota += '<tbody><tr>';
-                
-                
-                $.each(response.admission_categories,function(k,v){
-                     var cl = '';
-                    if(v.course_seats && v.course_seats.is_selection_active == 1){
-                        cl = 'activeBg';
-                    }
-                    if(v.id==1){
-                        quota += '<td class="'+cl+'">Unreserved</td>';
-                    }else{
-                        quota += '<td class="'+cl+'">'+v.name+'</td>';
-                    }
-                    if(v.course_seats){
-                        quota += '<td><span class="badge" style="background-color: #212121 !important;">'+v.course_seats.total_seats+'-'+v.course_seats.total_seats_applied+'</span></td>';
-                    }else
-                        quota += '<td><span class="badge" style="background-color: #212121 !important;">0</span></td>';
-                });
-                $('#admission_categories').html(quota);
-
-                    
-
+                }                
             },
             error:function(response){
                 console.log(response);
@@ -351,17 +328,60 @@
         })
     }
 $('#course_id').change(function(){
+// alert('ok');
     admissionCategoryList($(this).val());
 })
 
 
+var admissionCategoryListNew = ($id) =>{
+    var master = "<option value=''>Select</option>";
+    $.ajax({
+        url:'{{route(get_route_guard().".merit.master-new")}}',
+        type:'post',
+        data:{
+            'merit_master':$id,
+            '_token':"{{csrf_token()}}"
+        },
+        success:function(response){
+            console.log(response);
+            var quota = '<div class="col-md-8 table-responsive"><table class="table">';
+            quota += '<tbody><tr>';
+            $.each(response.admission_categories,function(k,v){
+                    var cl = '';
+                if(v.course_seats && v.course_seats.is_selection_active == 1){
+                    cl = 'activeBg';
+                }
+                if(v.id==1){
+                    quota += '<td class="'+cl+'">Unreserved</td>';
+                }else{
+                    quota += '<td class="'+cl+'">'+v.name+'</td>';
+                }
+                if(v.course_seats){
+                    quota += '<td><span class="badge" style="background-color: #212121 !important;">'+v.course_seats.total_seats+'-'+v.course_seats.total_seats_applied+'</span></td>';
+                }else
+                    quota += '<td><span class="badge" style="background-color: #212121 !important;">0</span></td>';
+            });
+            // console.log(quota);
+            $('#admission_categories').html(quota);
+
+                
+
+        },
+        error:function(response){
+            console.log(response);
+        }
+
+    })
+}
+
+
 $(document).ready(function(){
-        var course_id=$('#course_id').val();
+        var merit_master=$('#merit_master_id').val();
         $.ajax({
-            url:'{{route(get_route_guard().".merit.master")}}',
+            url:'{{route(get_route_guard().".merit.master-new")}}',
             type:'post',
             data:{
-                'course_id':course_id,
+                'merit_master':merit_master,
                 '_token':"{{csrf_token()}}"
             },
             success:function(response){
@@ -549,13 +569,17 @@ applicationSelected = function(){
     // })
 
     $('#merit_master_id').change(function(){
+        admissionCategoryListNew($(this).val());
         var course_id = $('#course_id').val();
+        var merit_master_id = $(this).val();
+        // alert(merit_master_id);
         //  alert(course_id);
-         $.ajax({
+        $.ajax({
             url:'{{route(get_route_guard().".merit.load-category")}}',
             type:'post',
             data:{
                 'course_id':course_id,
+                'merit_master_id' : merit_master_id,
                 '_token':"{{csrf_token()}}"
             },
             success:function(response){
