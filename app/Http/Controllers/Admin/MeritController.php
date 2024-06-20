@@ -205,7 +205,8 @@ class MeritController extends CommomMeritController
                     $message                        = [];
                     $master                         = [];
                     $master['name']                 = $request->name;
-                    $master['course_seat_type_id']     = $request->course_seat_type;
+                    $master['course_seat_type_id']  = 1;
+                    $master['type_id']              = $request->course_seat_type;
                     $master['session_year']         = $session_year;
                     $master['course_id']            = $request->course_id;
                     $master['initial_opening_date'] = $request->date_from;

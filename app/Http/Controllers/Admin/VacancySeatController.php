@@ -45,8 +45,9 @@ class VacancySeatController extends Controller
         return view('admin.vacancy.manage-seat',compact('all_courses','course_seat_type','course_seat'));
     }
 
-    public function updateSeat(Request $request)
+    public function updateSeat(Request $request, $id)
     {
+        dd($request->all());
         return redirect()->back()->with('success','successfull');
     }
 

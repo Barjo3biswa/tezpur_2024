@@ -1239,6 +1239,9 @@
                         <div class="copyright text-right">
                             &copy; Copyright <strong><span>Tezpur University</span></strong>. All Rights Reserved
                         </div>
+                        <div class="copyright text-right">
+                            <strong><span><a href="https://www.webcomindia.biz/" target="_blank" style="color:#0b0f35;">Web.com(India) Pvt. Ltd.</a></span></strong>
+                        </div>
                     </div>
 
 

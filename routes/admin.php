@@ -175,7 +175,7 @@ Route::group(['prefix' => 'vacancy'], function () {
 		'uses' => 'Admin\VacancySeatController@manageSeat'
 	]);
 
-	Route::post('/update-seat',[
+	Route::post('/update-seat/{id}',[
 		'as'=>'vacancy.update-seat',
 		'uses' => 'Admin\VacancySeatController@updateSeat'
 	]);

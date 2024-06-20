@@ -56,6 +56,34 @@
             border-bottom-left-radius: 3px;
             padding: 10px;
         }
+
+        
+        .course-seat-container {
+            display: flex;
+            flex-direction: column;
+        }
+        .header-row, .row {
+            display: flex;
+        }
+        .header-cell, .cell {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ddd;
+        }
+        .header-cell {
+            font-weight: bold;
+            background-color: #f1f1f1;
+        }
+        .row-div {
+            display: flex;
+            align-items: center;
+        }
+        .cell {
+            padding: 8px;
+        }
+        .form-control {
+            width: 100%;
+        }
     </style>
 @endsection
 @section('content')
@@ -80,45 +108,56 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>A. Catagoey</th>
-                                            <th>Total Seat</th>
-                                            <th>Filled Out</th>
-                                            <th>Temp Filled Out</th>
-                                            <th>admission_flag</th>
-                                            <th>invitation_flag</th>
-                                            <th>admission_date</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($course_seat as $seat)
-                                        <form action="{{route('admin.vacancy.update-seat')}}" method="post">
-                                            {{ csrf_field() }}
-                                            <tr>
-                                                <th>{{$seat->admissionCategory->name}}</th>
-                                                <th><input type="text" class="form-control" readonly name="total_seats" value="{{$seat->total_seats}}"></th>
-                                                <th><input type="text" class="form-control" readonly name="total_seats_applied" value="{{$seat->total_seats_applied}}"></th>
-                                                <th><input type="text" class="form-control" readonly name="temp_seat_applied" value="{{$seat->temp_seat_applied}}"></th>
-                                                <th>
-                                                    <select name="admission_flag" id="admission_flag" class="form-control">
-                                                         <option value="open" {{$seat->admission_flag=='open'?'selected':''}}>Open</option>
-                                                         <option value="close" {{$seat->admission_flag=='close'?'selected':''}}>Close</option>
-                                                    </select>
-                                                </th>
-                                                <th>
-                                                    <select name="invitation_flag" id="invitation_flag" class="form-control">
-                                                        <option value="open" {{$seat->admission_flag=='open'?'selected':''}}>Open</option>
-                                                        <option value="close" {{$seat->admission_flag=='close'?'selected':''}}>Close</option>
-                                                   </select>
-                                                    <input type="text" class="form-control" name="invitation_flag" value="{{$seat->invitation_flag}}"></th>
-                                                <th><input type="text" class="form-control" name="admission_date" value="{{$seat->admission_date}}"></th>
-                                            </tr>
-                                        </form>
-                                        @endforeach
-                                    </tbody>
-                                </table>
+                                <div class="course-seat-container">
+                                    <div class="header-row">
+                                        <div class="header-cell">A. Category</div>
+                                        <div class="header-cell">Total Seat</div>
+                                        <div class="header-cell">Filled Out</div>
+                                        <div class="header-cell">Temp Filled Out</div>
+                                        <div class="header-cell">admission_flag</div>
+                                        <div class="header-cell">invitation_flag</div>
+                                        <div class="header-cell">admission_date</div>
+                                        <div class="header-cell">Action</div>
+                                    </div>
+                                    @foreach ($course_seat as $seat)
+                                    <form action="{{route('admin.vacancy.update-seat',$seat->id)}}" method="post">
+                                        {{ csrf_field() }}
+                                        <div class="row-div">
+                                            <div class="cell">
+                                                {{$seat->admissionCategory->name}}
+                                            </div>
+                                            <div class="cell">
+                                                <input type="text" class="form-control" readonly name="total_seats" value="{{$seat->total_seats}}">
+                                            </div>
+                                            <div class="cell">
+                                                <input type="text" class="form-control" readonly name="total_seats_applied" value="{{$seat->total_seats_applied}}">
+                                            </div>
+                                            <div class="cell">
+                                                <input type="text" class="form-control" readonly name="temp_seat_applied" value="{{$seat->temp_seat_applied}}">
+                                            </div>
+                                            <div class="cell">
+                                                <select name="admission_flag" id="admission_flag" class="form-control">
+                                                    <option value="open" {{$seat->admission_flag=='open'?'selected':''}}>Open</option>
+                                                    <option value="close" {{$seat->admission_flag=='close'?'selected':''}}>Close</option>
+                                                </select>
+                                            </div>
+                                            <div class="cell">
+                                                <select name="invitation_flag" id="invitation_flag" class="form-control">
+                                                    <option value="open" {{$seat->invitation_flag=='0'?'selected':''}}>Open</option>
+                                                    <option value="close" {{$seat->invitation_flag=='1'?'selected':''}}>Close</option>
+                                                </select>
+                                            </div>
+                                            <div class="cell">
+                                                <input type="text" class="form-control" name="admission_date" value="{{$seat->admission_date}}">
+                                            </div>
+                                            <div class="cell">
+                                                <button type="submit" class="btn btn-success"><i class="fa fa-search"></i> Submit</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    @endforeach
+                                </div>
+                                
                             </div>
                         </div>
                     </div>
@@ -126,6 +165,7 @@
             </div>
         </div>
     </div>
+</div>
 @endsection
 @section('js')
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>

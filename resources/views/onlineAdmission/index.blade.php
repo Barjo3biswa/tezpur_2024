@@ -486,7 +486,7 @@ var admissionCategoryListNew = ($id) =>{
         },
         success:function(response){
             console.log(response);
-            var quota = '<div class="col-md-8 table-responsive"><table class="table">';
+            var quota = '<div class="col-md-12 table-responsive"><table class="table">';
             quota += '<tbody><tr>';
             $.each(response.admission_categories,function(k,v){
                     var cl = '';
@@ -527,7 +527,7 @@ $(document).ready(function(){
         },
         success:function(response){
             console.log(response);
-            var quota = '<div class="col-md-8 table-responsive"><table class="table">';
+            var quota = '<div class="col-md-12 table-responsive"><table class="table">';
             quota += '<tbody><tr>';
             
             
