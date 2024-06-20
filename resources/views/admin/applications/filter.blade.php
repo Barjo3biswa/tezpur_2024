@@ -88,6 +88,7 @@ $exam_center = \App\Models\ExamCenter::get();
                 <option value="CEED" {{request()->get("EXAM_THROUGH") == "CEED" ? "selected" : ""}}>CEED</option>
                 {{-- <option value="GATE" {{request()->get("EXAM_THROUGH") == "is_cuet_pg" ? "selected" : ""}}>GATE</option> --}}
                 <option value="Visvesvaraya" {{request()->get("EXAM_THROUGH") == "Visvesvaraya" ? "selected" : ""}}>Visvesvaraya</option>
+                <option value="ECE" {{request()->get("EXAM_THROUGH") == "ECE" ? "selected" : ""}}>ECE</option>
             </select>
         </div>
 
