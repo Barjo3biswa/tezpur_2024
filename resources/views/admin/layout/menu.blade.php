@@ -107,6 +107,7 @@
                 <li><a href="{{ route(get_route_guard() . '.merit.create') }}">Upload</a></li>
                 <li><a href="{{ route(get_route_guard() . '.merit.index') }}">List</a></li>
                 <li><a href="{{ route(get_route_guard() . '.vacancy.index') }}">Vacancy Seat Position</a></li>
+                <li><a href="{{ route(get_route_guard() . '.vacancy.manage-seat') }}">Manage Seat Capacity</a></li>
                 <li><a href="{{ route(get_route_guard() . '.vacancy.booked') }}">Booked Seats</a></li>
                 <li><a href="{{ route(get_route_guard() . '.merit.admission_category_update') }}">Update Admission
                         Category</a></li>

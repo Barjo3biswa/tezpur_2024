@@ -81,4 +81,5 @@ class CourseSeat extends Model
             ->where("admission_category_id", $this->admission_category_id)
             ->where("status", MeritList::$WITHDRAWAL_STATUS);
     }
+
 }

@@ -6,6 +6,7 @@ use App\AdmissionCheckedChecklists;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Course;
+use App\CourseSeatTypeMaster;
 use App\Models\AdmissionCategory;
 use App\Models\Application;
 use App\Models\CourseSeat;
@@ -440,7 +441,8 @@ class MeritController extends CommomMeritController
             $courses = $courses->where('id',$course_id);
 
         $courses =  $courses->get();
-        return view('department-user.vacancy.index',compact('courses','all_courses'));
+        $course_seat_type  = CourseSeatTypeMaster::get();
+        return view('department-user.vacancy.index',compact('courses','all_courses','course_seat_type'));
 
     }
     

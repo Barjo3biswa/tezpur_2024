@@ -170,6 +170,16 @@ Route::group(['prefix' => 'vacancy'], function () {
 		'uses' => 'Admin\VacancySeatController@index'
 	]);
 
+	Route::get('/manage-seat',[
+		'as'=>'vacancy.manage-seat',
+		'uses' => 'Admin\VacancySeatController@manageSeat'
+	]);
+
+	Route::post('/update-seat',[
+		'as'=>'vacancy.update-seat',
+		'uses' => 'Admin\VacancySeatController@updateSeat'
+	]);
+
 	Route::get('/booked',[
 		'as'=>'vacancy.booked',
 		'uses' => 'Admin\VacancySeatController@booked'

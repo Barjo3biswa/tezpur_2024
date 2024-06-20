@@ -1,6 +1,6 @@
 <div class="filter dont-print">
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-4">
                 <label for="Programme" class="label-control">Programme:</label>
                 <select name="course_id" id="course_id" class="js-example-basic-single  form-control" style="width:100% !important"  autocomplete="off">
                     <option value="">--All--</option>
@@ -9,6 +9,7 @@
                     @endforeach
                 </select>
             </div>
+            
             <div class="col-sm-3">
                 <label for="submit" class="label-control" style="visibility: hidden;">Search</label><br>
                 <button type="submit" class="btn btn-success"><i class="fa fa-search"></i> Filter</button>
