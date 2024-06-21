@@ -68,11 +68,11 @@ class InvitationEmail extends Notification
             ->level("success")
             ->from(env('MAIL_USERNAME'), env("INSTITUTE_NAME"))
             ->greeting('Dear Applicant')
-            ->line('You are advised to visit Tezpur University website and report for the '.$this->course_name.' between '.$this->time_period. 'through the admission portal https://www.tezuadmissions.in/.') 
+            ->line('You are advised to visit Tezpur University website and report for the '.$this->course_name.' between '.$this->time_period. ' through the admission portal https://www.tezuadmissions.in/.') 
             ->line('Kindly Note : Reporting does not ensure a seat for the candidates and admission will be strictly based on merit.')
             ->line('Kindly visit for more details on https://www.tezuadmissions.in/ & http://www.tezu.ernet.in/')
             ->line('Best wishes,')
-            ->line('Online Support Tezupur University Registration and Admission Portal')            
+            ->line('Online Support Tezpur University Registration and Admission Portal')            
             ->line('Please do not reply to this mail.');
 
 
