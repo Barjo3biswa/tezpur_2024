@@ -261,15 +261,16 @@
                                                 </span>
                                             {{-- @else
                                                 <span class="label label-default">  Shortlisted.</span> --}}
-                                            @endif
-                                           
-                                            
-                                            
+                                            @endif                                                                                                                     
                                         </th>
                                         <th>
                                             @if($merit_list->attendance_flag==0 && now() >= $merit_list->valid_from && now() <= $merit_list->valid_till)
-                                                <button class="btn btn-primary" data-toggle="modal" data-target=".bd-accept-modal-lg{{$key}}">Request Accepted</button>
-                                                {{-- <a href="{{ route(get_route_guard().'.online-admission.accept-invite', Crypt::encrypt($merit_list->id)) }}" class="btn btn-primary"> Request Accepted</a> --}}
+                                                {{-- <button class="btn btn-primary" data-toggle="modal" data-target=".bd-accept-modal-lg{{$key}}">Request Accepted</button> --}}
+                                                <a href="{{ route(get_route_guard().'.online-admission.accept-invite', Crypt::encrypt($merit_list->id)) }}" class="btn btn-primary"
+                                                    @if($merit_list->meritMaster->semi_auto)
+                                                        onclick="return confirm('Are you sure you want to Accept invitation for reporting?\n(Once Accepted invitation for other social category will declined automatically.)');"
+                                                    @endif
+                                                >Request Accepted</a>
                                                 <a href="{{ route(get_route_guard().'.online-admission.decline-invite', Crypt::encrypt($merit_list->id)) }}" class="btn btn-danger" onclick="return confirm('Are you sure you want to DECLINE invitation for reporting?\n(Once declined the process is irreversible.)');">Request Declined </a>
                                                 <br/>
                                             @else

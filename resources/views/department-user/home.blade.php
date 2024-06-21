@@ -29,7 +29,7 @@
                         </div>
                     </div>
 @endif
-                    @php
+                    {{-- @php
                         $user_id = auth("department_user")->id();
                         // app\DepartmentAssignedUser.php
                         $department_id = DB::table("department_assigned_users")->where('department_user_id',$user_id)->pluck("department_id");
@@ -188,7 +188,7 @@
                                 </div>
                             </div>
                         </div>
-                    @endforeach
+                    @endforeach --}}
                 </div>
             </div>
         </div>

@@ -301,6 +301,7 @@ class NewAdmissionController extends Controller
     }
 
     public function acceptInvite(Request $request,$id){
+        // dd("ok");
         try {
             $decrypted = Crypt::decrypt($id);
         } catch (\Exception $e) {
@@ -310,21 +311,27 @@ class NewAdmissionController extends Controller
         if($merit_list->course->admission_status==0){
             abort(404, "Invalid Request");
         }
-
-        $previous_preference=MeritList::where('student_id',$merit_list->student_id)->where('preference',$request->preference)->first();
+        // dd("ok");
+        // $previous_preference=MeritList::where('student_id',$merit_list->student_id)->where('preference',$request->preference)->first();
         
-        if($previous_preference!=null){
-            return redirect()->back()->with('error','This preference is used for another course please select another preference');
-        }
+        // if($previous_preference!=null){
+        //     return redirect()->back()->with('error','This preference is used for another course please select another preference');
+        // }
         // dd($previous_preference);
         if($merit_list->attendance_flag==0 && now() >= $merit_list->valid_from && now() <= $merit_list->valid_till){
             MeritList::where('id',$decrypted)->update(['attendance_flag'=>1,
                                                        'attendance_time' => now(),
-                                                       'preference' => $request->preference
+                                                       'preference' => 1/* $request->preference */
                                                     ]);
         }else{
             MeritList::where('id',$decrypted)->update(['attendance_flag'=>1,'attendance_time' => now()]);
         }
+
+        if($merit_list->meritMaster->semi_auto){
+            $merit_list_second = MeritList::where('course_id',$merit_list->course_id)->where('student_id',$merit_list->student_id)->first();
+            MeritList::where('id',$merit_list_second->id)->update(['attendance_flag'=>2, 'new_status'=>'denied','remarks'=>'declined due to admission category']);
+        }
+
         return redirect()->back()->with('success','successfully accepted for reporting');
         
     }

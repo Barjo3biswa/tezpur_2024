@@ -120,9 +120,9 @@ class newAdmissionController extends Controller
             } else {
                 $check_count = MeritList::where('admission_category_id', $admission_cat)->where('merit_master_id', $merit_master_id)->whereIn('new_status', ['can_call', 'called'])->count();
             }
-            // if ($check_count > 0) {
-            //     return redirect()->back()->with('error', 'Some students are already in the admission queue cancel them or let them finished first.');
-            // }
+            if ($check_count > 0) {
+                return redirect()->back()->with('error', 'Some students are already in the admission queue cancel them or let them finished first.');
+            }
         }
         
 

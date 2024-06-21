@@ -37,7 +37,7 @@ return [
     "TERMS_AND_COND"               => "
         I, Mr./ MS. ##name## (Application No . ##application_no##) do hereby declare that my admission will be provisional and give an undertaking as under that:
     
-    (1) I shall produce the marksheet of all the semesters, pass certificate of the qualifying degree/certificate and the other pending documents on or before 31-10-2023 failing which my admission will be cancelled. My admission may also be cancelled if I fail to meet the  minimum qualifying marks or CGPA for the admission to the Programme.
+    (1) I shall produce the marksheet of all the semesters, pass certificate of the qualifying degree/certificate and the other pending documents on or before 31-10-2024 failing which my admission will be cancelled. My admission may also be cancelled if I fail to meet the  minimum qualifying marks or CGPA for the admission to the Programme.
 
     (2) I shall also produce all the certificates in original for physical verification when I am asked to visit the University. My admission shall be cancelled if any of the certificates is found to be not valid.
     

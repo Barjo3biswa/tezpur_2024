@@ -222,7 +222,7 @@ Route::post("/reason",["uses" => "Student\ApplicationController@reasonOf", "as" 
 Route::group(['prefix' => 'online-admission'], function () {
     Route::get("/process/{id}",["uses" => "Student\NewAdmissionController@process", "as" => "online-admission.process"]);
 
-    Route::post("/accept-invite/{id}",["uses" => "Student\NewAdmissionController@acceptInvite", "as" => "online-admission.accept-invite"]);
+    Route::get("/accept-invite/{id}",["uses" => "Student\NewAdmissionController@acceptInvite", "as" => "online-admission.accept-invite"]);
     Route::get("/decline-invite/{id}",["uses" => "Student\NewAdmissionController@declineInvite", "as" => "online-admission.decline-invite"]);
 
     Route::Post("/reporting/{id}",["uses" => "Student\NewAdmissionController@reportCounsellingOnline", "as" => "online-admission.reporting"]);

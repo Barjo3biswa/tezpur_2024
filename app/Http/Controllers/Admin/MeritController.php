@@ -200,7 +200,7 @@ class MeritController extends CommomMeritController
                             ->back()
                             ->withErrors($validator->errors());
                     }
-                    // dd($data);
+                    // dd("OK");
                     DB::beginTransaction();
                     $message                        = [];
                     $master                         = [];
