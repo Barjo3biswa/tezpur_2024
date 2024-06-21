@@ -438,10 +438,10 @@ class newAdmissionController extends Controller
                 $to_time= date('h:s:a', strtotime($ml->valid_till));
                 $from_date=date('d-m-Y', strtotime($ml->valid_from));
                 $to_date=date('d-m-Y', strtotime($ml->valid_till));
-                $message="Dear candidate, You are advised to visit TU website and make the payment to book your seat for the {$course_name} between {$from_time} of {$from_date} to {$to_time} of {$to_date} through the admission portal https://tezuadmissions.in. -Tezpur University";
-                
+                // $message="Dear candidate, You are advised to visit TU website and make the payment to book your seat for the {$course_name} between {$from_time} of {$from_date} to {$to_time} of {$to_date} through the admission portal https://tezuadmissions.in. -Tezpur University";
+                $message="Dear candidate, You are advised to visit Tezpur Univ website and make the payment to book your seat for the program {$course_name} between {$from_time} of {$from_date} to {$to_time} of {$to_date} through the admission portal https://tezuadmissions.in. -Tezpur University";
                   
-                sendSMSNew($user->mobile_no, $message, "1107168812465758782");
+                sendSMSNew($user->mobile_no, $message, "1107171895266969875");
                 MailAndMessage::create([
                     'student_id'=> $id,
                     'merit_list_id'=> $ml->student_id,
@@ -625,8 +625,9 @@ class newAdmissionController extends Controller
                 // $from_date=date('d-m-Y', strtotime($ml->valid_from));
                 // $to_date=date('d-m-Y', strtotime($ml->valid_till));
                 // $message="Dear candidate, You are advised to visit TU website and report to book your seat for the {$course_name} between {$from_time} of {$from_date} to {$to_time} of {$to_date} through the admission portal https://tezuadmissions.in. -Tezpur University";
-                $message="Dear candidate, You are advised to visit Tezpur Univ website and report for the {$course_name} between {$from_time} to {$to_time} through the admission portal http://tezuadmission.in. -Tezpur University";
-                sendSMSNew($user->mobile_no, $message, "1107168897180701420");
+                // $message="Dear candidate, You are advised to visit Tezpur Univ website and report for the {$course_name} between {$from_time} to {$to_time} through the admission portal http://tezuadmission.in. -Tezpur University";
+                $message="Dear candidate, You are advised to visit Tezpur Univ website and report for the program {$course_name} between {$from_time} to {$to_time} through the admission portal http://tezuadmission.in. -Tezpur University";
+                sendSMSNew($user->mobile_no, $message, "1107171895259763017");
                 MailAndMessage::create([
                     'student_id'=> $id,
                     'merit_list_id'=> $ml->student_id,
