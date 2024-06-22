@@ -297,6 +297,7 @@
                                                 $status=1;
                                             }
                                         }
+                                        $status=1;
                                     @endphp
                                     @if ($status==1){{-- count($application->merit_list) > 0 --}}
                                         {{-- @if ($application->is_btech == 0) --}}
@@ -311,34 +312,23 @@
                                             @endif
                                         {{-- @endif --}}
                                         {{-- for additional hostel Payment --}}
-                                        @php
-                                            $isre_collect = 0;
-                                            $receipt_re = 0;
-                                            // foreach($application->merit_list as $ml){
-                                            //     if($ml->ask_hostel==2){
-                                            //         $isre_collect = 1;
-                                            //         $recollect_against = $ml->id;
-                                            //     }
-                                            //     if($ml->ask_hostel==3){
-                                            //         $receipt_re = 1;
-                                            //         $recollect_against = $ml->id;
-                                            //     }
-                                            // }  
-                                            if($application->re_payment_flag==1){
-                                                $isre_collect = 1;
-                                            }elseif($application->re_payment_flag==2){
-                                                $receipt_re = 1;
-                                            }
-                                        @endphp
-                                        @if($isre_collect==1)
-                                           <a href="{{ route('student.online-admission.hostel-fee-re', Crypt::encrypt($application->id)) }}" class="btn btn-primary btn-xs">Proceed For Balance Amount</a>
-                                        @endif
-                                        @if($receipt_re==1)
-                                           <a href="{{ route(get_route_guard() . '.hostel-receipt-re', Crypt::encrypt($application->id)) }}" class="btn btn-primary btn-xs">Balance Amount Receipt</a>
-                                        @endif
                                     @endif
 
-                                    
+                                    @php
+                                        $isre_collect = 0;
+                                        $receipt_re = 0;
+                                        if($application->re_payment_flag==1){
+                                            $isre_collect = 1;
+                                        }elseif($application->re_payment_flag==2){
+                                            $receipt_re = 1;
+                                        }
+                                    @endphp
+                                    @if($isre_collect==1)
+                                    <a href="{{ route('student.online-admission.hostel-fee-re', Crypt::encrypt($application->id)) }}" class="btn btn-primary btn-xs">Proceed For Balance Amount</a>
+                                    @endif
+                                    @if($receipt_re==1)
+                                    <a href="{{ route(get_route_guard() . '.hostel-receipt-re', Crypt::encrypt($application->id)) }}" class="btn btn-primary btn-xs">Balance Amount Receipt</a>
+                                    @endif                           
                                 @endif
                             </td>
                         @endif
