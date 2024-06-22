@@ -111,20 +111,20 @@ class AdditionalController extends Controller
                     ]
                 ]
             ];
-            // $order = $paymentHanlderService->setData($amount, "INR", $merchantOrderID, [
-            //     "merchant_order_id" => (string)$merchantOrderID,
-            //     "payment_processing"    => true,
-            //     "student_id"        => $application->student_id,
-            //     "application_id"    => $application->id,
-            //     "curr_value"        => $currency_value,
-            // ], $transfers)->createOrder(true);
             $order = $paymentHanlderService->setData($amount, "INR", $merchantOrderID, [
                 "merchant_order_id" => (string)$merchantOrderID,
                 "payment_processing"    => true,
                 "student_id"        => $application->student_id,
                 "application_id"    => $application->id,
                 "curr_value"        => $currency_value,
-            ])->createOrder(true);
+            ], $transfers)->createOrder(true);
+            // $order = $paymentHanlderService->setData($amount, "INR", $merchantOrderID, [
+            //     "merchant_order_id" => (string)$merchantOrderID,
+            //     "payment_processing"    => true,
+            //     "student_id"        => $application->student_id,
+            //     "application_id"    => $application->id,
+            //     "curr_value"        => $currency_value,
+            // ])->createOrder(true);
             $data = [
                 'key'         => config("vknrl.RAZORPAY_KEY"),
                 'order_id'    => $order->id,
