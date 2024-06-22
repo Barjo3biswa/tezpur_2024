@@ -47,6 +47,7 @@
                     $rowspan = sizeof($applied_courses);
                     
                     $count = 1;
+                    dd("ok");
                 @endphp
                 @foreach ($applied_courses as $pref => $applied)
                     <tr id="row_{{ $application->id }}">
