@@ -334,7 +334,7 @@
                                            <a href="{{ route('student.online-admission.hostel-fee-re', Crypt::encrypt($application->id)) }}" class="btn btn-primary btn-xs">Proceed For Balance Amount</a>
                                         @endif
                                         @if($receipt_re==1)
-                                           <a href="{{ route('student.hostel-receipt-re', Crypt::encrypt($application->id)) }}" class="btn btn-primary btn-xs">Balance Amount Receipt</a>
+                                           <a href="{{ route(get_route_guard() . '.hostel-receipt-re', Crypt::encrypt($application->id)) }}" class="btn btn-primary btn-xs">Balance Amount Receipt</a>
                                         @endif
                                     @endif
 

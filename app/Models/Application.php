@@ -89,6 +89,15 @@ class Application extends Model
             ->orderBy("id", "ASC");
     }
 
+    public function paymentRePaymentReceipt($payment_type = "application_repayment")
+    {
+        return $this->hasOne("App\Models\OnlinePaymentSuccess", "application_id", "id")
+            ->where("payment_type", $payment_type)
+            ->where("biller_status", "captured")
+            ->where("status", 1)
+            ->orderBy("id", "ASC");
+    }
+
 
     public function online_payments_succeed($payment_type = "application")
     {

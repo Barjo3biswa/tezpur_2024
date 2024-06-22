@@ -776,6 +776,7 @@ class newAdmissionController extends Controller
 
     public function hostelPaymentReceipt(Request $request, $encrypted_id)
     {
+        dd("ok");
         try {
             $decrypted_id = Crypt::decrypt($encrypted_id);
         } catch (\Exception $e) {

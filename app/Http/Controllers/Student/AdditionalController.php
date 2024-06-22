@@ -111,13 +111,20 @@ class AdditionalController extends Controller
                     ]
                 ]
             ];
+            // $order = $paymentHanlderService->setData($amount, "INR", $merchantOrderID, [
+            //     "merchant_order_id" => (string)$merchantOrderID,
+            //     "payment_processing"    => true,
+            //     "student_id"        => $application->student_id,
+            //     "application_id"    => $application->id,
+            //     "curr_value"        => $currency_value,
+            // ], $transfers)->createOrder(true);
             $order = $paymentHanlderService->setData($amount, "INR", $merchantOrderID, [
                 "merchant_order_id" => (string)$merchantOrderID,
                 "payment_processing"    => true,
                 "student_id"        => $application->student_id,
                 "application_id"    => $application->id,
                 "curr_value"        => $currency_value,
-            ], $transfers)->createOrder(true);
+            ])->createOrder(true);
             $data = [
                 'key'         => config("vknrl.RAZORPAY_KEY"),
                 'order_id'    => $order->id,
@@ -137,7 +144,7 @@ class AdditionalController extends Controller
                 ],
             ];
         } catch (\Exception $e) {
-            // dd($e);
+            dd($e);
             Log::error($e);
             DB::rollback();
             saveLogs(auth(get_guard())->id(), auth(get_guard())->user()->name, get_guard(), "Application Number:  {$application->id} Proceeding payment failed.");
@@ -152,20 +159,18 @@ class AdditionalController extends Controller
             "currency"          => "INR",
             "merchant_order_id" => $merchantOrderID,
             "payment_done"      => 0,
-            "payment_type"      => "hostel_repayment",
-            "course_id"         => $merit_list->course_id,
-            "merit_list_id"     => $merit_list->id,
+            "payment_type"      => "application_repayment",
         ]);
         DB::commit();
 
         $payment_type = $processing_obj->payment_type;
        
-            $response_url = route("department.hostel-payment-response", Crypt::encrypt($merit_list->id));
+            $response_url = route("department.hostel-payment-response", Crypt::encrypt($application->id));
             saveLogs(auth(get_guard())->id(), auth(get_guard())->user()->name, get_guard(), "Proceeding for admission payment Application id: {$application->id}");
             return view('additional.payment-response', compact(
                     "application", "order",
                     "data", "amount", "merchantOrderID",
-                    "currency", "payment_type", "merit_list", "fee_structure"
+                    "currency", "payment_type"
                 ));
     }
 
@@ -195,9 +200,7 @@ class AdditionalController extends Controller
         // dd($payment);
         DB::beginTransaction();
         try {
-            $merit_list = MeritList::findOrFail($decrypted_id);
-
-            $application = $merit_list->application;
+            $application = Application::whereId($decrypted_id)->where('re_payment_flag',1)->first();
             $online_payment = OnlinePaymentSuccess::create([
                 "application_id"    => $application->id,
                 "student_id"        => $application->student_id,
@@ -213,14 +216,12 @@ class AdditionalController extends Controller
                 "error_message"     => $request->get("error_message"),
                 "biller_status"     => $payment->status,
                 "biller_response"   => $request->get("response"),
-                "payment_type"      => "hostel_repayment",
-                "course_id"         => $merit_list->course_id,
-                "merit_list_id"     => $merit_list->id,
+                "payment_type"      => "application_repayment",
                 "status"            => 1,
             ]);
             
             $online_payment->tried_process()->update(['payment_done' => 1, "online_payment_successes_id" => $online_payment->id]);
-            $this->changeApplicationAnyDetails($application, $online_payment, $merit_list);
+            $application->update(['re_payment_flag'=>2]);
             saveLogs(auth(get_guard())->id(), auth(get_guard())->user()->name, get_guard(), "Application Number:  {$application->application_no} payment response done.");
 
         } catch (Exception $e) {
@@ -231,7 +232,7 @@ class AdditionalController extends Controller
         }
         DB::commit();
         
-            return redirect()->route("student.hostel-receipt-re", Crypt::encrypt($merit_list->id))->with("success", "Payment Succssfull.");
+            return redirect()->route("student.hostel-receipt-re", Crypt::encrypt($application->id))->with("success", "Payment Succssfull.");
         
         
     }
@@ -299,12 +300,12 @@ class AdditionalController extends Controller
                 ->with("error", "Whoops! something went wrong. Try again later.");
         }
         // dd("ok");
-        $merit_list  = MeritList::findOrFail($decrypted_id);
-        $receipt     = $merit_list->hostelReceiptRepayment->load("collections.feeHead");
-        
-        $application = $merit_list->application;
+        $application  = Application::findOrFail($decrypted_id);
+        $receipt     = $application->paymentRePaymentReceipt;
+        // dd($receipt);
+        // $application = $merit_list->application;
         // dd($receipt);
         // dd($merit_list->admissionReceipt->admission_category->name);
-        return view("additional.receipt", compact("application", "merit_list", "receipt"));
+        return view("additional.receipt", compact("application", "receipt"));
     }
 }

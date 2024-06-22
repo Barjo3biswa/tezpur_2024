@@ -16,10 +16,10 @@
                                     </p>
                                 </td>
                             </tr>
-                            <tr>
+                            {{-- <tr>
                                 <th>Programme Applied</th>
                                 <td colspan="3"> {{$merit_list->course->name}}</td>
-                            </tr>
+                            </tr> --}}
                             <tr>
                                 <th>Applicant Name</th>
                                 <td> {{$application->fullname}}</td>
@@ -27,23 +27,21 @@
                                 <td> {{$application->student_id}}</td>
                             </tr>
                             <tr>
-                                <th>Transaction ID</th>
-                                <td> NA </td>
-                                <th>Category</th>
-                                <td>{{$merit_list->admissionCategory->name}}</td>
-                            </tr>
-                            <tr>
                                 <th>Application No</th>
-                                <td>{{$merit_list->application_no}}</td>
+                                <td>{{$application->application_no}}</td>
                                 <th>Receipt No</th>
                                 <td>NA</td>
                             </tr>
+                            <tr>
+                                <th>Amount</th>
+                                <td colspan=3>{{$application->re_amount_payment}}</td>
+                            </tr>
                         </tbody>
                     </table>
-                    @include('department-user.hostel.common-fee-head', ["collection" => $fee_structure])
+                    {{-- @include('department-user.hostel.common-fee-head', ["collection" => $fee_structure]) --}}
                     @php
                         // if(auth("department_user")->check()){
-                            $url = route(get_route_guard().".hostel-repayment-response", Crypt::encrypt($merit_list->id));
+                            $url = route(get_route_guard().".hostel-repayment-response", Crypt::encrypt($application->id));
                         // }
                     @endphp
                     <button class="btn btn-primary" type="button" id="paymentButton">Proceed to Online Payment</button>
