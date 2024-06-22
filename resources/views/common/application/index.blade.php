@@ -314,22 +314,27 @@
                                         @php
                                             $isre_collect = 0;
                                             $receipt_re = 0;
-                                            foreach($application->merit_list as $ml){
-                                                if($ml->ask_hostel==2){
-                                                    $isre_collect = 1;
-                                                    $recollect_against = $ml->id;
-                                                }
-                                                if($ml->ask_hostel==3){
-                                                    $receipt_re = 1;
-                                                    $recollect_against = $ml->id;
-                                                }
-                                            }  
+                                            // foreach($application->merit_list as $ml){
+                                            //     if($ml->ask_hostel==2){
+                                            //         $isre_collect = 1;
+                                            //         $recollect_against = $ml->id;
+                                            //     }
+                                            //     if($ml->ask_hostel==3){
+                                            //         $receipt_re = 1;
+                                            //         $recollect_against = $ml->id;
+                                            //     }
+                                            // }  
+                                            if($application->re_payment_flag==1){
+                                                $isre_collect = 1;
+                                            }elseif($application->re_payment_flag==2){
+                                                $receipt_re = 1;
+                                            }
                                         @endphp
                                         @if($isre_collect==1)
-                                           <a href="{{ route('student.online-admission.hostel-fee-re', Crypt::encrypt($recollect_against)) }}" class="btn btn-primary">Proceed For Balance Hostel Payment</a>
+                                           <a href="{{ route('student.online-admission.hostel-fee-re', Crypt::encrypt($application->id)) }}" class="btn btn-primary btn-xs">Proceed For Balance Amount</a>
                                         @endif
                                         @if($receipt_re==1)
-                                           <a href="{{ route('student.hostel-receipt-re', Crypt::encrypt($recollect_against)) }}" class="btn btn-primary">Balance Hostel Payment Receipt</a>
+                                           <a href="{{ route('student.hostel-receipt-re', Crypt::encrypt($application->id)) }}" class="btn btn-primary btn-xs">Balance Amount Receipt</a>
                                         @endif
                                     @endif
 

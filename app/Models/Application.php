@@ -81,6 +81,15 @@ class Application extends Model
             ->where("payment_type", $payment_type)
             ->orderBy("id", "ASC");
     }
+
+    public function online_re_payment_tried($payment_type = "application_repayment")
+    {
+        return $this->hasMany("App\Models\OnlinePaymentProcessing", "application_id", "id")
+            ->where("payment_type", $payment_type)
+            ->orderBy("id", "ASC");
+    }
+
+
     public function online_payments_succeed($payment_type = "application")
     {
         return $this->hasMany("App\Models\OnlinePaymentSuccess", "application_id", "id")

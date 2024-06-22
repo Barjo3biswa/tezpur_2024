@@ -327,10 +327,10 @@ class NewAdmissionController extends Controller
             MeritList::where('id',$decrypted)->update(['attendance_flag'=>1,'attendance_time' => now()]);
         }
 
-        if($merit_list->meritMaster->semi_auto){
-            $merit_list_second = MeritList::where('course_id',$merit_list->course_id)->where('student_id',$merit_list->student_id)->first();
-            MeritList::where('id',$merit_list_second->id)->update(['attendance_flag'=>2, 'new_status'=>'denied','remarks'=>'declined due to admission category']);
-        }
+        // if($merit_list->meritMaster->semi_auto){
+        //     $merit_list_second = MeritList::where('course_id',$merit_list->course_id)->where('student_id',$merit_list->student_id)->first();
+        //     MeritList::where('id',$merit_list_second->id)->update(['attendance_flag'=>2, 'new_status'=>'denied','remarks'=>'declined due to admission category']);
+        // }
 
         return redirect()->back()->with('success','successfully accepted for reporting');
         

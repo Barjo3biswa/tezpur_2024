@@ -30,11 +30,8 @@ class AdditionalController extends Controller
     private function getAdmissionAmount($application)
     {
         $sum_amount = 0.00;
-        if($this->fee_structure){
-            $sum_amount = HostelFeeStructureRepayment::sum("amount");
-        }
-        if(!$this->fee_structure){
-            throw new Exception("Fee Structure not generate. Please contact Tezpur University Authority / Helpline No..", 1);
+        if($application->re_payment_flag==1){
+            $sum_amount = $application->re_amount_payment;
         }
         return [$sum_amount, "INR"];
     }
@@ -45,23 +42,23 @@ class AdditionalController extends Controller
         } catch (\Exception $e) {
             
         }
-        $merit_list = MeritList::whereId($decrypted_id)->with(["application.online_admission_payment_tried"])->first();
-        if($merit_list->course->admission_status==0){
-            abort(404, "Invalid Request");
-        }
+        // $merit_list = MeritList::whereId($decrypted_id)->with(["application.online_admission_payment_tried"])->first();
+        // if($merit_list->course->admission_status==0){
+        //     abort(404, "Invalid Request");
+        // }
         
-        $application = $merit_list->application;
+        $application = Application::whereId($decrypted_id)->where('re_payment_flag',1)->first();
        
-        try {
-            $this->setFeeStructure($merit_list);
-            $fee_structure = $this->fee_structure;
-            $application->load("online_admission_payments_succeed");
+        // try {
+        //     $this->setFeeStructure($merit_list);
+        //     $fee_structure = $this->fee_structure;
+        //     $application->load("online_admission_payments_succeed");
           
-        } catch (\Exception $e) {
-            // dd("ok");
-            Log::emergency($e);
-            return redirect()->back()->with("error", "Whoos! something went wrong. Please try again later.");
-        }
+        // } catch (\Exception $e) {
+        //     // dd("ok");
+        //     Log::emergency($e);
+        //     return redirect()->back()->with("error", "Whoos! something went wrong. Please try again later.");
+        // }
         
         DB::beginTransaction();
         try {
@@ -69,7 +66,7 @@ class AdditionalController extends Controller
             $currency                  = "INR";
             [$amount, $currency_value] = $this->getAdmissionAmount($application);
             $paymentHanlderService = new PaymentHandlerService;
-            $tried_records = $merit_list->online_admission_payment_tried_hostel_repayment->last();
+            $tried_records = $application->online_re_payment_tried->last();
             if ($tried_records) {
                 $previous_order = $paymentHanlderService->orderFetchByOrderId($tried_records->order_id);
                 if (PaymentHandlerService::isOrderPaid($previous_order)) {
@@ -86,9 +83,9 @@ class AdditionalController extends Controller
                                 "currency"          => $payment->currency,
                                 "merchant_order_id" => $merchantOrderID,
                                 "payment_id"        => $payment->id,
-                                "course_id"         => $merit_list->course_id,
+                                "course_id"         => null,
                                 "payment_signature" => null,
-                                "payment_type"      => "hostel",
+                                "payment_type"      => "application_repayment",
                                 "is_error"          => $payment->error_code ?? false,
                                 "error_message"     => $payment->error_description,
                                 "biller_status"     => $payment->status,
@@ -98,7 +95,8 @@ class AdditionalController extends Controller
                             $online_payment->tried_process()->update(['payment_done' => 1, "online_payment_successes_id" => $online_payment->id]);
                         }
                     }
-                    $this->changeApplicationAnyDetails($application, $online_payment, $merit_list);
+                    // $this->changeApplicationAnyDetails($application, $online_payment, $merit_list);
+                    $application->update(['re_payment_flag'=>2]);
                     DB::commit();
                     return redirect()->back()->with("success", "Your Payment is already done.");
                 }
