@@ -178,7 +178,7 @@
     @elseif(auth("admin")->id()==2)
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                aria-expanded="false">Admission Process 2023 <span class="caret"></span></a>
+                aria-expanded="false">Admission Process 2024 <span class="caret"></span></a>
             <ul class="dropdown-menu">
                 <li><a href="{{ route(get_route_guard() . '.merit.admission_Track') }}">Track Process (Hostel)</a></li>
                 <li><a href="{{ route('admin.admission-report') }}">Admission report</a></li>
