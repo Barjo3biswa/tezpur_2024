@@ -1164,7 +1164,7 @@
                                     <span>
                                         <i class="fa fa-phone 2x"></i><a href="">Bhogeswar Borah, Professor
                                         </a><br />
-                                        Department of Comuter Science and Engineering
+                                        Department of Computer Science and Engineering
                                         <i class="icofont-email"></i> <a href="mailto:bgb@tezu.ernet.in" target="_blank">bgb@tezu.ernet.in</a> </span>
 
                                     <hr class="separator" />
