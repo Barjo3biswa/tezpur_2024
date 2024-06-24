@@ -125,6 +125,8 @@ class NewAdmissionController extends Controller
         }
 
         
+
+
         // if($merit_list->course->admission_status==0){
         //     abort(404, "Invalid Request");
         // }
