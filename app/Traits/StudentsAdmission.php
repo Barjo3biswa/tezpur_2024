@@ -480,14 +480,14 @@ trait StudentsAdmission
                 throw new Exception("Your application is in waiting list. Please wait for confirmation.", 1);
             }
         }else{
-            if($merit_list->status !== 1){
+            if($merit_list->status !== 8){
                 if($merit_list->status === 3){
                     throw new Exception("Your admission seat is already transferred.", 1);
                 }
                 if($merit_list->status === 4){
                     throw new Exception("Your admission seat is cancelled.", 1);
                 }
-                throw new Exception("Your application is in waiting list. Please wait for confirmation.", 1);
+                throw new Exception("Your application is in waiting list. Please wait for confirmationn.", 1);
             }
         }
         return true;

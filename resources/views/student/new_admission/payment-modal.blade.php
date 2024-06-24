@@ -12,7 +12,7 @@
                     {{ csrf_field() }}
                     <div class="alert alert-info">
                         <strong>Note:</strong> The confirmation and allotment of the hostel Seat will be made 
-                        during the physical verification of the documents (25th – 28th July 2023). 
+                        during the physical verification of the documents (25th – 28th July 2024). 
                         <br/>
                         <strong>Note:</strong> The allotment of the hostel seat is subject to availability, based on the merit in 
                         the respective programmes 
