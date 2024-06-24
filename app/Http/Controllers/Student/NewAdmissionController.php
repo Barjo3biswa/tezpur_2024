@@ -117,6 +117,14 @@ class NewAdmissionController extends Controller
                 ->back()
                 ->with("error", "Whoops! something went wrong. try again later.");
         }
+
+
+        $merit_list_count = MeritList::where("student_id",  auth("student")->id())->where("status", 2)->count();
+        if($merit_list_count){
+           return redirect()->back()->with("error","Please release previous seat to continue.");
+        }
+
+        
         // if($merit_list->course->admission_status==0){
         //     abort(404, "Invalid Request");
         // }
