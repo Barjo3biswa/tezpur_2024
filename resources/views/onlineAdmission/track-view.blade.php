@@ -46,7 +46,7 @@
                             <div class="row">
                                 <div class="col-sm-4">
                                     <label for="Programme" class="label-control">Programme:</label>
-                                    <select name="course_id" id="course_id" class="form-control js-example-basic-single" style="width:100% !important"  autocomplete="off">
+                                    <select name="course_id" id="course_id" class="form-control js-example-basic-single" style="width:100% !important"  autocomplete="off" required>
                                         <option value="">All</option>
                                         @if(auth('admin')->check())
                                             @foreach($courses as $key=>$course)
@@ -61,7 +61,7 @@
                                 </div>
                                 <div class="col-sm-4">
                                     <label for="merit_master_id" class="label-control">Select List:</label>
-                                    <select name="merit_master_id" id="merit_master_id" class="form-control" style="width:100% !important"  autocomplete="off">
+                                    <select name="merit_master_id" id="merit_master_id" class="form-control" style="width:100% !important"  autocomplete="off" required>
                                         <option value="">--select--</option>
                                         @foreach ($list as $li)
                                             <option value="{{$li->id}}" {{request()->get("merit_master_id") == $li->id ? "selected" : ""}}>{{$li->name}}</option>
