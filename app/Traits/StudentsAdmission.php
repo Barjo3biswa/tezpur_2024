@@ -122,27 +122,27 @@ trait StudentsAdmission
             // converting amount into paise
             // $amount = round($amount * 100);
             // dd($amount);
-            if($amount <= 0){
-                // if amount is zero able to proceed without payment.
-                try {
-                    $online_payment_obj = new OnlinePaymentSuccess();
-                    $application_already_paid = $application->online_admission_payments_succeed;
-                    if($application_already_paid->count()){
-                        $online_payment_obj = $application_already_paid->last();
-                    }
-                    $this->changeApplicationAnyDetails($application, $online_payment_obj, $merit_list);
-                    saveLogs(auth(get_guard())->id(), auth(get_guard())->user()->name, get_guard(), "Application Number:  {$application->application_no} Proceeding zero payment succeed.");
-                    DB::commit();
-                    return redirect()->route("department.admission.payment-receipt", Crypt::encrypt($merit_list->id))->with("success", "Payment Succssfull.");
-                } catch (\Throwable $th) {
-                    // dd($th);
-                    Log::error($th);
-                    DB::rollback();
-                    saveLogs(auth(get_guard())->id(), auth(get_guard())->user()->name, get_guard(), "Application Number:  {$application->application_no} Proceeding zero payment failed.");
-                    // dd("OK");
-                    return redirect()->back()->with("error", "Whoops! something went wrong. try again later.");
-                }
-            }
+            // if($amount <= 0){
+            //     // if amount is zero able to proceed without payment.
+            //     try {
+            //         $online_payment_obj = new OnlinePaymentSuccess();
+            //         $application_already_paid = $application->online_admission_payments_succeed;
+            //         if($application_already_paid->count()){
+            //             $online_payment_obj = $application_already_paid->last();
+            //         }
+            //         $this->changeApplicationAnyDetails($application, $online_payment_obj, $merit_list);
+            //         saveLogs(auth(get_guard())->id(), auth(get_guard())->user()->name, get_guard(), "Application Number:  {$application->application_no} Proceeding zero payment succeed.");
+            //         DB::commit();
+            //         return redirect()->route("department.admission.payment-receipt", Crypt::encrypt($merit_list->id))->with("success", "Payment Succssfull.");
+            //     } catch (\Throwable $th) {
+            //         // dd($th);
+            //         Log::error($th);
+            //         DB::rollback();
+            //         saveLogs(auth(get_guard())->id(), auth(get_guard())->user()->name, get_guard(), "Application Number:  {$application->application_no} Proceeding zero payment failed.");
+            //         // dd("OK");
+            //         return redirect()->back()->with("error", "Whoops! something went wrong. try again later.");
+            //     }
+            // }
             //The merchant_order_id is typically the identifier of the Customer Order, Booking etc in your system
             // $client        = new Client($accessId, $secretKey);
             $paymentHanlderService = new PaymentHandlerService;
@@ -503,7 +503,9 @@ trait StudentsAdmission
     {
         $sum_amount = 0.00;
         if($this->fee_structure){
+            
             $sum_amount = $this->fee_structure->feeStructures->sum("amount");
+            dd($sum_amount);
         }
         if(!$this->fee_structure){
             throw new Exception("Fee Structure not generate. Please contact Tezpur University Authority / Helpline No..", 1);
@@ -708,6 +710,7 @@ trait StudentsAdmission
     }
     private function setFeeStructure(MeritList $merit_list)
     {
+        dd($merit_list->fee_structure());
         $this->fee_structure = $merit_list->fee_structure();
         return $this;
     }
