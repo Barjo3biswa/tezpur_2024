@@ -505,7 +505,7 @@ trait StudentsAdmission
         if($this->fee_structure){
             
             $sum_amount = $this->fee_structure->feeStructures->sum("amount");
-            dd($sum_amount);
+            // dd($sum_amount);
         }
         if(!$this->fee_structure){
             throw new Exception("Fee Structure not generate. Please contact Tezpur University Authority / Helpline No..", 1);
@@ -710,7 +710,7 @@ trait StudentsAdmission
     }
     private function setFeeStructure(MeritList $merit_list)
     {
-        dd($merit_list->fee_structure());
+        // dd($merit_list->fee_structure());
         $this->fee_structure = $merit_list->fee_structure();
         return $this;
     }
