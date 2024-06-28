@@ -167,13 +167,13 @@ td {font-size:12px!important;} */
                 City-{{ $admit_card->sub_exam_center->city }},
                 State-{{ $admit_card->sub_exam_center->state }} {{-- -{{ $admit_card->sub_exam_center->pin }} --}}.
             </td>
-            <td><strong>Total Markes</strong></td>
-            <td> <strong>{{$admit_card->tuee_result->total_marks}}</strong></td>
+            <td><strong>Markes Scored</strong></td>
+            <td> <strong>{{$admit_card->tuee_result->marks_botained}}</strong></td>          
         </tr>
 
         <tr>
-            <td><strong>Markes Scored</strong></td>
-            <td> <strong>{{$admit_card->tuee_result->marks_botained}}</strong></td>
+            <td><strong>Total Markes</strong></td>
+            <td> <strong>{{$admit_card->tuee_result->total_marks}}</strong></td>
         </tr>
 
     </table>
