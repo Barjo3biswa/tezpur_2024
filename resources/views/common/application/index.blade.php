@@ -109,12 +109,14 @@
                                         href="{{ route(get_route_guard() . '.download-admit-card', Crypt::encrypt($applied->admitcard->id)) }}"
                                         class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-download"></i>Admit
                                         Card</a></span> --}}
-                                {{-- @if ($applied->admitcardPublished->tuee_result)
-                                    <span class="pull-right"><a
-                                            href="{{ route(get_route_guard() . '.download-score-card', Crypt::encrypt($applied->admitcard->id)) }}"
-                                            class="btn btn-xs btn-primary"><i
-                                                class="glyphicon glyphicon-download"></i>Score Card</a></span>
-                                @endif --}}
+                                @if (auth('admin')->check())
+                                    @if ($applied->admitcardPublished->tuee_result)
+                                        <span class="pull-right"><a
+                                                href="{{ route(get_route_guard() . '.download-score-card', Crypt::encrypt($applied->admitcard->id)) }}"
+                                                class="btn btn-xs btn-primary"><i
+                                                    class="glyphicon glyphicon-download"></i>Score Card</a></span>
+                                    @endif
+                                @endif
                             @endif
                         </td>
                         @if (auth('department_user')->check())
