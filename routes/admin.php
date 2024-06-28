@@ -282,6 +282,11 @@ Route::get("/download-admit-card/{id}", [
 	"as"    => "download-admit-card"
 ]);
 
+Route::get("/download-score-card/{id}", [
+	"uses"  => "Admin\ApplicationController@downloadScoreCard",
+	"as"    => "download-score-card"
+]);
+
 Route::get("/open-close", [
 	"uses"  => "Admin\AdmitCardControllerNew@OpenClose",
 	"as"    => "open-close"

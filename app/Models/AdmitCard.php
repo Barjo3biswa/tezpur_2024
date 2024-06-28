@@ -69,7 +69,7 @@ class AdmitCard extends Model
 
     public function tuee_result()
     {
-        return $this->belongsTo(TueeResult::class,'roll_no','roll_no')/* ->where('publish',1) */;
+        return $this->belongsTo(TueeResult::class,'roll_no','roll_no')->where('publish',1);
     }
 
     public function user()

@@ -2377,12 +2377,14 @@ class CommonApplicationController extends Controller
     {
         $id=Crypt::decrypt($encrypted);
         // dd($id);
-        $score_card=TueeResult::with('admit_card')->where('id',$id)->where('publish',1)->first();
+        // $score_card=TueeResult::with('admit_card')->where('id',$id)->where('publish',1)->first();
+
+        $admit_card = AdmitCard::where('id',$id)->first();
         // dd($score_card);
         // saveLogs(auth(get_guard())->id(), auth(get_guard())->user()->name, get_guard(), "Admit card Downloaded for application no {$admit_card->application_id}.");
-        $pdf = PDF::loadView("common/application/admit_card/score-card", compact("score_card"));
+        $pdf = PDF::loadView("common/application/admit_card/score-card", compact("admit_card"));
         $pdf->setPaper('legal', 'portrait');
-        return $pdf->download("Score-card-".$score_card->roll_no.'.pdf');
+        return $pdf->download("Score-card-".$admit_card->roll_no.'.pdf');
     }
 
     public function reasonOf(Request $request){
