@@ -21,7 +21,7 @@ class Kernel extends HttpKernel
         \App\Http\Middleware\TrustProxies::class,
         \App\Http\Middleware\ClickJackingPrevention::class,
         \App\Http\Middleware\CacheController::class,
-        // \App\Http\Middleware\RedirectorWww::class,
+        \App\Http\Middleware\RedirectorWww::class,
     ];
 
     /**
