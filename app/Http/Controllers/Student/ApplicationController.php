@@ -851,7 +851,7 @@ class ApplicationController extends CommonApplicationController
             if($request->program_name == "UG"){
                 $app_type = "CUET";
             }else if($request->program_name == "BTECH"){
-                $app_type = "JEE";
+                $app_type = "JOSSA";
             }else{
                 $app_type = $request->application_type;
             }
@@ -1356,6 +1356,11 @@ class ApplicationController extends CommonApplicationController
         else if(in_array($user->program_name,["BTECH","UG"])){         
             // if($type=="TUEE"){
                 $program_array = ['BTECH','UG'];
+            // }
+        }
+        else if(in_array($user->program_name,["JOSSA"])){         
+            // if($type=="TUEE"){
+                $program_array = ['BTECH'];
             // }
         }
         else if($user->program_name=="PHDPROF"){         

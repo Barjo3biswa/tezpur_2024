@@ -58,6 +58,9 @@ trait VknrlPayment
             if($prog_name=="PHDPROF" || $prog_name=="VISVES"){
                 $prog_name = "PHD";
             }
+            if($prog_name=="JOSSA"){
+                $prog_name = "BTECH";
+            }
             if($prog_name!="FOREIGN"){
                 $flag = Program::where('type',$prog_name)->first();
 
@@ -77,6 +80,7 @@ trait VknrlPayment
                     }
                 }
             }
+            // dd("ok");
             // //end
 
             
@@ -93,8 +97,9 @@ trait VknrlPayment
             // dd($is_mba);
             
             $alloed_ids = explode(",", config("vknrl.ALLOW_AFTER_CLOSING_APP_IDS"));
+            
             if($courses_count !== sizeof($course_ids) && !in_array($application->id, $alloed_ids )&& $is_mba !=1){
-
+                // dd("ok");
                 $student_id = Auth::user()->id;
                 $is_avail=DB::table('zzz_payment_allowed_students')->where('student_id',$student_id)->count();
                 // dd($is_avail);
@@ -111,7 +116,7 @@ trait VknrlPayment
             Log::emergency($e);
             return redirect()->back()->with("error", "Whoos! something went wrong. Please try again later.");
         }
-
+        // dd("ok");
         
 
 
@@ -170,7 +175,7 @@ trait VknrlPayment
             // }
             // dd($application->is_foreign);
             // dd("ok");
-            if(!$application->is_foreign && $application->is_mbbt==0){
+            if(!$application->is_foreign && $application->is_mbbt==0 && Auth::User()->program_name != "JOSSA"){
                 // dd("ok");
                 $caste_map=[
                     1=>'general',
@@ -341,7 +346,7 @@ trait VknrlPayment
             ];
             // $json = json_encode($data);
         }catch(Exception $e){
-            dd($e);
+            // dd($e);
             Log::error($e);
             DB::rollback();
             saveLogs(auth(get_guard())->id(), auth(get_guard())->user()->name, get_guard(), "Application Number:  {$application->id} Proceeding payment failed.");

@@ -440,6 +440,11 @@ class CommonApplicationController extends Controller
         if($prog_name=="PHDPROF" || $prog_name == "VISVES"){
             $prog_name = "PHD";
         }
+
+        if($prog_name=="JOSSA"){
+            $prog_name = "BTECH";
+        }
+
         if($prog_name!="FOREIGN"){
             $flag = Program::where('type',$prog_name)->first();
             // dd($application_type);
@@ -1414,6 +1419,7 @@ class CommonApplicationController extends Controller
             }
             saveLogs(auth(get_guard())->id(), auth(get_guard())->user()->name, get_guard(), $message);
         } catch (Exception $e) {
+            // dd($e);
             Log::error($e);
             return redirect()->back()->with("error", "Whoops! Lookes like you have mess something.");
         }
@@ -1833,6 +1839,9 @@ class CommonApplicationController extends Controller
             if($prog_name=="PHDPROF" || $prog_name=="VISVES"){
                 $prog_name = "PHD";
             }
+            if($prog_name=="JOSSA"){
+                $prog_name = "BTECH";
+            }
             if($prog_name!="FOREIGN"){
                 $flag = Program::where('type',$prog_name)->first();
                 $student_id = Auth::user()->id;
@@ -2024,7 +2033,7 @@ class CommonApplicationController extends Controller
         DB::beginTransaction();
         try {
             $application->status = "payment_pending";
-            if($application->is_mbbt==1 /* || $application->is_cuet_ug==1 */){
+            if($application->is_mbbt==1 || $application->exam_through=='JOSSA'){
                 $application->is_free_reg=1;
             }
             if($application->is_mba==1){
@@ -2034,6 +2043,7 @@ class CommonApplicationController extends Controller
             $message = "Final Review completed Application No : {$application->id}";
             saveLogs(auth(get_guard())->id(), auth(get_guard())->user()->name, get_guard(), $message);
         } catch (Exception $e) {
+            // dd($e);
             Log::error($e);
             DB::rollback();
             return redirect()->back()->with("error", "Something went wrong.");

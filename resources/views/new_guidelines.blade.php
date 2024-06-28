@@ -396,7 +396,7 @@ color:white'>Admissions to</strong></span></i><br>
             following table:
         </p>
         <p align="justify">
-            @if (!in_array($is_mba, ['MBBT']))
+            @if (!in_array($is_mba, ['MBBT','JOSSA']))
                 @if ($is_mba == 'UG')
                     <table class="table table-bordered" style="border: 1px solid #ddd !important;">
                         <tr>
