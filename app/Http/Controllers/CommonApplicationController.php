@@ -2394,7 +2394,7 @@ class CommonApplicationController extends Controller
 
         if (auth("student")->check()) {
             
-            TueeResult::where('id',$admit_card->tuee_result->id)->increment('is_downloaded');
+            TueeResult::where('id',$admit_card->tuee_result->id)->increment('is_download');
         }
         // dd($score_card);
         // saveLogs(auth(get_guard())->id(), auth(get_guard())->user()->name, get_guard(), "Admit card Downloaded for application no {$admit_card->application_id}.");
