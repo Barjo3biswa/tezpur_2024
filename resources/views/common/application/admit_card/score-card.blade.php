@@ -194,7 +194,7 @@ td {font-size:12px!important;} */
     @if($admit_card->tuee_result->is_revised)
     <div class="container-instruction">
         <ol>
-            <li>Score Card is reviced due to technical issues.</li>
+            <li>Score Card is revised due to technical issues.</li>
         </ol>
     </div>
     @endif
