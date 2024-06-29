@@ -45,13 +45,15 @@ class sendToZZZ extends Notification
     {
         // dd(route($this->route_name));
         return (new MailMessage)
-            ->subject('Urgent Information Required. LAST CHANCE!!')
+            // ->subject('Urgent Information Required. LAST CHANCE!!')
+            ->subject('Revised Score Card Information')
             ->level("success")
             ->from(env('MAIL_USERNAME'), env("INSTITUTE_NAME"))
-            ->greeting('Urgent Information. LAST CHANCE!!')
+            //->greeting('Urgent Information. LAST CHANCE!!')
+            ->greeting('Revised Score Card Information')
             ->line('Dear Applicant,')
             ->line($this->message)
-            ->line('Failure to do so will result in your application being subject to rejection. Ignore this mail if the information is already updated.')
+            //->line('Failure to do so will result in your application being subject to rejection. Ignore this mail if the information is already updated.')
             ->line('Do Not Reply To This Mail.')
             ->cc($this->cc);
     }
