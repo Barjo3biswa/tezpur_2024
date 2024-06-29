@@ -29,6 +29,7 @@ use App\Traits\ApplicationExport;
 use App\Traits\ApplicationDownloader;
 use App\TueeResult;
 use Auth;
+use CreedScore;
 use Illuminate\Database\Eloquent\Builder;
 use PDF;
 
@@ -2390,6 +2391,11 @@ class CommonApplicationController extends Controller
         // $score_card=TueeResult::with('admit_card')->where('id',$id)->where('publish',1)->first();
 
         $admit_card = AdmitCard::where('id',$id)->first();
+
+        if (auth("student")->check()) {
+            
+            TueeResult::where('id',$admit_card->tuee_result->id)->increment('is_downloaded');
+        }
         // dd($score_card);
         // saveLogs(auth(get_guard())->id(), auth(get_guard())->user()->name, get_guard(), "Admit card Downloaded for application no {$admit_card->application_id}.");
         $pdf = PDF::loadView("common/application/admit_card/score-card", compact("admit_card"));
