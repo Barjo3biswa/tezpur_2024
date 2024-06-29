@@ -78,7 +78,7 @@ td {font-size:12px!important;} */
                                 UNIVERSITY</strong></h1>
                         <p style="color: #140707;margin-top:0!important;margin-bottom:0!important;">
                             NAPAAM, TEZPUR - 784028, ASSAM<br>
-                            <strong>PROVISIONAL SCORE CARD @if($admit_card->tuee_result->is_reviced) (REVICED) @endif</strong><br>
+                            <strong>PROVISIONAL SCORE CARD @if($admit_card->tuee_result->is_revised) (REVISED) @endif</strong><br>
                             <strong>TEZPUR UNIVERSITY ENTRANCE EXAMINATION 2024 (CBT)</strong><br>
                         </p>
                     </div>
@@ -191,7 +191,7 @@ td {font-size:12px!important;} */
             </td>
         </tr>
     </table>
-    @if($admit_card->tuee_result->is_reviced)
+    @if($admit_card->tuee_result->is_revised)
     <div class="container-instruction">
         <ol>
             <li>Score Card is reviced due to technical issues.</li>
