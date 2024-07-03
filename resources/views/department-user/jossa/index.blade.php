@@ -98,14 +98,13 @@
                                         </td>
                                         <td>{{$app->FullName}}</td>
                                         <td>{{$app->caste->name}}</td>
-                                        <td>
-                                            {{-- {{$app->merit_list->count()}} --}}
+                                        {{-- <td>
                                             @if($app->merit_list->count()==0)
                                                 <a href="{{route(get_route_guard().".jossa.assign-branch",Crypt::encrypt($app->id))}}" class="btn btn-primary">Assign Branch & admission Category</a>
                                             @else
                                                 <span class="btn btn-success btn-sm" >Branch Assigned</span>
                                             @endif 
-                                        </td>
+                                        </td> --}}
                                     </tr>
                                 @endforeach
                             </tbody>

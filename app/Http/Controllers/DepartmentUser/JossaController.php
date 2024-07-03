@@ -12,12 +12,14 @@ use App\Models\CourseSeat;
 use App\Models\MeritList;
 use DB;
 use Illuminate\Support\Facades\Crypt;
+use Session;
 use Validator;
 
 class JossaController extends Controller
 {
     public function index(){
-        $application = Application::where('is_btech',1)->whereHas('JossaStatus')->where('status','payment_done')->get();
+        $session = Session::where('is_active',1)->first()->id;
+        $application = Application::where('is_btech',1)->where('session_id',$session)->whereHas('JossaStatus')->where('status','payment_done')->get();
         return view('department-user.jossa.index',compact('application'));
         // dd($application);
     }
