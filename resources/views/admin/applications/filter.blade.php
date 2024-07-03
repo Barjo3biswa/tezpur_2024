@@ -89,7 +89,7 @@ $exam_center = \App\Models\ExamCenter::get();
                 {{-- <option value="GATE" {{request()->get("EXAM_THROUGH") == "is_cuet_pg" ? "selected" : ""}}>GATE</option> --}}
                 <option value="Visvesvaraya" {{request()->get("EXAM_THROUGH") == "Visvesvaraya" ? "selected" : ""}}>Visvesvaraya</option>
                 <option value="ECE" {{request()->get("EXAM_THROUGH") == "ECE" ? "selected" : ""}}>ECE</option>
-                <option value="ECE" {{request()->get("EXAM_THROUGH") == "JOSSA" ? "selected" : ""}}>JOSSA</option>
+                <option value="JOSSA" {{request()->get("EXAM_THROUGH") == "JOSSA" ? "selected" : ""}}>JOSSA</option>
             </select>
         </div>
 
