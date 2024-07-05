@@ -3220,7 +3220,7 @@
                   <div class="col-md-6">
                     <div class="form-group" v-if="is_mbbt || initial_step.is_btech">
                       <label for="document_prc" class="col-md-4 margin-label">
-                        PRC (for B.Tech and M.Sc in MBBT for North-East quota)
+                        Seat Allotment Letter / PRC (for B.Tech and M.Sc in MBBT for North-East quota)
                         <strong class="text-danger" v-if="initial_step.is_btech = true"
                           style="font-size: 24px; vertical-align: middle;"></strong>
                         :
