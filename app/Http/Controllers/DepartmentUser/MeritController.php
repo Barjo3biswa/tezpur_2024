@@ -550,7 +550,7 @@ class MeritController extends CommomMeritController
     }
 
     public function changeBranch(Request $request,$id){
-        dd($request->all());
+        // dd($request->all());
         try {
             $decrypted = Crypt::decrypt($id);
             $merit_list=MeritList::where('id',$decrypted)->first();
@@ -599,6 +599,7 @@ class MeritController extends CommomMeritController
                 'course_id'     => $branch_name,
                 'new_status'    => 'branch_assigned',
                 'status'        => 8,
+                'payment_mode'  => $request->online_ofline,
             ]);
 
             CourseSeat::where('course_id',$branch_name)

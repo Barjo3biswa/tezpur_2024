@@ -275,12 +275,18 @@
 <script type="text/javascript">
     $(function () {
         $('.date').datetimepicker({
-            format: 'YYYY-MM-DD 10:00:00',
+            // format: 'YYYY-MM-DD 10:00:00',
+            // showClose: true
+            format: 'YYYY-MM-DD HH:mm:ss',
+            defaultDate: moment().hours(10).minutes(0).seconds(0),
             showClose: true
         });
 
         $('.datei').datetimepicker({
-            format: 'YYYY-MM-DD 10:00:00',
+            // format: 'YYYY-MM-DD 10:00:00',
+            // showClose: true
+            format: 'YYYY-MM-DD HH:mm:ss',
+            defaultDate: moment().hours(10).minutes(0).seconds(0),
             showClose: true
         });
         // $('#opening_date').datetimepicker({

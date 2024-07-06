@@ -165,7 +165,7 @@
                                         <label for="online">Online</label>
                                     </div>
                                     <div class="col-md-2">
-                                        <input type="radio" id="offline" name="online_ofline" required value="offline">
+                                        <input type="radio" id="offline" name="online_ofline" required value="offline" checked>
                                         <label for="offline">Offline</label>
                                     </div>
                                 </div> </br>                                   

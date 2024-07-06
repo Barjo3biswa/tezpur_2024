@@ -613,6 +613,7 @@ class newAdmissionController extends Controller
 
 
     public function inviteForAdmission(Request $request){
+        // dd($request->all());
         $rules = [
             "date_from"    => "required",
             "date_to" => "required",
