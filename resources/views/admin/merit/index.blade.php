@@ -427,7 +427,7 @@
 
                                         @if(in_array($merit_list->status,[2]))
                                             <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModal" onclick="AssignId({{$merit_list->id}})">
-                                               Withdrow Seat
+                                               Withdraw Seat
                                               </button>
                                         @endif
                                         @if(checkPermission(2)==true && in_array($merit_list->status, [1,8] ))

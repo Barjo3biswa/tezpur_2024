@@ -155,7 +155,20 @@
                                 </tbody>
                                 
                             </table>
-                            <div class="col-sm-12">                                      
+                            <div class="col-sm-12">  
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <label for="online">Payment Mode</label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="radio" id="online" name="online_ofline" required value="online">
+                                        <label for="online">Online</label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="radio" id="offline" name="online_ofline" required value="offline">
+                                        <label for="offline">Offline</label>
+                                    </div>
+                                </div> </br>                                   
                                 <div class="row">
                                     <div class="col-md-3">
                                         <input type="checkbox" id="below_sixty" name="below_sixty" value="Bike">

@@ -199,7 +199,7 @@
                                                 <option value="">--select--</option>
                                                 <option value="1">10AM to 1PM</option>
                                                 <option value="2">2PM to 5PM</option>
-                                                <option value="3">Till 16 Jan 2024</option>
+                                                {{-- <option value="3">Till 16 Jan 2024</option> --}}
                                             </select>
                                             {{-- <input type="text" name="closing_time" class="form-control" value="4" required> --}}
                                         </div>                  

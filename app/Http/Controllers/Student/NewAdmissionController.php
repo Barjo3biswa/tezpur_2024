@@ -188,12 +188,17 @@ class NewAdmissionController extends Controller
         DB::beginTransaction();
         try{
             $record=MeritList::where('id',$decrypted)->first();
+            $merit_master = MeritMaster::where('id',$record->merit_master_id)->first();
             // if($record->new_status=='time_extended'){
-                $course_seat=CourseSeat::where('course_id',$record->course_id)->where('admission_category_id',$record->admission_category_id)->first();
+                $course_seat=CourseSeat::where('course_id',$record->course_id)
+                                        ->where('course_seat_type_id', $merit_master->course_seat_type_id)
+                                        ->where('admission_category_id',$record->admission_category_id)->first();
                 $course_seat->decrement("temp_seat_applied");
             // }
             if($merit_list->is_pwd==1){
-                $course_seat=CourseSeat::where('course_id',$record->course_id)->where('admission_category_id',7)->first();
+                $course_seat=CourseSeat::where('course_id',$record->course_id)
+                                        ->where('course_seat_type_id', $merit_master->course_seat_type_id)
+                                        ->where('admission_category_id',7)->first();
                 $course_seat->decrement("temp_seat_applied");
             }
 
@@ -222,10 +227,13 @@ class NewAdmissionController extends Controller
 
     public function slidingChanges($merit_list){
         if($merit_list->application->is_cuet_ug==1){
+            $merit_master = MeritMaster::where('id',$merit_list->merit_master_id)->first();
             $total_seat_applied=CourseSeat::where('course_id',$merit_list->course_id)
+                    ->where('course_seat_type_id', $merit_master->course_seat_type_id)
                     ->where('admission_category_id','!=',1)
                     ->sum('total_seats_applied');
             $pwd_seat_applied= CourseSeat::where('course_id',$merit_list->course_id)
+                    ->where('course_seat_type_id', $merit_master->course_seat_type_id)
                     ->where('admission_category_id',7)
                     ->sum('total_seats_applied');
             $count=$total_seat_applied-$pwd_seat_applied;
@@ -261,8 +269,10 @@ class NewAdmissionController extends Controller
             if($record->admission_category_id==1){
                 $this->slidingChanges($merit_list);     
             }
-
-            $course_seat=CourseSeat::where('course_id',$record->course_id)->where('admission_category_id',$record->admission_category_id)->first();
+            $merit_master = MeritMaster::where('id',$merit_list->merit_master_id)->first();
+            $course_seat=CourseSeat::where('course_id',$record->course_id)
+                                    ->where('course_seat_type_id', $merit_master->course_seat_type_id)
+                                    ->where('admission_category_id',$record->admission_category_id)->first();
             $course_seat->decrement("total_seats_applied");
             
             MeritList::where('id',$decrypted)->update([
@@ -360,6 +370,13 @@ class NewAdmissionController extends Controller
         }
         if($merit_list->attendance_flag==0 && now() >= $merit_list->valid_from && now() <= $merit_list->valid_till){
             MeritList::where('id',$decrypted)->update(['attendance_flag'=>2, 'new_status'=>'denied']);
+            if($merit_list->status == 7){
+                $merit_master = MeritMaster::where('id',$merit_list->merit_master_id)->first();
+                $course_seat=CourseSeat::where('course_id',$merit_list->course_id)
+                                        ->where('course_seat_type_id', $merit_master->course_seat_type_id)
+                                        ->where('admission_category_id',$merit_list->admission_category_id)->first();
+                $course_seat->decrement("temp_seat_applied");
+            }
         }
         return redirect()->back()->with('success','successfully declined for reporting');
     }

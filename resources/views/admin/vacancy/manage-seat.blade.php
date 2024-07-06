@@ -148,10 +148,10 @@
                                                 </select>
                                             </div>
                                             <div class="cell">
-                                                <input type="text" class="form-control" name="admission_date" value="{{$seat->admission_date}}">
+                                                <input type="date" class="form-control" name="admission_date" value="{{$seat->admission_date}}">
                                             </div>
                                             <div class="cell">
-                                                <button type="submit" class="btn btn-success"><i class="fa fa-search"></i> Submit</button>
+                                                <button type="submit" class="btn btn-success"> Submit</button>
                                             </div>
                                         </div>
                                     </form>

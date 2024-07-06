@@ -505,11 +505,13 @@ class MeritController extends CommomMeritController
     // }
 
     public function AssignBranch($id){
+        // dd(auth('department_user')->id());
         $decr=crypt::decrypt($id);
         // dd($decr);
         $merit_list=MeritList::where('id',$decr)->first();
         //////check is anyone left
             $check_count = MeritList::where('attendance_flag',1)->where('merit_master_id',$merit_list->merit_master_id)->where('status',0)->where('tuee_rank','<',$merit_list->tuee_rank)->count();
+            // dd($check_count);
             if($check_count>0){
                 return redirect()->back()->with('error','Some Students are Left');
             }
@@ -548,6 +550,7 @@ class MeritController extends CommomMeritController
     }
 
     public function changeBranch(Request $request,$id){
+        dd($request->all());
         try {
             $decrypted = Crypt::decrypt($id);
             $merit_list=MeritList::where('id',$decrypted)->first();

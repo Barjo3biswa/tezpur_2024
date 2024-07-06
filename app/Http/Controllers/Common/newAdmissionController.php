@@ -91,7 +91,9 @@ class newAdmissionController extends Controller
     {
         $merit_master = MeritMaster::where('id', $merit_master_id)->first();
         $course_id    = $merit_master->course_id;
-        $course_seat  = CourseSeats::where('course_id', $course_id)->where('admission_category_id', $admission_cat)->first();
+        $course_seat  = CourseSeats::where('course_id', $course_id)
+                                    ->where('admission_category_id', $admission_cat)
+                                    ->where('course_seat_type_id', $merit_master->course_seat_type_id)->first();
        
         $currentDate = Carbon::now()->format('Y-m-d');
         $admissionDate = $course_seat->admission_date ? Carbon::parse($course_seat->admission_date)->format('Y-m-d') : null;
@@ -148,7 +150,10 @@ class newAdmissionController extends Controller
                                                                     'admission_category_id' => $merit_list->selection_category,
                 ]);
             }
-            CourseSeats::where('course_id', $course_id)->where('admission_category_id', $admission_cat) /* ->where('admission_flag',null) */->update(['admission_flag' => 'open', 'is_selection_active' => 1]);
+            CourseSeats::where('course_id', $course_id)
+                        ->where('admission_category_id', $admission_cat) /* ->where('admission_flag',null) */
+                        ->where('course_seat_type_id', $merit_master->course_seat_type_id)
+                        ->update(['admission_flag' => 'open', 'is_selection_active' => 1]);
             DB::commit();
         } catch (\Exception $e) {DB::rollback();
             dd($e);
@@ -162,7 +167,9 @@ class newAdmissionController extends Controller
     {
         $merit_master = MeritMaster::where('id', $merit_master_id)->first();
         $course_id    = $merit_master->course_id;
-        $course_seat  = CourseSeats::where('course_id', $course_id)->where('admission_category_id', $admission_cat)->first();
+        $course_seat  = CourseSeats::where('course_id', $course_id)
+                                    ->where('admission_category_id', $admission_cat)
+                                    ->where('course_seat_type_id', $merit_master->course_seat_type_id)->first();
         // dd($course_seat);
         //validate serialization
         // $course_status=CourseSeat::
@@ -171,10 +178,12 @@ class newAdmissionController extends Controller
         if($merit_master->sliding_possibility==1 && $admission_cat==1){
             $total_seat_applied=CourseSeat::where('course_id',$merit_master->course_id)
                     ->where('admission_category_id','!=',1)
+                    ->where('course_seat_type_id', $merit_master->course_seat_type_id)
                     ->sum('total_seats_applied');
             
             $pwd_seat_applied= CourseSeat::where('course_id',$merit_master->course_id)
                     ->where('admission_category_id',7)
+                    ->where('course_seat_type_id', $merit_master->course_seat_type_id)
                     ->sum('total_seats_applied');
             $count=$total_seat_applied-$pwd_seat_applied;
             // dd($count);
@@ -187,7 +196,8 @@ class newAdmissionController extends Controller
         $admission_order = $course_seat->admission_order;
         if ($admission_order != 1) {
             for ($j = 1; $j < $admission_order; $j++) {
-                $status = CourseSeats::where('course_id', $course_id)->where('admission_order', $j)->first();
+                $status = CourseSeats::where('course_id', $course_id)->where('admission_order', $j)
+                                    ->where('course_seat_type_id', $merit_master->course_seat_type_id)->first();
                 if ($status->admission_flag != 'close') {
                     // return 0;
                     return redirect()->back()->with('error', 'Please maintain the Admission Order.');
@@ -228,7 +238,9 @@ class newAdmissionController extends Controller
                 return redirect()->back()->with('error', 'Students are not invited yet, can`t proceed. ');
             }
             if($course_seat->temp_seat_applied==0){
-                CourseSeats::where('course_id', $course_id)->where('admission_category_id', $admission_cat)->update(['admission_flag' => 'close', 'is_selection_active' => 0]);
+                CourseSeats::where('course_id', $course_id)
+                            ->where('course_seat_type_id', $merit_master->course_seat_type_id)
+                            ->where('admission_category_id', $admission_cat)->update(['admission_flag' => 'close', 'is_selection_active' => 0]);
                 return redirect()->back()->with('error', 'This admission category is Closed.');
             }else{
                 return redirect()->back()->with('error', 'Students are processing there admission process please wait.');
@@ -275,7 +287,10 @@ class newAdmissionController extends Controller
                                                                 'admission_category_id' => $admission_catagory
                 ]);
             }
-            CourseSeats::where('course_id', $course_id)->where('admission_category_id', $admission_cat) /* ->where('admission_flag',null) */->update(['admission_flag' => 'open', 'is_selection_active' => 1]);
+            CourseSeats::where('course_id', $course_id)
+                        ->where('course_seat_type_id', $merit_master->course_seat_type_id)
+                        ->where('admission_category_id', $admission_cat) /* ->where('admission_flag',null) */
+                        ->update(['admission_flag' => 'open', 'is_selection_active' => 1]);
             DB::commit();
         } catch (\Exception $e) {DB::rollback();
             // dd($e);
@@ -368,6 +383,7 @@ class newAdmissionController extends Controller
 
         $merit_master = MeritMaster::where('id', $request->merit_master_id)->first();
         $admission_categories = CourseSeat::with('admissionCategory')
+            ->where('course_seat_type_id', $merit_master->course_seat_type_id)
             ->where('course_id', $request->course_id)->where('course_seat_type_id',$merit_master->course_seat_type_id)
         /* ->where('admission_flag','!=','Closed') */->orderBy('admission_order')->get();
         return response()->json(['success' => true, 'data' => $admission_categories]);
@@ -419,12 +435,17 @@ class newAdmissionController extends Controller
 
                 $ml=MeritList::where('id',$id)->first();
 
+                $merit_master = MeritMaster::where('id', $ml->merit_master_id)->first();
 
-                $course_seat=CourseSeat::where('course_id',$ml->course_id)->where('admission_category_id',$ml->admission_category_id)->first();
+                $course_seat=CourseSeat::where('course_id',$ml->course_id)
+                    ->where('course_seat_type_id', $merit_master->course_seat_type_id)
+                    ->where('admission_category_id',$ml->admission_category_id)->first();
                 $course_seat->increment("temp_seat_applied");
                 
                 if($ml->is_pwd==1){
-                    $course_seat_pws=CourseSeat::where('course_id',$ml->course_id)->where('admission_category_id',7)->first();
+                    $course_seat_pws=CourseSeat::where('course_id',$ml->course_id)
+                                                ->where('course_seat_type_id', $merit_master->course_seat_type_id)
+                                                ->where('admission_category_id',7)->first();
                     $course_seat_pws->increment("temp_seat_applied");
                 }
 
@@ -470,12 +491,18 @@ class newAdmissionController extends Controller
             //Mail to student---
             $ml=MeritList::where('id',$request->merit_list_id)->first();
 
-            $course_seat=CourseSeat::where('course_id',$ml->course_id)->where('admission_category_id',$ml->admission_category_id)->first();
+            $merit_master = MeritMaster::where('id', $ml->merit_master_id)->first();
+
+            $course_seat=CourseSeat::where('course_id',$ml->course_id)
+                                    ->where('course_seat_type_id', $merit_master->course_seat_type_id)
+                                    ->where('admission_category_id',$ml->admission_category_id)->first();
             // dd($course_seat);
             $course_seat->decrement("temp_seat_applied");
             
             if($ml->is_pwd==1){
-                $course_seatii=CourseSeat::where('course_id',$ml->course_id)->where('admission_category_id',7)->first();
+                $course_seatii=CourseSeat::where('course_id',$ml->course_id)
+                                            ->where('course_seat_type_id', $merit_master->course_seat_type_id)
+                                            ->where('admission_category_id',7)->first();
                 $course_seatii->decrement("temp_seat_applied");
             }
 
@@ -598,7 +625,13 @@ class newAdmissionController extends Controller
         if($request->merit_list_ids==null){
             return redirect()->back()->with('error','please select students');
         }
-        $check_is_already_invided= CourseSeat::where('course_id', $request->course)->where('admission_category_id', $request->category_id)->first();
+
+        $m_l =  MeritList::where('id', $request->merit_list_ids[0])->first();
+        $merit_master = MeritMaster::where('id',$m_l->merit_master_id)->first();
+
+        $check_is_already_invided= CourseSeat::where('course_id', $request->course)
+                                            ->where('course_seat_type_id', $merit_master->course_seat_type_id)
+                                            ->where('admission_category_id', $request->category_id)->first();
         if($check_is_already_invided->invitation_flag==1){
             return redirect()->route('department.merit.invite-for-admission')->with('error',' Some students are already invited for this category, can`t invite more.');
         }
@@ -662,7 +695,10 @@ class newAdmissionController extends Controller
             // dd($date_to);
             MeritList::where('id',$decrypted)->update(['new_status'=>'time_extended',
                                                         'valid_till'=>$date_to, ]);
-            $course_seat=CourseSeat::where('course_id',$valid_ml->course_id)->where('admission_category_id',$valid_ml->admission_category_id)->first();
+            $merit_master = MeritMaster::where('id',$valid_ml->merit_master_id)->first();
+            $course_seat=CourseSeat::where('course_id',$valid_ml->course_id)
+                                    ->where('course_seat_type_id', $merit_master->course_seat_type_id)
+                                    ->where('admission_category_id',$valid_ml->admission_category_id)->first();
             // $course_seat->increment("temp_seat_applied");
 
             $ml=MeritList::where('id',$decrypted)->first();

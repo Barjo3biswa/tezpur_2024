@@ -49,7 +49,7 @@
                         }
                         
                     @endphp
-                    @foreach($courses as $cour)
+                    {{-- @foreach($courses as $cour)
                         <div class="row">
                             <div class="col-lg-3 col-md-3 col-sm-6">
                                 <div class="widget">
@@ -188,7 +188,7 @@
                                 </div>
                             </div>
                         </div>
-                    @endforeach
+                    @endforeach --}}
                 </div>
             </div>
         </div>

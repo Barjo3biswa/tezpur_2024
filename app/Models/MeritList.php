@@ -183,14 +183,19 @@ class MeritList extends Model
 
     public function course_seat()
     {
+        $merit_master = MeritMaster::where('id',$this->merit_master_id)->first();
+        // dd($merit_master);
         return CourseSeat::where("course_id", $this->course_id)
+            ->where('course_seat_type_id',$merit_master->course_seat_type_id)
             ->where("admission_category_id", $this->admission_category_id)
             ->first();
     }
 
     public function shortlisted_course_seat()
     {
+        $merit_master = MeritMaster::where('id',$this->merit_master_id)->first();
         return CourseSeat::where("course_id", $this->course_id)
+            ->where('course_seat_type_id',$merit_master->course_seat_type_id)
             ->where("admission_category_id", $this->shortlisted_ctegory_id)
             ->first();
     }

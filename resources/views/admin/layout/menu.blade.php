@@ -54,7 +54,7 @@
     @if (in_array(auth('department_user')->id(), [178, 180, 181, 182]))
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                aria-expanded="false">Admission Btech 2023 <span class="caret"></span></a>
+                aria-expanded="false">Admission Btech 2024 <span class="caret"></span></a>
             <ul class="dropdown-menu">
                 @if (checkPermission(1) == true)
                     <li><a href="{{ route(get_route_guard() . '.merit.attendence') }}">Attendence</a></li>
@@ -73,7 +73,7 @@
     @else
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                aria-expanded="false">Admission Process 2023<span class="caret"></span></a>
+                aria-expanded="false">Admission Process 2024<span class="caret"></span></a>
             <ul class="dropdown-menu">
                 <li><a href="{{ route(get_route_guard() . '.merit.reporting') }}">Invite For Reporting</a></li>
                 <li><a href="{{ route(get_route_guard() . '.merit.admission_new') }}">Admission</a></li>

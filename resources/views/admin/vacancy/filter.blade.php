@@ -11,7 +11,7 @@
                 @endforeach
             </select>
         </div>
-
+        @if (!in_array(auth('department_user')->id(), [178, 180, 181, 182]))
         <div class="col-sm-4">
             <label for="Programme" class="label-control">List Type:</label>
             <select name="type_id" id="type_id" class="js-example-basic-single" style="width:100% !important"
@@ -23,6 +23,7 @@
                 @endforeach
             </select>
         </div>
+        @endif
 
         <div class="col-sm-3">
             <label for="submit" class="label-control" style="visibility: hidden;">Search</label><br>
