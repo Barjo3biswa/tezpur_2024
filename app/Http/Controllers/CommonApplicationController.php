@@ -171,7 +171,7 @@ class CommonApplicationController extends Controller
         }
         
         $this->applicationStatusFilter($request, $application);
-        // dd($application->get());
+        dd($application->get());
         // dd(auth("department_user")->id());
         
 
