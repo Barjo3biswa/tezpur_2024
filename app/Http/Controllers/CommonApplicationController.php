@@ -397,8 +397,9 @@ class CommonApplicationController extends Controller
         }elseif($request->get("export") == "zip"){
             return $this->ExportApplicationAsZip($applications);
         }else
+        dd($applications->get());
             $applications = $application->paginate(100);
-        dd($applications);
+        
         return view($this->getIndexView(), compact("applications", "castes", "sessions","program"));
     }
 
