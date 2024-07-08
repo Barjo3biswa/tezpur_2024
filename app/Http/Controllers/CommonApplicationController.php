@@ -349,7 +349,7 @@ class CommonApplicationController extends Controller
             
             //ends
         }
-        // dd($application->get());
+        dd($application->get());
         $applications = $application->whereNull("deleted_at");
         // $this->applicationStatusFilter($request, $application);
         $castes = Caste::all();
