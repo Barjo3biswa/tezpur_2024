@@ -31,43 +31,37 @@ Counselling </button>
 <div class="modal fade" id="maymentlink{{ $merit->id }}">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"
-                    aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Payment Link</h4>
-            </div>
-            {{-- <form method="POST"
-                action="{{ route(get_route_guard().'.admission.choose-hostel', Crypt::encrypt($merit->id)) }}"
-                onSubmit="return confirm('Are you sure ? ')">
-                {{ csrf_field() }}
-                <div class="modal-body">
-
-                    <div class="alert alert-info">
-                        <strong>Note:</strong> Hostel will be
-                        alloted based on availability.
-                    </div>
-
-                    <div class="checkbox">
-                        <label>
-                            <input name="hostel_required" required type="radio" value="yes">
-                            Hostel Required
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input name="hostel_required" required type="radio" value="no">
-                            Hostel Not Required
-                        </label>
-                    </div>
-
-                    <div id="hostel_dtl{{$key}}">
-                    </div>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Set Timings For Admission.</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary btn-sm">Proceed</button>
+                <form name="merit" id="merit" action="{{ route(get_route_guard().'.merit.send-payment-link', Crypt::encrypt($merit->id)) }}" method="POST">
+                    {{ csrf_field() }}
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <label for="">Set Opening Time</label>
+                                <input type="text" name="date_from" class="form-control date" autocomplete="off" required>
+                            </div>                     
+                        </div> 
+                        <div class="row">
+                            <div class="col-md-8">
+                                <label for="">Select Time Window for student to complete</label>
+                                <select name="closing_time" class="form-control" id="">
+                                    <option value="">--select--</option>
+                                    <option value="4">3 Hour Time Window</option>
+                                </select>
+                            </div>                  
+                        </div> 
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" class="btn btn-primary" value="Call For Admission" onclick="return confirm('Are you sure you want Call Please check again?');">
+                    </div>
+                </form>
                 </div>
-            </form> --}}
         </div>
     </div>
 </div>

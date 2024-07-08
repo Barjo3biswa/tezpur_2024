@@ -479,6 +479,15 @@ class newAdmissionController extends Controller
         return redirect()->back()->with('success', 'Successfully called students');
     }
 
+    public function SendPaymentLinkBtech($id){
+        try {
+            $decrypted = Crypt::decrypt($id);
+        } catch (\Exception $e) {
+            dd('error');
+        }
+        dd($decrypted);
+    }
+
     public function cancelForAdmission(Request $request)
     {
         

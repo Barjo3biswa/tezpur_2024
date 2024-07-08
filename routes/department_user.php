@@ -200,6 +200,7 @@ Route::post("/load-category",["uses" => "onlineAdmissionController@loadCategory"
 // Route::get("/call-for-admission/{id}",["uses" => "onlineAdmissionController@callForAdmission", "as" => "merit.call-for-admission"]);
 
 Route::post("/call-for-admission",["uses" => "onlineAdmissionController@callForAdmission", "as" => "merit.call-for-admission"]);
+Route::post("/send-payment-link/{id}",["uses" => "onlineAdmissionController@SendPaymentLinkBtech", "as" => "merit.send-payment-link"]);
 Route::post("/invite-for-admission",["uses" => "onlineAdmissionController@inviteForAdmission", "as" => "merit.invite-for-admission"]);
 
 
