@@ -162,6 +162,9 @@ class CommonApplicationController extends Controller
         $exam_type = [$request->EXAM_THROUGH];
         if($request->EXAM_THROUGH == 'TUEE'){
             $exam_type = ['TUEE','GATE'];
+        }else if($request->EXAM_THROUGH == 'JEE'){
+            $application->where('is_btech',1);
+            $exam_type = ['JEE','CUET'];
         }
 
         if(isset($request->EXAM_THROUGH)){
