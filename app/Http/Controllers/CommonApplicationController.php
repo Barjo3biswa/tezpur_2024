@@ -162,8 +162,6 @@ class CommonApplicationController extends Controller
         $exam_type = [$request->EXAM_THROUGH];
         if($request->EXAM_THROUGH == 'TUEE'){
             $exam_type = ['TUEE','GATE'];
-        }else if($request->EXAM_THROUGH == 'JEE'){
-            $exam_type = ['JEE'];
         }
 
         if(isset($request->EXAM_THROUGH)){
@@ -397,9 +395,8 @@ class CommonApplicationController extends Controller
         }elseif($request->get("export") == "zip"){
             return $this->ExportApplicationAsZip($applications);
         }else
-        // dd($applications->get());
             $applications = $application->paginate(100);
-        
+        // dd($applications);
         return view($this->getIndexView(), compact("applications", "castes", "sessions","program"));
     }
 
