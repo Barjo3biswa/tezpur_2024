@@ -163,7 +163,7 @@ class CommonApplicationController extends Controller
         if($request->EXAM_THROUGH == 'TUEE'){
             $exam_type = ['TUEE','GATE'];
         }else if($request->EXAM_THROUGH == 'JEE'){
-            $exam_type = ['JEE','CUET'];
+            $exam_type = ['JEE'];
         }
 
         if(isset($request->EXAM_THROUGH)){
