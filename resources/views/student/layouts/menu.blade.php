@@ -16,14 +16,14 @@
 {{-- <li><a target="_blank" href="{{asset("Guide for B.Tech application form 2020.pdf")}}" > Guide for filling B.Tech
         application form 2020.</a> </li> --}}
 {{-- @if (config("vknrl.show_vacancy_positions")) --}}
-{{-- <li><a href="{{route("student.vacancy.index")}}" style="background: red;color:white !important;"> Vacancy Positions.<span class="label label-default blink">New</span></a> </li> --}}
+<li><a href="{{route("student.vacancy.index")}}" style="background: red;color:white !important;"> Vacancy Positions.<span class="label label-default blink">New</span></a> </li>
 {{-- @endif --}}
 
-@php
+{{-- @php
     $student_id  = Auth::user()->id;
     use App\Models\AdmitCard;
     $flag = AdmitCard::where('student_id',$student_id)->where('publish',1);
 @endphp
 @if ($flag)
 <li><a target="_blank" href="http://thepracticetest.in/exam/setup.php?key=dGV6cHVyX3ByYWN0aWNlX3Rlc3RfMjkwNTIwMjQ=">TUEE Demo Test</a></li>  
-@endif
+@endif --}}
