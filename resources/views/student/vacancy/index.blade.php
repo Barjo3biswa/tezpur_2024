@@ -53,7 +53,7 @@ label.date_time {
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-body">
-                @foreach($courses as $key=>$course)
+                {{-- @foreach($courses as $key=>$course)
                     <div class="row">
                         <div class="col-md-12">
                                 <div class="box box-danger" @if($key%2 == 0) style="border-top-color: ##40494e !important;" @endif>
@@ -61,60 +61,133 @@ label.date_time {
                                         <strong style="font-size:14px" class="">{{$course->name}} {{$course->code}}</strong>
                                     </div>
                                     <div class="box-body">
-                                    @if($course->courseSeats->count())
-                                    @foreach($course->courseSeats as $key=>$courseSeat)
-                                    <div class="col-md-3">
-                                        <div class="box box-light">
-                                            <div class="box-header with-border text-center">
-                                                <strong style="font-size:12px" class="">
-                                                    @if($courseSeat->admissionCategory->id==1)
-                                                        Unreserved
-                                                    @else
-                                                        {{$courseSeat->admissionCategory->name}}
-                                                    @endif
-                                                </strong>
-                                            </div>
-                                            <div class="box-body">
-                                                <table class="table">
-                                                    <thead>
-                                                        <tr>
-                                                            <td class="text-center">Total</td>
-                                                            <td  class="text-center">Filled-Up</td>
-                                                            <td  class="text-center">Vacant</td>
-                                                            {{-- <td  class="text-center">Withdrawal</td> --}}
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            @php
-                                                                $total_remaining = intval($courseSeat->total_seats)-intval($courseSeat->total_seats_applied);
-                                                                if($courseSeat->id == 667){
-                                                                    $total_remaining = intval($courseSeat->total_seats)-intval($courseSeat->total_seats_applied);
-                                                                }
-                                                                $total_withdrawal = $courseSeat->withdrawalSeatsCount();
-                                                                if($total_withdrawal > $total_remaining){
-                                                                    $total_withdrawal = $total_remaining;
-                                                                }elseif($total_remaining <= 0){
-                                                                    $total_withdrawal = 0;
-                                                                }
-                                                            @endphp                                                           
-                                                            <td  class="text-center"><span class="badge" style="background:#000;font-size:16px">{{$courseSeat->total_seats}}</span></td>
-                                                            <td  class="text-center"><span class="badge" style="background:#ff0000;font-size:16px">{{$courseSeat->total_seats_applied}}</span></td>
-                                                            <td class="text-center"><span class="badge" style="background:#00a65a;font-size:16px">{{$total_remaining}}</span></td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
+                                        @if($course->courseSeats->count())
+                                            @foreach($course->courseSeats as $key=>$courseSeat)
+                                                <div class="col-md-3">
+                                                    <div class="box box-light">
+                                                        <div class="box-header with-border text-center">
+                                                            <strong style="font-size:12px" class="">
+                                                                @if($courseSeat->admissionCategory->id==1)
+                                                                    Unreserved
+                                                                @else
+                                                                    {{$courseSeat->admissionCategory->name}}
+                                                                @endif
+                                                            </strong>
+                                                        </div>
+                                                        <div class="box-body">
+                                                            <table class="table">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <td class="text-center">Total</td>
+                                                                        <td  class="text-center">Filled-Up</td>
+                                                                        <td  class="text-center">Vacant</td>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        @php
+                                                                            $total_remaining = intval($courseSeat->total_seats)-intval($courseSeat->total_seats_applied);
+                                                                            if($courseSeat->id == 667){
+                                                                                $total_remaining = intval($courseSeat->total_seats)-intval($courseSeat->total_seats_applied);
+                                                                            }
+                                                                            $total_withdrawal = $courseSeat->withdrawalSeatsCount();
+                                                                            if($total_withdrawal > $total_remaining){
+                                                                                $total_withdrawal = $total_remaining;
+                                                                            }elseif($total_remaining <= 0){
+                                                                                $total_withdrawal = 0;
+                                                                            }
+                                                                        @endphp                                                           
+                                                                        <td  class="text-center"><span class="badge" style="background:#000;font-size:16px">{{$courseSeat->total_seats}}</span></td>
+                                                                        <td  class="text-center"><span class="badge" style="background:#ff0000;font-size:16px">{{$courseSeat->total_seats_applied}}</span></td>
+                                                                        <td class="text-center"><span class="badge" style="background:#00a65a;font-size:16px">{{$total_remaining}}</span></td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endforeach  
+                                        @endif
+                                    </div>
+                                </div>
+                        </div> 
+                    </div>
+                @endforeach     --}}
+
+                @foreach ($courses as $key => $course)
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="box box-danger"
+                                @if ($key % 2 == 0) style="border-top-color: ##40494e !important;" @endif>
+                                <div class="box-header with-border text-center">
+                                    <strong style="font-size:14px" class="">{{ $course->name }}
+                                        {{ $course->code }}</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @foreach ($course_seat_type as $type)
+                        @if ($course->courseSeats->where('course_seat_type_id', $type->id)->count())
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="box box-danger"
+                                        @if ($key % 2 == 0) style="border-top-color: ##40494e !important;" @endif>
+                                        <div class="box-header with-border text-center">
+                                            <strong style="font-size:14px" class="">{{ $type->name }}</strong>
+                                        </div>
+                                        <div class="box-body">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    @foreach ($course->courseSeats->where('course_seat_type_id', $type->id) as $key => $courseSeat)
+                                                        <div class="col-md-3">
+                                                            <div class="box box-light">
+                                                                <div class="box-header with-border text-center">
+                                                                    <strong style="font-size:12px"
+                                                                        class="">{{ $courseSeat->admissionCategory->name }}</strong>
+                                                                </div>
+                                                                <div class="box-body">
+                                                                    <table class="table">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <td class="text-center">Total
+                                                                                </td>
+                                                                                <td class="text-center">
+                                                                                    Filled-Up</td>
+                                                                                <td class="text-center">Vacant
+                                                                                </td>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td class="text-center"><span
+                                                                                        class="badge"
+                                                                                        style="background:#000;font-size:16px">{{ $courseSeat->total_seats }}</span>
+                                                                                </td>
+                                                                                <td class="text-center"><span
+                                                                                        class="badge tezu-admission-{{ $courseSeat->id }}"
+                                                                                        style="background:#ff0000;font-size:16px">{{ $courseSeat->total_seats_applied }}</span>
+                                                                                </td>
+                                                                                <td class="text-center"><span
+                                                                                        class="badge"
+                                                                                        id="tezu-admission-{{ $courseSeat->id }}"
+                                                                                        style="background:#00a65a;font-size:16px">{{ intval($courseSeat->total_seats) - intval($courseSeat->total_seats_applied) }}</span>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    @endforeach
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    @endforeach  
-                                    @endif
-                                    </div>
                                 </div>
-                                <!-- /.box -->
-                        </div> 
-                    </div>
-                @endforeach    
+                            </div>
+                        @endif
+                    @endforeach
+                @endforeach
                     
                 </div>
             </div>
