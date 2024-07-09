@@ -58,7 +58,7 @@ class AdmissionReceipt extends Model
         $current_session = Session::where('is_active',1)->first()->id;
         // counting all previous admitted student to the same course/programm
         // first time its return zero
-        if(!in_array($this->course_id,[79])){
+        if(!in_array($this->course_id,[78,79])){
         $count = AdmissionReceipt::where("course_id", $this->course_id)
             ->whereYear("created_at", date("Y"))
             ->where('session_id',$current_session)
@@ -74,13 +74,14 @@ class AdmissionReceipt extends Model
             // ->count();
 
 
-            $countII = AdmissionReceipt::where("course_id", 79)
+            $countII = AdmissionReceipt::whereIn("course_id", [78,79])
             ->whereYear("created_at", date("Y"))
             ->where('session_id',$current_session)
             ->where("id", "<", $this->id)
             ->withTrashed()
             ->count();
-            $count= /* $countI */50 + $countII;
+            $count= $countII;
+            // $count= /* $countI */50 + $countII;
 
         }
         $roll_number = $course->series_1;
