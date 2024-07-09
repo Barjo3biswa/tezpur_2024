@@ -53,19 +53,6 @@ label.date_time {
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-body">
-                @php
-                $show_notice = false;
-                    foreach($courses as $key=>$course){
-                        if(in_array($course->id, btechCourseIds())){
-                            $show_notice = true;
-                            break;
-                        }                            
-                    }
-
-                @endphp
-                @if($show_notice)
-                    <h4>Branch re-allotment for the admitted B.Tech candidates based on their preferences and JEE CRL within their category will be carried out on Monday, 11th of October, 2021 against the vacancies arising out of non-payment of requisite admission fees on time.</h4>
-                @endif
                 @foreach($courses as $key=>$course)
                     <div class="row">
                         <div class="col-md-12">
@@ -114,7 +101,6 @@ label.date_time {
                                                             <td  class="text-center"><span class="badge" style="background:#000;font-size:16px">{{$courseSeat->total_seats}}</span></td>
                                                             <td  class="text-center"><span class="badge" style="background:#ff0000;font-size:16px">{{$courseSeat->total_seats_applied}}</span></td>
                                                             <td class="text-center"><span class="badge" style="background:#00a65a;font-size:16px">{{$total_remaining}}</span></td>
-                                                            {{-- <td class="text-center"><span class="badge" style="background:#2642db;font-size:16px">{{ $total_withdrawal }}</span></td> --}}
                                                         </tr>
                                                     </tbody>
                                                 </table>

@@ -22,6 +22,10 @@ class VacancySeatController extends Controller
     public function index(Request $request)
     {
         //
+        $type_id = CourseSeatTypeMaster::where('default_in_filter',1)->pluck("id")->toArray();
+        if($request->type_id){
+            $type_id = [$request->type_id];
+        }
         $course_id = $request->course_id;
         $all_courses = Course::withTrashed()->get();
         $courses = Course::withTrashed()->with('courseSeats.admissionCategory')->orderBy('name');
@@ -30,9 +34,10 @@ class VacancySeatController extends Controller
         }
         $courses =  $courses->get();
 
-        $course_seat_type = CourseSeatTypeMaster::get();
+        $course_seat_type = CourseSeatTypeMaster::whereIn('id',$type_id)->get();
+        $course_seat_type_filter = CourseSeatTypeMaster::get();
         // dd($course_seat_type);
-        return view('admin.vacancy.index',compact('courses','all_courses','course_seat_type'));
+        return view('admin.vacancy.index',compact('courses','all_courses','course_seat_type','course_seat_type_filter'));
     }
 
     public function manageSeat(Request $request)

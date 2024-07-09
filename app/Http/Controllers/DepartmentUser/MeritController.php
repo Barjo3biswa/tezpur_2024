@@ -433,6 +433,7 @@ class MeritController extends CommomMeritController
 
     public function seatPositions(Request $request)
     {
+        $type_id = CourseSeatTypeMaster::where('default_in_filter',1)->pluck("id")->toArray();
         $course_id = $request->course_id;
         $programm_ids = array_keys(programmes_array());
         $all_courses = Course::withTrashed()->whereIn("id", $programm_ids)->get();
@@ -442,6 +443,7 @@ class MeritController extends CommomMeritController
 
         $courses =  $courses->get();
         $course_seat_type  = CourseSeatTypeMaster::get();
+        $course_seat_type = CourseSeatTypeMaster::whereIn('id',$type_id)->get();
         return view('department-user.vacancy.index',compact('courses','all_courses','course_seat_type'));
 
     }
