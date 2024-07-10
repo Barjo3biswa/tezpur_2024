@@ -7,6 +7,8 @@
 <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/Zebra_datepicker/1.9.15/css/bootstrap/zebra_datepicker.min.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Ladda/1.0.6/ladda-themeless.min.css">
+   
 <style>
     .form-control {
         min-width: 133px;
@@ -206,7 +208,8 @@
                                     </div> 
                                 </div>
                                 <div class="modal-footer">
-                                    <input type="submit" class="btn btn-primary" value="Call For Admission" onclick="return confirm('Are you sure you want Call Please check again?');">
+                                    
+                                    <input type="submit" value="Call For Admission" class="ladda-button btn btn-primary" onclick="return confirm('Are you sure you want Call Please check again?')" data-style="expand-right">
                                 </div>
                                 </div>
                             </div>
@@ -328,6 +331,8 @@
 @section ('js')
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Zebra_datepicker/1.9.15/zebra_datepicker.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Ladda/1.0.6/ladda.min.js"></script>
 <script>
     function assignIdTo(id){
         $(".merit_list_id").val(id);
@@ -559,6 +564,27 @@ $(document).ready(function(){
     
 });
 
+$(document).ready(function() {
+            var laddaButton = Ladda.create(document.querySelector('.ladda-button'));
+
+            $('#merit').on('submit', function(event) {
+                laddaButton.start();
+
+                // Optionally, you can disable the form to prevent multiple submissions
+                $(this).find('.ladda-button').prop('disabled', true);
+
+                // If you need to perform additional tasks before form submission, do it here.
+                // If the form submission is done via AJAX, you can stop the default form submission:
+                // event.preventDefault();
+                // Perform your AJAX request here and then stop the Ladda button when done.
+
+                // Simulating a delay for demonstration
+                setTimeout(function() {
+                    laddaButton.stop();
+                    //$(this).find(':input').prop('disabled', false);
+                }.bind(this), 15000); // Remove this block in actual use
+            });
+        });
 // $(document).ready(function(){
 //     admissionCategoryList({{Request::get('course_id')}});
 // });
