@@ -243,7 +243,7 @@ class newAdmissionController extends Controller
                             ->where('admission_category_id', $admission_cat)->update(['admission_flag' => 'close', 'is_selection_active' => 0]);
                 return redirect()->back()->with('error', 'This admission category is Closed.');
             }else{
-                return redirect()->back()->with('error', 'Students are processing there admission process please wait.');
+                return redirect()->back()->with('error', 'Students are processing there admission process please waitt.');
             }
         }
 
@@ -479,13 +479,56 @@ class newAdmissionController extends Controller
         return redirect()->back()->with('success', 'Successfully called students');
     }
 
-    public function SendPaymentLinkBtech($id){
+    public function SendPaymentLinkBtech(Request $request, $id){
+        $rules = [
+            "date_from"    => "required",
+            "closing_time" => "required",
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return redirect()->back()->with('error','please fill all the field');
+        }
         try {
             $decrypted = Crypt::decrypt($id);
         } catch (\Exception $e) {
             dd('error');
         }
-        dd($decrypted);
+        // dd($request->all());
+        if ($request->closing_time == 4) {
+            $op_time = date('H:i:s');
+            $cl_time = date('H:i:s', strtotime('+3 hours'));
+            $opening_time = date('Y-m-d', strtotime($request->date_from)) . ' ' .$op_time;
+            $closing_time = date('Y-m-d', strtotime($request->date_from)) . ' ' . $cl_time;
+        }
+
+        MeritList::where('id', $decrypted)->update([
+            'new_status' => 'payment_allowed',
+            'valid_from' => $opening_time,
+            'valid_till' => $closing_time,
+        ]);
+        $ml=MeritList::where('id',$decrypted)->first();
+        $user = User::where('id',$ml->student_id)->first();
+                $full_name = $user->first_name.' '.$user->middle_name.' '.$user->last_name;
+                $time_period=date('h:s:a', strtotime($ml->valid_from)).' of '.date('d-m-Y', strtotime($ml->valid_from)) .' to '. date('h:s:a', strtotime($ml->valid_till)).' of '.date('d-m-Y', strtotime($ml->valid_till));
+                $course_name= $ml->course->name;
+                $user->notify(new AdmissionCallEmail($user,$time_period,$full_name,$course_name));
+               
+                $from_time=date('h:s:a', strtotime($ml->valid_from));
+                $to_time= date('h:s:a', strtotime($ml->valid_till));
+                $from_date=date('d-m-Y', strtotime($ml->valid_from));
+                $to_date=date('d-m-Y', strtotime($ml->valid_till));
+                // $message="Dear candidate, You are advised to visit TU website and make the payment to book your seat for the {$course_name} between {$from_time} of {$from_date} to {$to_time} of {$to_date} through the admission portal https://tezuadmissions.in. -Tezpur University";
+                $message="Dear candidate, You are advised to visit Tezpur Univ website and make the payment to book your seat for the program {$course_name} between {$from_time} of {$from_date} to {$to_time} of {$to_date} through the admission portal https://tezuadmissions.in. -Tezpur University";
+                  
+                sendSMSNew($user->mobile_no, $message, "1107171895266969875");
+                MailAndMessage::create([
+                    'student_id'=> $ml->student_id,
+                    'merit_list_id'=> $decrypted,
+                    'message'=>	$message,
+                    'mail'=> 'send',
+                ]);
+
+        return redirect()->back()->with('success','Successfully sended');
     }
 
     public function cancelForAdmission(Request $request)
