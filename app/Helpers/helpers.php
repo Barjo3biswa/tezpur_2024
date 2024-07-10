@@ -696,6 +696,51 @@ function courseCode(Application $application, $show_first = false){
     return $course_code;
 }
 
+
+function courseStatus(Application $application, $show_first = false){
+    
+    $applied_courses = $application->applied_courses;
+    $course = $application->applied_courses->first()->course;
+    if(!$show_first){
+        
+        $applied_courses = $application->applied_courses->sortBy("preference");
+        // $course_code = $course->name." (".$course->code.")<br/>";
+        // if($applied_courses->count() > 1){
+            $course_code = implode(" ", $applied_courses->map(function($item) use ($course){
+                // if($course->id != $item->course->id){
+                    return "(".$item->status.")<br/>";
+                // }
+            })->toArray());
+        // }
+        return $course_code;
+    }
+    if(!$course->sub_preference){
+        if($course->preference){
+            $applied_courses = $application->applied_courses->sortBy("preference");
+            $course_code = $course->name." (".$course->code.")";
+            $course_code .= " Preference:" .implode(",", $applied_courses->map(function($item) use ($course){
+                if($course->id != $item->course->id){
+                    return "(".$item->status.")<br/>";
+                }
+            })->toArray());
+            return $course_code;
+        }
+        return $course->name." (".$course->code.")";
+    }
+    $child_with_parents = $course->child()->count();
+    if($application->applied_courses->count() == $child_with_parents){
+        return $course->status;
+    }
+    $applied_courses = $application->applied_courses->sortBy("preference");
+    $course_code = implode(",", $applied_courses->map(function($item) use ($course){
+        if($course->id != $item->course->id){
+            return $item->status;
+        }
+    })->toArray());
+    return $course_code;
+}
+
+
 function courseCodeOnly(Application $application, $show_first = false){
     
     $applied_courses = $application->applied_courses;
@@ -824,6 +869,7 @@ function coursePreference(Application $application, $show_first = false){
     })->toArray());
     return $course_code;
 }
+
 
 function getSiteSettingValue($field_name = "currency")
 {
