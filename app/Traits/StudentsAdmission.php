@@ -246,6 +246,7 @@ trait StudentsAdmission
             ];
             // $json = json_encode($data);
         } catch (Exception $e) {
+            dump('here');
             dd($e);
             Log::error($e);
             DB::rollback();
