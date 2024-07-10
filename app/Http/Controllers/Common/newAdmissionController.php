@@ -249,6 +249,7 @@ class newAdmissionController extends Controller
 
         //////new condition
         $processing_student=MeritList::where('course_id', $merit_master->course_id)
+                                    ->where('merit_master_id',$merit_master_id)
                                     ->where('admission_category_id', $admission_cat)
                                     ->whereIn('new_status', ['can_call','called'])->count();
         $new_seat_avail=$course_seat->total_seats-$course_seat->total_seats_applied;
