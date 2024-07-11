@@ -206,7 +206,7 @@ class MeritController extends CommomMeritController
         $merit_lists = $merit_lists->whereIn('course_id',$programs)->paginate(50) ;
         $sms_templates=0;
         $list=MeritMaster::whereIn('course_id',$programs )->get();
-        $merit_lists_filter = MeritList::whereIn('course_id',[72,73,74,75,76,77,83])->orderBy('student_rank','ASC')->get();
+        $merit_lists_filter = MeritList::whereIn('course_id',[72,73,74,75,76,77,83,111])->get();
         return view('department.applications.merit-attendence',compact('courses', 'merit_lists', 'admission_categories', "sms_templates","merit_master_id","list","merit_lists_filter"));
     }
 

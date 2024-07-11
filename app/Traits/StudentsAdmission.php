@@ -639,7 +639,8 @@ trait StudentsAdmission
                 $course_seat->decrement("temp_seat_applied");
             // }
             if($merit_list->is_pwd){
-                $shortlisted_course_seat = CourseSeat::courseFilter($merit_list->course_id)->pwdFilter()->first();
+                $mm = MeritMaster::where('id',$merit_list->merit_master_id)->first();
+                $shortlisted_course_seat = CourseSeat::where('course_seat_type_id',$mm->course_seat_type_id)->courseFilter($merit_list->course_id)->pwdFilter()->first();
                 if($shortlisted_course_seat){
                     $shortlisted_course_seat->increment("total_seats_applied");
                     $shortlisted_course_seat->decrement("temp_seat_applied");

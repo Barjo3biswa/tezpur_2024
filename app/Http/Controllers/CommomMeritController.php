@@ -48,7 +48,7 @@ class CommomMeritController extends Controller
             ])
             ->withCount(["admissionReceipt"]);
         if($course_id!=0){
-            $course_id=[72,73,74,75,76,77,83];
+            $course_id=[72,73,74,75,76,77,83,111];
         }else{
             $course_id=[0];
         }
@@ -163,7 +163,7 @@ class CommomMeritController extends Controller
             // }
             // dd($admission_category);
             $list=MeritMaster::whereIn('course_id',$programs )->get();
-            $merit_lists_filter = MeritList::whereIn('course_id',[72,73,74,75,76,77,83])->get();
+            $merit_lists_filter = MeritList::whereIn('course_id',[72,73,74,75,76,77,83,111])->get();
             return view('admin.merit.department-merit', compact('list','merit_lists_filter','admission_categorymodal','branch','courses', 'merit_lists', 'admission_categories', "sms_templates"));
         }
     }
