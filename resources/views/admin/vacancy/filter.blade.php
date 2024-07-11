@@ -17,7 +17,7 @@
             <select name="type_id" id="type_id" class="js-example-basic-single" style="width:100% !important"
                 autocomplete="off">
                 <option value="">Select</option>
-                @foreach ($course_seat_type as $key => $type)
+                @foreach ($course_seat_type_filter as $key => $type)
                     <option value="{{ $type->id }}" @if (request()->get('type_id') == $type->id) selected @endif>
                         {{ $type->name }}</option>
                 @endforeach

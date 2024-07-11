@@ -296,7 +296,7 @@
                                     @php
                                         $status=0;
                                         foreach($application->merit_list as $list){
-                                            if(in_array($list->new_status,['called','admitted','invited','time_extended','denied','declined','withdraw'])){
+                                            if(in_array($list->new_status,['called','admitted','invited','time_extended','denied','declined','withdraw','payment_allowed'])){
                                                 $status=1;
                                             }
                                         }

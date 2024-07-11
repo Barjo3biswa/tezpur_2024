@@ -27,6 +27,8 @@ Route::group(['prefix' => 'merit'], function () {
 
     Route::post("/ab-pre-undo/{id}",["uses" => "MeritController@presentAbsentUndo", "as" => "merit.ab-pre-undo"]);
 
+    Route::get("/attendance_trans/{id}",["uses" => "MeritController@attendanceTrans", "as" => "merit.attendance_trans"]);
+
 
     Route::post("/ab-pre-commit/{id}",["uses" => "MeritController@presentAbsentCommit", "as" => "merit.ab-pre-commit"]);
 	Route::post("/merit-master",["uses" => "MeritController@meritMaster", "as" => "merit.master"]);

@@ -194,6 +194,11 @@
                                                         ><i class="fa fa-undo" aria-hidden="true"></i></button>
                                                     </form>
                                                 </div>
+
+                                                <div class="col-md-3">
+                                                    <a class="btn btn-success btn-sm"  href="{{route(get_route_guard().".merit.attendance_trans", Crypt::encrypt($merit_list->id))}}" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                                </div>
+
                                             </div>
                                             
                                             

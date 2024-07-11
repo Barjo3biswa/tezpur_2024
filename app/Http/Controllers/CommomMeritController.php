@@ -148,6 +148,7 @@ class CommomMeritController extends Controller
             //     // ends here
             // }
 
+            $merit_lists = $this->commonMeritFunction($request);
             
             if ($status) {
                 $merit_lists = $merit_lists->whereIn('course_id',$programs)->where("attendance_flag",1)->orderBy('id')->orderBy('admission_category_id')->paginate(50);

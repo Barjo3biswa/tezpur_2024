@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\DepartmentUser;
 
 use App\AdmissionCheckedChecklists;
+use App\AttendanceTransaction;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Course;
@@ -139,8 +140,13 @@ class MeritController extends CommomMeritController
             $merit_lists->where('application_no', $application_no);
         }
         if ($admission_category_id) {
-            $merit_lists->where('admission_category_id', $admission_category_id);
+            if($admission_category_id!=7){
+                $merit_lists->where('admission_category_id', $admission_category_id);
+            }else{
+                $merit_lists->where('is_pwd', 1);
+            }    
         }
+
         if ($status) {
             $merit_lists->where('status', $status);
         }
@@ -200,8 +206,18 @@ class MeritController extends CommomMeritController
         $merit_lists = $merit_lists->whereIn('course_id',$programs)->paginate(50) ;
         $sms_templates=0;
         $list=MeritMaster::whereIn('course_id',$programs )->get();
-        $merit_lists_filter = MeritList::whereIn('course_id',[72,73,74,75,76,77,83])->get();
+        $merit_lists_filter = MeritList::whereIn('course_id',[72,73,74,75,76,77,83])->orderBy('student_rank','ASC')->get();
         return view('department.applications.merit-attendence',compact('courses', 'merit_lists', 'admission_categories', "sms_templates","merit_master_id","list","merit_lists_filter"));
+    }
+
+    public function attendanceTrans($id){
+        try {
+            $decrypted = Crypt::decrypt($id);
+        } catch (\Exception $e) {
+            dd("error");
+        }
+        $merit_list = MeritList::where('id',$decrypted)->first();
+        return view('department.applications.attendance-transaction', compact('merit_list'));
     }
 
     public function presentAbsentCommit(Request $request, $id)
@@ -300,6 +316,13 @@ class MeritController extends CommomMeritController
                                 'is_hold'           => $is_hold,
                                 // 'cmr'               => $order_by,
                             ]);
+
+        AttendanceTransaction::create([
+                                'ml_id' => $decrypted_id,
+                                'attendance_time' => date('Y-m-d h:m:s'),
+                                'status' => 'Present',
+                                'comment' => $request->coment?? null,
+                            ]);
         return redirect()->back();
 
     }
@@ -321,6 +344,14 @@ class MeritController extends CommomMeritController
             'attendance_time'   => null,
             'cmr'               => $merit_list->tuee_rank,
         ]);
+
+        AttendanceTransaction::create([
+            'ml_id' => $decrypted,
+            'attendance_time' => date('Y-m-d h:m:s'),
+            'status' => 'Undo',
+            'comment' => $request->coment?? null,
+        ]);
+
         return redirect()->back();
     }
 
@@ -730,6 +761,14 @@ class MeritController extends CommomMeritController
                 return redirect()->back()->with('error','Some Students are Left');
             }
         MeritList::where('id',$decrypted)->update(['attendance_flag'=>3]);
+
+        AttendanceTransaction::create([
+            'ml_id' => $decrypted,
+            'attendance_time' => date('Y-m-d h:m:s'),
+            'status' => 'Not Responded',
+            'comment' => 'Removed as not responding at admission desk.',
+        ]);
+
         return redirect()->back()->with('success','successfully Removed from attendence desk');
     }
 

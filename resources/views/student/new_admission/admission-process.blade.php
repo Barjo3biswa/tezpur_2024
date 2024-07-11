@@ -274,7 +274,7 @@
                                                 <a href="{{ route(get_route_guard().'.online-admission.decline-invite', Crypt::encrypt($merit_list->id)) }}" class="btn btn-danger" onclick="return confirm('Are you sure you want to DECLINE invitation for reporting?\n(Once declined the process is irreversible.)');">Request Declined </a>
                                                 <br/>
                                             @else
-                                                @if(in_array($merit_list->new_status, ['called', 'admitted','time_extended']) && now() >= $merit_list->valid_from && now() <= $merit_list->valid_till )
+                                                @if(in_array($merit_list->new_status, ['called', 'admitted','time_extended','payment_allowed']) && now() >= $merit_list->valid_from && now() <= $merit_list->valid_till )
                                                     @if($merit_list->status==0 || $merit_list->status==7)
                                                         <button class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg{{$key}}">Proceed</button>
                                                     @elseif($merit_list->status==8)

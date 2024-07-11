@@ -16,9 +16,15 @@ Counselling </button>
         </a>
     @endif
     @if ($merit->payment_mode=='online')
-        <a data-toggle="modal" href='#maymentlink{{ $merit->id }}' href="#">
-            <button class="btn btn-sm btn-success">Send Online Payment Link</button>
-        </a>
+        @if ($merit->new_status=='branch_assigned')
+            <a data-toggle="modal" href='#maymentlink{{ $merit->id }}' href="#">
+                <button class="btn btn-sm btn-success">Send Online Payment Link</button>
+            </a>
+        @else
+            <button type="button" class="btn btn-danger btn-sm"  style="margin-top:.2rem;" data-toggle="modal" data-target="#cancelModal" onclick="assignIdTo({{$merit->id}})">
+                Cancel This Candidate
+            </button>
+        @endif
     @endif
 @endif  
 @if ($merit->status == 2 && $merit->release_seat_applicable)
@@ -106,6 +112,41 @@ Counselling </button>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary btn-sm">Proceed</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{{-- cancel Modal --}}
+<div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="cancelModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form action="{{route(get_route_guard().'.merit.cancel-for-admission'/* ,Crypt::encrypt($list->id) */)}}" method="post">
+                {{ csrf_field() }}
+                <input type="hidden" name="merit_list_id" class="merit_list_id" value="">
+                <div class="modal-header bg-danger">
+                    <h5 class="modal-title" id="cancelModalLabel">Cancel Candidate
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button></h5>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="">Reason Of Cancel <span style="font-size:11px; color:red;">( * Mandatory)</span></label>
+                            <textarea name="reason" id="" cols="5" rows="3" required class="form-control"></textarea>
+                        </div>                     
+                    </div> 
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="">Email to candidate <span style="font-size:11px; color:red;">(If left blank, no email will be sent to the candidate)</span></label>
+                            <textarea name="message" id="" cols="5" rows="3" class="form-control" onkeydown="restrictQuotes(event)" onkeyup="restrictQuotes(event)"></textarea>
+                        </div>                  
+                    </div> 
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-primary" onclick="confirm('Are you sure you want to proceed with the operation? This cancellation cannot be rolled back.')" value="Submit & Cancel" >
                 </div>
             </form>
         </div>

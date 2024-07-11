@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\AttendanceTransaction;
 use App\Events\MeritListPartiallyApproveEvent;
 use App\HostelFeeStructure;
 use App\HostelReceipt;
@@ -238,6 +239,13 @@ class MeritList extends Model
         // ->where("doc_name", "undertaking")
             ->latest();
     }
+
+    public function attandanceTransaction()
+    {
+        return $this->hasMany(AttendanceTransaction::class, "ml_id", "id");
+    }
+
+
     // mark-sheet details
     public function approved_marksheet()
     {

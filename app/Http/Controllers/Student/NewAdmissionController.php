@@ -27,7 +27,7 @@ class NewAdmissionController extends Controller
         } catch (\Exception $e) {
             abort(404, "Invalid Request");
         }
-        $merit_list = MeritList::where('student_id',$decrypted)->whereIn('new_status',['called','admitted','invited','can_call','time_extended','denied','declined','withdraw'])->get();
+        $merit_list = MeritList::where('student_id',$decrypted)->whereIn('new_status',['called','admitted','invited','can_call','time_extended','denied','declined','withdraw','payment_allowed'])->get();
         // dd($merit_list);
         return view('student.new_admission.admission-process',compact('merit_list'));
     }

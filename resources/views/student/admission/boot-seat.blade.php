@@ -148,6 +148,9 @@
                                                 {{--  <span class="label label-default">
                                                 {{ $merit->stringStatus() }}
                                             </span> --}}
+                                                @if ($merit->new_status == 'payment_allowed')
+                                                    <span class="label label-warning">Payment Link is Available for student</span>
+                                                @endif
                                                 @if ($merit->status == 1)
                                                     <span class="label label-warning">
                                                         Approved </span>
@@ -358,6 +361,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
     
     <script>
+
+        function assignIdTo(id){
+            $(".merit_list_id").val(id);
+        }
+
         $('.date').datetimepicker({
             // format: 'YYYY-MM-DD HH:mm:ss',
             format: 'YYYY-MM-DD',

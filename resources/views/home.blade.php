@@ -209,7 +209,7 @@
                         @if(Auth::User()->program_name=="UG")
                         <div class="alert alert-danger" role="alert"> 
                             <strong>Note:</strong> - Attention CUET-UG applicants.
-                You are requested to enter exact Percentile Score And Normalised Score as per your NTA Score Card.                    
+                            You are requested to enter exact Percentile Score And Normalised Score as per your NTA Score Card.                    
                                 {{-- <strong><span class="blink">Note:</span> Applicants Can Proceed To Payment After declaring CUET results.(Closing date is subject for extension.)</strong><br/> --}}
                                 
                         </div>
