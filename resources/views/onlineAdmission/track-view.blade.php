@@ -338,48 +338,95 @@ $('#course_id').change(function(){
     admissionCategoryList($(this).val());
 })
 
-$(document).ready(function(){
-        var course_id=$('#course_id').val();
-        $.ajax({
-            url:'{{route(get_route_guard().".merit.master")}}',
-            type:'post',
-            data:{
-                'course_id':course_id,
-                '_token':"{{csrf_token()}}"
-            },
-            success:function(response){
-                console.log(response);
-                var quota = '<div class="col-md-8 table-responsive"><table class="table">';
-                quota += '<tbody><tr>';
+// $(document).ready(function(){
+//         var course_id=$('#course_id').val();
+//         $.ajax({
+//             url:'{{route(get_route_guard().".merit.master")}}',
+//             type:'post',
+//             data:{
+//                 'course_id':course_id,
+//                 '_token':"{{csrf_token()}}"
+//             },
+//             success:function(response){
+//                 console.log(response);
+//                 var quota = '<div class="col-md-8 table-responsive"><table class="table">';
+//                 quota += '<tbody><tr>';
                 
                 
-                $.each(response.admission_categories,function(k,v){
-                     var cl = '';
-                    if(v.course_seats && v.course_seats.is_selection_active == 1){
-                        cl = 'activeBg';
-                    }
-                    if(v.id==1){
-                        quota += '<td class="'+cl+'">Unreserved</td>';
-                    }else{
-                        quota += '<td class="'+cl+'">'+v.name+'</td>';
-                    }
-                    if(v.course_seats){
-                        quota += '<td><span class="badge" style="background-color: #212121 !important;">'+v.course_seats.total_seats+'-'+v.course_seats.total_seats_applied+'</span></td>';
-                    }else
-                        quota += '<td><span class="badge" style="background-color: #212121 !important;">0</span></td>';
-                });
-                $('#admission_categories').html(quota);
+//                 $.each(response.admission_categories,function(k,v){
+//                      var cl = '';
+//                     if(v.course_seats && v.course_seats.is_selection_active == 1){
+//                         cl = 'activeBg';
+//                     }
+//                     if(v.id==1){
+//                         quota += '<td class="'+cl+'">Unreserved</td>';
+//                     }else{
+//                         quota += '<td class="'+cl+'">'+v.name+'</td>';
+//                     }
+//                     if(v.course_seats){
+//                         quota += '<td><span class="badge" style="background-color: #212121 !important;">'+v.course_seats.total_seats+'-'+v.course_seats.total_seats_applied+'</span></td>';
+//                     }else
+//                         quota += '<td><span class="badge" style="background-color: #212121 !important;">0</span></td>';
+//                 });
+//                 $('#admission_categories').html(quota);
 
                     
 
-            },
-            error:function(response){
-                console.log(response);
-            }
+//             },
+//             error:function(response){
+//                 console.log(response);
+//             }
 
-        })
+//         })
     
-});
+// });
+
+$(document).ready(function() {
+            var merit_master = $('#merit_master_id').val();
+            $.ajax({
+                url: '{{ route(get_route_guard() . '.merit.master-new') }}',
+                type: 'post',
+                data: {
+                    'merit_master': merit_master,
+                    '_token': "{{ csrf_token() }}"
+                },
+                success: function(response) {
+                    console.log(response);
+                    var quota = '<div class="col-md-12 table-responsive"><table class="table">';
+                    quota += '<tbody><tr>';
+
+
+                    $.each(response.admission_categories, function(k, v) {
+                        var cl = '';
+                        if (v.course_seats && v.course_seats.is_selection_active == 1) {
+                            cl = 'activeBg';
+                        }
+                        if (v.id == 1) {
+                            quota += '<td class="' + cl + '">Unreserved</td>';
+                        } else {
+                            quota += '<td class="' + cl + '">' + v.name + '</td>';
+                        }
+                        if (v.course_seats) {
+                            quota +=
+                                '<td><span class="badge" style="background-color: #212121 !important;">' +
+                                v.course_seats.total_seats + '-' + v.course_seats
+                                .total_seats_applied + '</span></td>';
+                        } else
+                            quota +=
+                            '<td><span class="badge" style="background-color: #212121 !important;">0</span></td>';
+                    });
+                    $('#admission_categories').html(quota);
+
+
+
+                },
+                error: function(response) {
+                    console.log(response);
+                }
+
+            })
+
+        });
 
 $('#approve').click(function(){
     if ($(".merit_list:checked").length > 0)
@@ -519,6 +566,45 @@ applicationSelected = function(){
             swal("Whoops!! something went wrong.");
         });
     }
+
+    $('#merit_master_id').change(function() {
+            admissionCategoryListNew($(this).val());
+            var course_id = $('#course_id').val();
+            var merit_master_id = $(this).val();
+            //  alert(course_id);
+            $.ajax({
+                url: '{{ route(get_route_guard() . '.merit.load-category') }}',
+                type: 'post',
+                data: {
+                    'course_id': course_id,
+                    'merit_master_id': merit_master_id,
+                    '_token': "{{ csrf_token() }}"
+                },
+                success: function(response) {
+                    // var html=``;
+                    $("#admission_cat").empty();
+                    console.log(response);
+                    $("#admission_cat").append(`<option value=""> --select-- </option>`);
+                    $.each(response.data, function(k, v) {
+                        // console.log(v.admission_category.name);
+                        if (v.admission_category.id == 1) {
+                            var html = `<option value="` + v.admission_category.id +
+                                `">Unreserved</option>`;
+                        } else {
+                            var html = `<option value="` + v.admission_category.id + `">` + v
+                                .admission_category.name + `</option>`;
+                        }
+                        $("#admission_cat").append(html);
+                    });
+
+                },
+                error: function(response) {
+                    console.log(response);
+                }
+
+            })
+        })
+        
     $('input:checkbox').click(function(){
     var $inputs = $('input:checkbox')
         if($(this).is(':checked')){
