@@ -276,6 +276,8 @@ class newAdmissionController extends Controller
 
             if(($available_seat+$course_seat->temp_seat_applied)>$course_seat->total_seats){
                 return redirect()->back()->with('error', 'Please contact Administrator.');
+            }if($course_seat->temp_seat_applied<0){
+                return redirect()->back()->with('error', 'Please contact Administrator.');
             }
             for ($i = 0; $i < $available_seat; $i++) {
                 $merit_list_id = $eligible_students[$i]->id;
