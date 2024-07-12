@@ -188,6 +188,10 @@ class NewAdmissionController extends Controller
         DB::beginTransaction();
         try{
             $record=MeritList::where('id',$decrypted)->first();
+            if($record->status==9){
+                DB::commit();
+                return redirect()->back()->with('error','Try Again.');
+            }
             $merit_master = MeritMaster::where('id',$record->merit_master_id)->first();
             // if($record->new_status=='time_extended'){
                 $course_seat=CourseSeat::where('course_id',$record->course_id)
