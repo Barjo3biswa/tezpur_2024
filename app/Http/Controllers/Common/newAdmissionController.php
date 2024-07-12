@@ -274,9 +274,10 @@ class newAdmissionController extends Controller
             if ($available_seat > $eligible_students->count()) {$available_seat = $eligible_students->count();} //handle list index out of range
             // dd($available_seat);
 
-            if(($available_seat+$course_seat->temp_seat_applied)>$course_seat->total_seats){
+            if(($available_seat + $course_seat->temp_seat_applied + $course_seat->total_seats_applied)>$course_seat->total_seats){
                 return redirect()->back()->with('error', 'Please contact Administrator.');
-            }if($course_seat->temp_seat_applied<0){
+            }
+            if($course_seat->temp_seat_applied<0){
                 return redirect()->back()->with('error', 'Please contact Administrator.');
             }
             for ($i = 0; $i < $available_seat; $i++) {
