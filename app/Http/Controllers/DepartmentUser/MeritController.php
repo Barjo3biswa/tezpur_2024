@@ -124,7 +124,7 @@ class MeritController extends CommomMeritController
             ->withCount(["admissionReceipt"]);
            
             if($course_id!=0){
-                $course_id=[72,73,74,75,76,77,83];
+                $course_id=[72,73,74,75,76,77,83,111];
             }else{
                 $course_id=[0];
             }

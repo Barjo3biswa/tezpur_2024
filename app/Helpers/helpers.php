@@ -639,11 +639,13 @@ function programmes_array()
         }elseif(in_array(auth("department_user")->id(),[42])){
             $query->whereIn("id", [89,90,91,92,93,94,95]);
         }elseif(in_array(auth("department_user")->id(),[178,180,181,182])){
+            // dd("ok");
             $query->whereIn("id", [72,73,74,75,76,77,83,111]);
         }
         // else{            
         //     $query->whereNotIn("id", btechCourseIds());
         // }
+        // dd(departments_user_wise());
         return $query->whereIn("department_id", departments_user_wise());
     });
     $programmes->when(!auth("student")->check(), function($query){

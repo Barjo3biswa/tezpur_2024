@@ -121,6 +121,7 @@ class CommomMeritController extends Controller
 
         if(auth("department_user")->check()){
             $program_array=programmes_array();
+            // dd($program_array);
             $programs=[];
             foreach($program_array as $key=>$prog){
                  if($key!=""){
@@ -149,13 +150,13 @@ class CommomMeritController extends Controller
             // }
 
             $merit_lists = $this->commonMeritFunction($request);
-            
+            // dd($programs);
             if ($status) {
                 $merit_lists = $merit_lists->whereIn('course_id',$programs)->where("attendance_flag",1)->orderBy('id')->orderBy('admission_category_id')->paginate(50);
             }else{
                 $merit_lists = $merit_lists->whereIn('course_id',$programs)->where("attendance_flag",1)->orderBy('id')->paginate(50);
             }
-            // dd($merit_lists);
+            
             $branch=Course::where('program_id',7)->withTrashed()->get();
             $admission_categorymodal=AdmissionCategory::where('status',1)->get();
             // foreach($admission_category as $ac){

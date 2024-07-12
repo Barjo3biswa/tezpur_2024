@@ -356,7 +356,7 @@
                                     <table class="table table-borderless">
                                         <tbody>  
                                             <tr>
-                                                <th colspan="4" style="text-decoration: underline">Hostel</th>
+                                                <th colspan="4" style="text-decoration: underline">Hostel ({{$merit_list->hostel_required==1?'Required':'Not Required'}})</th>
                                             </tr>
                                             <tr>
                                                 <td colspan="4">Not admitted / Admitted to  ……………… Hostel and room no is ……………………….</td>
