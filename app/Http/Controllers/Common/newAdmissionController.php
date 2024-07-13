@@ -423,7 +423,7 @@ class newAdmissionController extends Controller
         $processing_student=MeritList::where('course_id', $merit_master_validate->course_id)
                                         ->where('merit_master_id',$ml_validate->merit_master_id)
                                         ->where('admission_category_id', $ml_validate->admission_category_id)
-                                        ->whereIn('new_status', ['can_call','time_extended'])->count();
+                                        ->whereIn('new_status', ['can_call'])->count();
         if(($processing_student + $course_seat_validate->temp_seat_applied + $course_seat_validate->total_seats_applied)>$course_seat_validate->total_seats){
             return redirect()->back()->with('error', 'Please contact Administratorr.');
         }
