@@ -412,6 +412,8 @@ class newAdmissionController extends Controller
         if($request->merit_list_ids==null){
             return redirect()->back()->with('error','please select student');
         }
+
+        //avoid call extra candidate
         $ml_validate = MeritList::where('id',$request->merit_list_ids[0])->first();
         $merit_master_validate = MeritMaster::where('id', $ml_validate->merit_master_id)->first();
         $course_id_validate    = $merit_master_validate->course_id;
@@ -428,6 +430,8 @@ class newAdmissionController extends Controller
         if($course_seat_validate->temp_seat_applied<0){
             return redirect()->back()->with('error', 'Please contact Administrator.');
         }
+        //ends here 
+        
         // $currentDate = Carbon::now()->format('Y-m-d');
         // $admissionDate = Carbon::parse($course_seat->admission_date)->format('Y-m-d');
         // if ($currentDate !== $admissionDate) {
