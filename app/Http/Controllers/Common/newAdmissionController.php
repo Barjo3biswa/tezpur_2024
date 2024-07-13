@@ -118,9 +118,9 @@ class newAdmissionController extends Controller
 
         if ($course_seat->admission_flag == "open") {
             if ($admission_cat == 7) {
-                $check_count = MeritList::where('is_pwd', 1)->where('merit_master_id', $merit_master_id)->whereIn('new_status', ['can_call', 'called'])->count();
+                $check_count = MeritList::where('is_pwd', 1)->where('merit_master_id', $merit_master_id)->whereIn('new_status', ['can_call', 'called','time_extended'])->count();
             } else {
-                $check_count = MeritList::where('admission_category_id', $admission_cat)->where('merit_master_id', $merit_master_id)->whereIn('new_status', ['can_call', 'called'])->count();
+                $check_count = MeritList::where('admission_category_id', $admission_cat)->where('merit_master_id', $merit_master_id)->whereIn('new_status', ['can_call', 'called','time_extended'])->count();
             }
             if ($check_count > 0) {
                 return redirect()->back()->with('error', 'Some students are already in the admission queue cancel them or let them finished first.');
