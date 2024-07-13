@@ -453,49 +453,52 @@ class newAdmissionController extends Controller
         try{
           
             foreach ($request->merit_list_ids as $key => $id) {
-                MeritList::where('id', $id)->update([
-                    'status'     => 7,
-                    'new_status' => 'called',
-                    'valid_from' => $opening_time,
-                    'valid_till' => $closing_time,
-                ]);
-
                 $ml=MeritList::where('id',$id)->first();
-
-                $merit_master = MeritMaster::where('id', $ml->merit_master_id)->first();
-
-                $course_seat=CourseSeat::where('course_id',$ml->course_id)
-                    ->where('course_seat_type_id', $merit_master->course_seat_type_id)
-                    ->where('admission_category_id',$ml->admission_category_id)->first();
-                $course_seat->increment("temp_seat_applied");
-                
-                if($ml->is_pwd==1){
-                    $course_seat_pws=CourseSeat::where('course_id',$ml->course_id)
-                                                ->where('course_seat_type_id', $merit_master->course_seat_type_id)
-                                                ->where('admission_category_id',7)->first();
-                    $course_seat_pws->increment("temp_seat_applied");
-                }
-
-                $user = User::where('id',$ml->student_id)->first();
-                $full_name = $user->first_name.' '.$user->middle_name.' '.$user->last_name;
-                $time_period=date('h:s:a', strtotime($ml->valid_from)).' of '.date('d-m-Y', strtotime($ml->valid_from)) .' to '. date('h:s:a', strtotime($ml->valid_till)).' of '.date('d-m-Y', strtotime($ml->valid_till));
-                $course_name= $ml->course->name;
-                $user->notify(new AdmissionCallEmail($user,$time_period,$full_name,$course_name));
-               
-                $from_time=date('h:s:a', strtotime($ml->valid_from));
-                $to_time= date('h:s:a', strtotime($ml->valid_till));
-                $from_date=date('d-m-Y', strtotime($ml->valid_from));
-                $to_date=date('d-m-Y', strtotime($ml->valid_till));
-                // $message="Dear candidate, You are advised to visit TU website and make the payment to book your seat for the {$course_name} between {$from_time} of {$from_date} to {$to_time} of {$to_date} through the admission portal https://tezuadmissions.in. -Tezpur University";
-                $message="Dear candidate, You are advised to visit Tezpur Univ website and make the payment to book your seat for the program {$course_name} between {$from_time} of {$from_date} to {$to_time} of {$to_date} through the admission portal https://tezuadmissions.in. -Tezpur University";
-                  
-                sendSMSNew($user->mobile_no, $message, "1107171895266969875");
-                MailAndMessage::create([
-                    'student_id'=> $id,
-                    'merit_list_id'=> $ml->student_id,
-                    'message'=>	$message,
-                    'mail'=> 'send',
-                ]);
+                if($ml->new_status == 'can_call'){
+                    MeritList::where('id', $id)->update([
+                        'status'     => 7,
+                        'new_status' => 'called',
+                        'valid_from' => $opening_time,
+                        'valid_till' => $closing_time,
+                    ]);
+    
+                    $ml=MeritList::where('id',$id)->first();
+    
+                    $merit_master = MeritMaster::where('id', $ml->merit_master_id)->first();
+    
+                    $course_seat=CourseSeat::where('course_id',$ml->course_id)
+                        ->where('course_seat_type_id', $merit_master->course_seat_type_id)
+                        ->where('admission_category_id',$ml->admission_category_id)->first();
+                    $course_seat->increment("temp_seat_applied");
+                    
+                    if($ml->is_pwd==1){
+                        $course_seat_pws=CourseSeat::where('course_id',$ml->course_id)
+                                                    ->where('course_seat_type_id', $merit_master->course_seat_type_id)
+                                                    ->where('admission_category_id',7)->first();
+                        $course_seat_pws->increment("temp_seat_applied");
+                    }
+    
+                    $user = User::where('id',$ml->student_id)->first();
+                    $full_name = $user->first_name.' '.$user->middle_name.' '.$user->last_name;
+                    $time_period=date('h:s:a', strtotime($ml->valid_from)).' of '.date('d-m-Y', strtotime($ml->valid_from)) .' to '. date('h:s:a', strtotime($ml->valid_till)).' of '.date('d-m-Y', strtotime($ml->valid_till));
+                    $course_name= $ml->course->name;
+                    $user->notify(new AdmissionCallEmail($user,$time_period,$full_name,$course_name));
+                   
+                    $from_time=date('h:s:a', strtotime($ml->valid_from));
+                    $to_time= date('h:s:a', strtotime($ml->valid_till));
+                    $from_date=date('d-m-Y', strtotime($ml->valid_from));
+                    $to_date=date('d-m-Y', strtotime($ml->valid_till));
+                    // $message="Dear candidate, You are advised to visit TU website and make the payment to book your seat for the {$course_name} between {$from_time} of {$from_date} to {$to_time} of {$to_date} through the admission portal https://tezuadmissions.in. -Tezpur University";
+                    $message="Dear candidate, You are advised to visit Tezpur Univ website and make the payment to book your seat for the program {$course_name} between {$from_time} of {$from_date} to {$to_time} of {$to_date} through the admission portal https://tezuadmissions.in. -Tezpur University";
+                      
+                    sendSMSNew($user->mobile_no, $message, "1107171895266969875");
+                    MailAndMessage::create([
+                        'student_id'=> $id,
+                        'merit_list_id'=> $ml->student_id,
+                        'message'=>	$message,
+                        'mail'=> 'send',
+                    ]);
+                }             
             }
             DB::commit();
         }catch(\Exception $e){
