@@ -423,15 +423,15 @@ class newAdmissionController extends Controller
         $processing_student=MeritList::where('course_id', $merit_master_validate->course_id)
                                         ->where('merit_master_id',$ml_validate->merit_master_id)
                                         ->where('admission_category_id', $ml_validate->admission_category_id)
-                                        ->whereIn('new_status', ['can_call','called'])->count();
+                                        ->whereIn('new_status', ['can_call'])->count();
         if(($processing_student + $course_seat_validate->temp_seat_applied + $course_seat_validate->total_seats_applied)>$course_seat_validate->total_seats){
-            return redirect()->back()->with('error', 'Please contact Administrator.');
+            return redirect()->back()->with('error', 'Please contact Administratorr.');
         }
         if($course_seat_validate->temp_seat_applied<0){
             return redirect()->back()->with('error', 'Please contact Administrator.');
         }
         //ends here 
-        
+
         // $currentDate = Carbon::now()->format('Y-m-d');
         // $admissionDate = Carbon::parse($course_seat->admission_date)->format('Y-m-d');
         // if ($currentDate !== $admissionDate) {
