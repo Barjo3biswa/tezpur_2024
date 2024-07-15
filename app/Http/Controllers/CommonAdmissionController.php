@@ -653,7 +653,8 @@ class CommonAdmissionController extends Controller
                 "previous_receipt_id" => 0,
                 "previous_received_amount" => 0.00,
                 'hostel_name'  => $merit_list->hostel_name,
-                "room_no"      => $merit_list->room_no
+                "room_no"      => $merit_list->room_no,
+                "session_id"   => 13,
             ];
             
             $admission_receipt = AdmissionReceipt::create($admission_receipt_data);
