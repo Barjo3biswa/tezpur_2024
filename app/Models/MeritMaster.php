@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\CourseSeatTypeMaster;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -18,5 +19,9 @@ class MeritMaster extends Model
             static::$PROCESSING_AUTO_STATUS,
             static::$PROCESSING_MANUAL_STATUS,
         ];
+    }
+
+    public function courseSeatType(){
+        return $this->hasOne(CourseSeatTypeMaster::class, "course_seat_type_id", "id");
     }
 }
