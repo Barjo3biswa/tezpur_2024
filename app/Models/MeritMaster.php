@@ -22,6 +22,6 @@ class MeritMaster extends Model
     }
 
     public function courseSeatType(){
-        return $this->hasOne(CourseSeatTypeMaster::class, "course_seat_type_id", "id");
+        return $this->hasOne(CourseSeatTypeMaster::class, "id", "course_seat_type_id");
     }
 }
