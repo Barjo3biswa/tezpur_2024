@@ -100,7 +100,7 @@
                                             @foreach ($courses as $key => $course)
                                                 @if ($course->id != 83)
                                                     <tr>
-                                                        <th style="background: cornflowerblue;color: #fff; font-size: 22px;">{{ $course->name }} {{ $course->code }}</th>
+                                                        <th style="background: cornflowerblue;color: #fff; font-size: 18px;">{{ $course->name }} {{ $course->code }}</th>
                                                         @foreach ($course->courseSeats as $key => $courseSeat)
                                                             @if (in_array($courseSeat->admission_category_id, [1, 2, 3, 4, 6]))
                                                                 <th>
