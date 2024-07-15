@@ -87,12 +87,12 @@
                                     <table class="table table-bordered">
                                         <thead>
                                             <tr>
-                                                <th width=28%>Course Name</th>
-                                                <th width="12%">Unreserved</th>
-                                                <th width="12%">ST</th>
-                                                <th width="12%">SC</th>
-                                                <th width="12%">OBC (Non Creamy Layer)</th>
-                                                <th width="12%">EWS</th>
+                                                <th style="background: #e51c23;color: #fff; font-size: 15px;" width=28%>Course Name</th>
+                                                <th style="background: #e51c23;color: #fff; font-size: 15px;" width="12%">Unreserved</th>
+                                                <th style="background: #e51c23;color: #fff; font-size: 15px;" width="12%">ST</th>
+                                                <th style="background: #e51c23;color: #fff; font-size: 15px;" width="12%">SC</th>
+                                                <th style="background: #e51c23;color: #fff; font-size: 15px;" width="12%">OBC (Non Creamy Layer)</th>
+                                                <th style="background: #e51c23;color: #fff; font-size: 15px;" width="12%">EWS</th>
                                                 {{-- <th width="12%">PWD</th> --}}
                                             </tr>
                                         </thead>
