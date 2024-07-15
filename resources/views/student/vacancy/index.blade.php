@@ -114,6 +114,50 @@ label.date_time {
                     </div>
                 @endforeach     --}}
 
+                @if ($flag==1)
+                <div class="row">
+                    <div class="col-md-12">
+                        <button class="btn btn-primaryy" style="background:#000">Total</button>
+                        <button class="btn btn-danger">Occupied</button>
+                        <button class="btn btn-success">Vacant</button>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th style="background: #e51c23;color: #fff; font-size: 15px;" width=28%>Course Name</th>
+                                    <th style="background: #e51c23;color: #fff; font-size: 15px;" width="12%">Unreserved</th>
+                                    <th style="background: #e51c23;color: #fff; font-size: 15px;" width="12%">ST</th>
+                                    <th style="background: #e51c23;color: #fff; font-size: 15px;" width="12%">SC</th>
+                                    <th style="background: #e51c23;color: #fff; font-size: 15px;" width="12%">OBC (Non Creamy Layer)</th>
+                                    <th style="background: #e51c23;color: #fff; font-size: 15px;" width="12%">EWS</th>
+                                    {{-- <th width="12%">PWD</th> --}}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($btech_courses as $key => $course)
+                                    @if ($course->id != 83)
+                                        <tr>
+                                            <th style="background: #e51c23;color: #fff; font-size: 15px;">{{ $course->name }} {{ $course->code }}</th>
+                                            @foreach ($course->courseSeats as $key => $courseSeat)
+                                                @if (in_array($courseSeat->admission_category_id, [1, 2, 3, 4, 6]))
+                                                    <th>
+                                                        <span class="badge"
+                                                            style="background:#000;font-size:16px">{{ $courseSeat->total_seats }}</span>
+                                                        <span class="badge tezu-admission-{{ $courseSeat->id }}"
+                                                            style="background:#ff0000;font-size:16px">{{ $courseSeat->total_seats_applied }}</span>
+                                                        <span class="badge"
+                                                            id="tezu-admission-{{ $courseSeat->id }}"
+                                                            style="background:#00a65a;font-size:16px">{{ intval($courseSeat->total_seats) - intval($courseSeat->total_seats_applied) }}</span>
+                                                    </th>
+                                                @endif
+                                            @endforeach
+                                        </tr>
+                                    @endif
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                @endif
                 @foreach ($courses as $key => $course)
                     <div class="row">
                         <div class="col-md-12">

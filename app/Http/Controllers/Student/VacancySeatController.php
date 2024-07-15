@@ -43,17 +43,17 @@ class VacancySeatController extends Controller
         $courses->whereIn("id", $course_ids);
         $courses =  $courses->get();
         $merit_list = MeritList::with('meritMaster')->where("student_id", auth("student")->id())->get();
-        $ids=[];
+        $ids=[]; $flag =0;
         foreach($merit_list as $ml){
             if(in_array($ml->course_id,[72,73,74,75,76,77,83,111])){
-                array_push($ids,72,73,74,75,76,77,111);
-            }else{
-                array_push($ids,$ml->meritMaster->course_seat_type_id);
+                $flag =1;
             }
-            
+
+            array_push($ids,$ml->meritMaster->course_seat_type_id);
         }
         // dd($ids);
         $course_seat_type = CourseSeatTypeMaster::whereIn('id',$ids)->get();
-        return view('student.vacancy.index',compact('courses','all_courses','course_seat_type'));
+        $btech_courses = Course::whereIn('id',[72,73,74,75,76,77,111])->get();
+        return view('student.vacancy.index',compact('courses','all_courses','course_seat_type','btech_courses','flag'));
     }
 }
