@@ -52,7 +52,7 @@ class VacancySeatController extends Controller
             }
             
         }
-        dd($ids);
+        // dd($ids);
         $course_seat_type = CourseSeatTypeMaster::whereIn('id',$ids)->get();
         return view('student.vacancy.index',compact('courses','all_courses','course_seat_type'));
     }
