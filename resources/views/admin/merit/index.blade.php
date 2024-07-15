@@ -155,6 +155,7 @@
                                     $currentPage = $merit_lists->currentPage();
                                     $itemsPerPage = $merit_lists->perPage();
                                     $startingSlNo = ($currentPage - 1) * $itemsPerPage;
+                                    $latest_flag=0;
                                 @endphp
                                 @forelse ($merit_lists as $key=>$merit_list)
                                     @php
@@ -189,7 +190,7 @@
                                     @endif
                                     >
 
-                                    <tr class="{{ $tr_class_name}}">
+                                    <tr  class="{{ $tr_class_name}}" >
                                         {{-- {{dd($merit_list->meritMaster->closed_list)}} --}}
                                         <td>{{++$key+$startingSlNo}}
                                             <!--@if (auth("department_user")->check() && $merit_list->meritMaster->closed_list==0)
@@ -348,7 +349,15 @@
                                             </span> --}}
                                              {{-- <button class="btn btn-success btn-xs" onClick="instantApprove(event, this)" data-url="{{route("admin.merit.approve-system-generated", $merit_list)}}"> <i class="fa fa-check"></i> Instant Approve</button> --}}
                                              {{-- <button class="btn btn-success btn-xs" type="button"> <i class="fa fa-check"></i> Approved</button> --}}
-                                             <span class="label label-default"> Pending </span>
+                                             @if ($latest_flag==0)
+                                                <span class="label label-default" id="latest"> Pending </span>
+                                                @php
+                                                    $latest_flag=1;
+                                                @endphp
+                                             @else
+                                                <span class="label label-default" > Pending </span>
+                                             @endif
+                                             
                                         @elseif ($merit_list->status == 8)
                                             <span class="label label-primary">
                                                 <i class="fa fa-bell" aria-hidden="true"></i>
@@ -1200,6 +1209,14 @@ applicationSelected = function(){
            $inputs.prop('disabled',false); // <--
         }
     })
+
+
+    $(document).ready(function () {
+    // Handler for .ready() called.
+    $('html, body').animate({
+        scrollTop: $('#latest').offset().top
+    }, 'slow');
+});
 </script>
 
 {{-- <script>
