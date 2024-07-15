@@ -173,8 +173,8 @@ class AdmissionReportController extends Controller
                 $row['id']               = $task->id;	
                 $row['Receipt No']       = $task/* ->admissionReceipt */->receipt_no ??"NA";	
                 $row['Roll No']          = $task/* ->admissionReceipt */->roll_number ??"NA";	
-                $ml_details = $new=MeritList::where(['student_id'=>$task->student_id,'course_id'=>$task->course_id,'status'=>2])->first();
-                $row['Through']          = $ml_details->meritMaster->courseSeatType->name ?? "NA";	
+                // $ml_details = $new=MeritList::where(['student_id'=>$task->student_id,'course_id'=>$task->course_id,'status'=>2])->first();
+                $row['Through']          = /* $ml_details->meritMaster->courseSeatType->name ?? */ "NA";	
                 $row['Reg ID']           = $task->student_id;	
                 $row['App ID']           = $task->id;	
                 $row['App No']           = $task->application_no;
