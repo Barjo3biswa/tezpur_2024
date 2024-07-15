@@ -349,14 +349,7 @@
                                             </span> --}}
                                              {{-- <button class="btn btn-success btn-xs" onClick="instantApprove(event, this)" data-url="{{route("admin.merit.approve-system-generated", $merit_list)}}"> <i class="fa fa-check"></i> Instant Approve</button> --}}
                                              {{-- <button class="btn btn-success btn-xs" type="button"> <i class="fa fa-check"></i> Approved</button> --}}
-                                             @if ($latest_flag==0)
-                                                <span class="label label-default" id="latest"> Pending </span>
-                                                @php
-                                                    $latest_flag=1;
-                                                @endphp
-                                             @else
                                                 <span class="label label-default" > Pending </span>
-                                             @endif
                                              
                                         @elseif ($merit_list->status == 8)
                                             <span class="label label-primary">
@@ -399,7 +392,15 @@
                                         <span class="label label-danger">
                                            Sliding Denied </span>
                                         @else 
-                                            <span class="label label-default"> Pending </span>
+                                            @if ($latest_flag==0)
+                                                <span class="label label-default" id="latest"> Pending </span>
+                                                @php
+                                                    $latest_flag=1;
+                                                @endphp
+                                            @else
+                                                <span class="label label-default" > Pending </span>
+                                             @endif
+                                            {{-- <span class="label label-default"> Pending </span> --}}
                                         @endif
                                         @if($merit_list->is_hold == 1 && $merit_list->attendance_flag==1)
                                         <span class="label label-danger">
