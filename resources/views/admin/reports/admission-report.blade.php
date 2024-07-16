@@ -63,6 +63,17 @@
                                         @endif
                                     </select>
                                 </div>
+
+                                <div class="col-sm-4">
+                                    <label for="Programme" class="label-control">Programme Group:</label>
+                                    <select name="program_group" id="program_group" class="form-control js-example-basic-single" style="width:100% !important"  autocomplete="off">
+                                        <option value="all">All</option>
+                                        @foreach($programs as $key=>$prog)
+                                        <option value="{{$prog->id}}" @if(request()->get("program_group") == $prog->id) selected @endif >{{$prog->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                
                                 {{-- <div class="col-sm-4">
                                     <label for="merit_master_id" class="label-control">Select List:</label>
                                     <select name="merit_master_id" id="merit_master_id" class="form-control" style="width:100% !important"  autocomplete="off">

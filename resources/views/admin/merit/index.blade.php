@@ -42,12 +42,14 @@
 @php
     $castes = \App\Models\Caste::pluck("name","id")->toArray();
     $btech_programs = \App\Course::whereIn("id", btechCourseIds())->withTrashed()->get();
+    $page_no = request()->get("page");
+    session(['page_no' => $page_no]);  
 @endphp
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-default">
-                <div class="panel-heading">Filter: </div>
+                <div class="panel-heading">Filter: {{session('page_no')}}</div>
                 <div class="panel-body">
                     
                     {{-- @if (auth("department_user")->check())

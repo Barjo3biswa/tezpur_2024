@@ -10,6 +10,7 @@ use App\Models\Application;
 use App\Models\Caste;
 use App\Models\CuetSubject;
 use App\Models\MeritList;
+use App\Models\Program;
 use Maatwebsite\Excel\Facades\Excel;
 
 class AdmissionReportController extends Controller
@@ -28,6 +29,7 @@ class AdmissionReportController extends Controller
         $merit                 = $request->merit;
         $gender                = $request->gender;
         $courses               = Course::withTrashed()->get();
+        $programs = Program::get();
         $admission_categories  = AdmissionCategory::where('status', 1)->get();
         $merit_lists           = MeritList::/* whereIn('status',[2,3,6])-> */select('merit_lists.*','admission_receipts.receipt_no','admission_receipts.roll_number','admission_receipts.year','admission_receipts.total','admission_receipts.course_id','admission_receipts.previous_received_amount')
                 // ->join('admission_receipts','admission_receipts.student_id','=','merit_lists.student_id')
@@ -106,7 +108,7 @@ class AdmissionReportController extends Controller
             //     $merit_lists = $merit_lists->paginate(100);
             // } 
             
-            return view('admin.reports.admission-report', compact('courses', 'merit_lists', 'admission_categories', "sms_templates"));  
+            return view('admin.reports.admission-report', compact('courses', 'merit_lists', 'admission_categories', "sms_templates","programs"));  
        
     }
 
