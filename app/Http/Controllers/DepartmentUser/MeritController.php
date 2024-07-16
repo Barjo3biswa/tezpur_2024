@@ -647,9 +647,9 @@ class MeritController extends CommomMeritController
         }catch(\Exception $e){
             DB::rollBack();
         }
-        
+        $page_no= session('page_no');
         return redirect()
-            ->route('department.merit.index', ['course_id' => 83, 'merit_master_id' => $merit_list->merit_master_id])
+            ->route('department.merit.index', ['course_id' => 83, 'merit_master_id' => $merit_list->merit_master_id,'page'=>$page_no])
             ->with('success', 'Branch Assigned');
     }
 
