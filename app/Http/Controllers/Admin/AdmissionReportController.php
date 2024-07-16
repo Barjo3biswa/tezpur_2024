@@ -58,6 +58,11 @@ class AdmissionReportController extends Controller
         if($course_id!=0){
             $merit_lists->where('merit_lists.course_id', $course_id);
         }
+
+        if($request->program_group){
+             $course_ids = Course::where('program_id',$request->program_group)->pluck('id')->toArray();
+             $merit_lists->whereIn('merit_lists.course_id', $course_ids);
+        }
           
 
         if ($application_no) {
