@@ -54,7 +54,7 @@ class AdmissionReportController extends Controller
         if($request->admission_date){
             $merit_lists->whereDate('admission_receipts.created_at', $request->admission_date);
         }
-
+        dd($merit_lists->get());
         if($course_id){
             $merit_lists->where('merit_lists.course_id', $course_id);
         }
