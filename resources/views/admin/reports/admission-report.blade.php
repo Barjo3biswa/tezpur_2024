@@ -51,7 +51,7 @@
                                 <div class="col-sm-4">
                                     <label for="Programme" class="label-control">Programme:</label>
                                     <select name="course_id" id="course_id" class="form-control js-example-basic-single" style="width:100% !important"  autocomplete="off">
-                                        <option value="all">All</option>
+                                        <option value="">All</option>
                                         @if(auth('admin')->check())
                                             @foreach($courses as $key=>$course)
                                             <option value="{{$course->id}}" @if(request()->get("course_id") == $course->id) selected @endif >{{$course->name}} ({{$course->code}})</option>
@@ -67,7 +67,7 @@
                                 <div class="col-sm-4">
                                     <label for="Programme" class="label-control">Programme Group:</label>
                                     <select name="program_group" id="program_group" class="form-control js-example-basic-single" style="width:100% !important"  autocomplete="off">
-                                        <option value="all">All</option>
+                                        <option value="">All</option>
                                         @foreach($programs as $key=>$prog)
                                         <option value="{{$prog->id}}" @if(request()->get("program_group") == $prog->id) selected @endif >{{$prog->name}}</option>
                                         @endforeach
