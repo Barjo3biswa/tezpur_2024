@@ -55,11 +55,11 @@ class AdmissionReportController extends Controller
             $merit_lists->whereDate('admission_receipts.created_at', $request->admission_date);
         }
 
-        if($course_id!=0){
+        if($course_id!=0 && !isset($request->program_group)){
             $merit_lists->where('merit_lists.course_id', $course_id);
         }
 
-        if(isset($request->program_group)){
+        if(isset($request->program_group) && $course_id==0){
             // dd($request->program_group);
              $course_ids = Course::where('program_id',$request->program_group)->withTrashed()->pluck('id')->toArray();
              $merit_lists->whereIn('merit_lists.course_id', $course_ids);
