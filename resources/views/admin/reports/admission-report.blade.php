@@ -173,7 +173,7 @@
                         @endif
                     </div>
                 <div class="panel-body">
-                    <div id="admission_categories"></div>
+                    {{-- <div id="admission_categories"></div> --}}
                         <table class="table">
                             <thead>
                                 <tr>
