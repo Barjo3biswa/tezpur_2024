@@ -693,6 +693,7 @@ class MeritController extends CommomMeritController
         // if($merit_list->status!=2){
         //     return redirect()->back()->with('error','can`t cancel as this student yet not take admission');
         // }
+        // dd($merit_list);
         DB::beginTransaction();
         try{
            
@@ -701,8 +702,13 @@ class MeritController extends CommomMeritController
             }else{
                 $status=6;
             }
+            $withdraw_by = $merit_list->withdrawal_rqst;
+            if($request->withdraw_by){
+                $withdraw_by = $request->withdraw_by;
+            }
             MeritList::where('id',$request->ml_id)->update(['status'=>$status,
-                                                            'reason_of_cancel'=>$request->reason]);
+                                                            'reason_of_cancel'=>$request->reason,
+                                                            'withdrawal_rqst' => $withdraw_by]);
                 if($merit_list->status==2){
                     CourseSeat::where('course_id',$merit_list->course_id)
                             ->where('admission_category_id',$merit_list->admission_category_id)
@@ -742,6 +748,7 @@ class MeritController extends CommomMeritController
                 $pusher->trigger('tezu-admission-channel', 'course-seat', ['message' => "A New record inserted",'response'=>$data]);
             }
         }catch(\Exception $e){
+            dd($e);
             DB::rollBack();
             return redirect()->back()->with('error','something went wrong');
         }

@@ -87,6 +87,8 @@ class CommomMeritController extends Controller
                 $merit_lists->where('selected_in_merit_list', 0);
             }
         }
+        // dd("ok");
+        
         if ($undertaking_status) {
             if ($undertaking_status == "pending") {
                 $merit_lists->whereHas("active_undertaking");
@@ -151,6 +153,13 @@ class CommomMeritController extends Controller
 
             $merit_lists = $this->commonMeritFunction($request);
             // dd($programs);
+
+            if($request->withdrawal_request){
+                $merit_lists = $merit_lists->where('withdrawal_rqst', $request->withdrawal_request);
+            }
+            // dd($merit_lists->get());
+
+
             if ($status) {
                 $merit_lists = $merit_lists->whereIn('course_id',$programs)->where("attendance_flag",1)->orderBy('id')->orderBy('admission_category_id')->paginate(50);
             }else{
@@ -163,6 +172,7 @@ class CommomMeritController extends Controller
             //    dump($ac->id);
             // }
             // dd($admission_category);
+
             $list=MeritMaster::whereIn('course_id',$programs )->get();
             $merit_lists_filter = MeritList::whereIn('course_id',[72,73,74,75,76,77,83,111])->get();
             return view('admin.merit.department-merit', compact('list','merit_lists_filter','admission_categorymodal','branch','courses', 'merit_lists', 'admission_categories', "sms_templates"));

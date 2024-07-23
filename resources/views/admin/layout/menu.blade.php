@@ -66,6 +66,7 @@
             <li><a href="{{route(get_route_guard().".merit.payment")}}">Payment-Process</a></li>
             @endif --}}
                 <li><a href="{{ route(get_route_guard() . '.vacancy.index') }}">Seat Vacancy Position</a></li>
+                {{-- <li><a href="{{ route(get_route_guard() . '.merit.withdrawal-request') }}">Withdrawal Requests</a></li> --}}
 
                 <li><a href="{{ route(get_route_guard() . '.merit.hostel-allotment') }}">Hostel Allotment</a></li>
             </ul>

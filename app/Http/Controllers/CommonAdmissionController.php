@@ -398,7 +398,7 @@ class CommonAdmissionController extends Controller
         $user = request()->user();
         saveLogs($user->id, $user->name, "student", "Withdrawing merit list seat for application no {$merit_list->application_no}.");
         $this->validate(request(), [
-            "otp"              => "required",
+            // "otp"              => "required",
             "reason_from_list" => "required|in:" . implode(",", CommonHelper::admission_decline_rules()),
             "reason"           => "required|max:1000|min:10",
             'dob'              => "required|date_format:Y-m-d",
@@ -415,17 +415,23 @@ class CommonAdmissionController extends Controller
                 ->back()
                 ->with("error", "Unauthorized access.");
         }
-        if($merit_list->declined_otp != request("otp")){
-            saveLogs($user->id, $user->name, "student", "Withdrawing merit list seat for application no {$merit_list->application_no}. OTP validation FAILED.");
-            return redirect()
-                ->back()
-                ->with("error", "OTP doesn't matched.")
-                ->withInput(request()->all());
+        // if($merit_list->declined_otp != request("otp")){
+        //     saveLogs($user->id, $user->name, "student", "Withdrawing merit list seat for application no {$merit_list->application_no}. OTP validation FAILED.");
+        //     return redirect()
+        //         ->back()
+        //         ->with("error", "OTP doesn't matched.")
+        //         ->withInput(request()->all());
+        // }
+
+        $flag = WithdrawalRequest::where('merit_list_id',$merit_list->id)->first();
+        if($flag){
+            return redirect()->back()->with('error','request already Submited');
         }
         DB::beginTransaction();
         try {
             WithdrawalRequest::create([
                 "merit_list_id"    => $merit_list->id,
+                "is_btech"         => 1,
                 "application_id"   => $merit_list->application->id,
                 "student_id"       => $merit_list->student_id,
                 "reason_from_list" => request("reason_from_list"),
@@ -440,15 +446,17 @@ class CommonAdmissionController extends Controller
                 "by_id"            => $user->id,
                 "by_type"          => get_class($user),
             ]);
-            $merit_list->convertToSeatWithdrawal();
-            $merit_list->course_seat()->decrement("total_seats_applied");
-            $cc = ["acad@tezu.ernet.in", "tuee2021@tezu.ernet.in"];
-            if(in_array($merit_list->course_id, btechCourseIds())){
-                $cc[] = "bssc2021@tezu.ac.in";
-            }
-            Mail::to($user->email)
-            ->bcc("tuee2021@gmail.com")
-            ->cc($cc)->send(new \App\Mail\SeatWithdrawalRequest($merit_list));
+
+            MeritList::where('id',$merit_list->id)->update(['withdrawal_rqst'=>1]);
+            // $merit_list->convertToSeatWithdrawal();
+            // $merit_list->course_seat()->decrement("total_seats_applied");
+            // $cc = ["acad@tezu.ernet.in", "tuee2021@tezu.ernet.in"];
+            // if(in_array($merit_list->course_id, btechCourseIds())){
+            //     $cc[] = "bssc2021@tezu.ac.in";
+            // }
+            // Mail::to($user->email)
+            // ->bcc("tuee2021@gmail.com")
+            // ->cc($cc)->send(new \App\Mail\SeatWithdrawalRequest($merit_list));
         } catch (\Throwable $th) {
             report($th);
             saveLogs($user->id, $user->name, "student", "Withdrawal requesed for application no {$merit_list->application_no} is failed.");
@@ -461,8 +469,8 @@ class CommonAdmissionController extends Controller
         DB::commit();
         return redirect()
             ->back()
-            // ->with("success", "Your seat is withdraw request is sent. Please wait for department approval.");
-            ->with("success", "Your seat is withdrew successfully.");
+            ->with("success", "Your seat is withdraw request is sent. Please wait for department approval.");
+            // ->with("success", "Your seat is withdrew successfully.");
     }
     public function sendOTP(MeritList $merit_list)
     {

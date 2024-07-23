@@ -48,6 +48,16 @@
                 @endforeach
             </select>
         </div>
+
+        <div class="col-sm-4">
+            <label for="withdrawal_request" class="label-control">Withdrawal Request:</label>
+            <select name="withdrawal_request" class="js-example-basic-single" style="width:100% !important" autocomplete="off">
+                <option value="">All</option>
+                <option value="1" @if(1 == request()->get("withdrawal_request")) selected @endif>New Request</option>
+                <option value="2" @if(2 == request()->get("withdrawal_request")) selected @endif>Accepted Request</option>
+            </select>
+        </div>
+
         {{-- <div class="col-sm-4">
             <label for="status" class="label-control">Merit/Waiting</label>
             <select name="merit" id="merit" class="form-control" style="width:100% !important"  autocomplete="off">

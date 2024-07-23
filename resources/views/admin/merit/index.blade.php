@@ -437,9 +437,14 @@
                                             <a href="{{route('department.merit.btech-recpt-canceled',Crypt::encrypt($merit_list->id))}}" class="btn btn-primary btn-sm" target="_blank">Print Withdrawal Receipt</a>
                                         @endif
 
-                                        @if(in_array($merit_list->status,[2]))
+                                        @if(in_array($merit_list->status,[2]) && $merit_list->withdrawal_rqst==0)
                                             <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModal" onclick="AssignId({{$merit_list->id}})">
                                                Withdraw Seat
+                                              </button>
+                                        @endif
+                                        @if(in_array($merit_list->status,[2]) && $merit_list->withdrawal_rqst==1)
+                                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModalWith" onclick="AssignId({{$merit_list->id}})">
+                                               Withdraw Seat After Request
                                               </button>
                                         @endif
                                         @if(checkPermission(2)==true && in_array($merit_list->status, [1,8] ))
@@ -857,7 +862,38 @@
             <div class="row">
                 <input type="hidden" id="ml_id" name="ml_id">
                 <input type="hidden"  name="type" name="withdrow">
+                {{-- <input type="hidden"  name="withdraw_by" value="0"> --}}
                 <label for="">Reason Of Cancellation</label>
+                <textarea name="reason" id="reason" cols="10" rows="3" class="form-control" required></textarea>
+            </div>
+            </div>
+            <div class="modal-footer">
+            <button type="submit" class="btn btn-primary" 
+            onclick="return confirm('Are you sure you want to Cancel?');">Submit</button>
+            </div>
+        </form>
+    </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="exampleModalWith" tabindex="-1" role="dialog" aria-labelledby="exampleModalWithLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <form action="{{ route('department.merit.btech-cancel')}}" method="POST">
+            {{ csrf_field() }}
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalWithLabel">Withdeaw Candidate</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+            <div class="row">
+                <input type="hidden" id="ml_idd" name="ml_id">
+                <input type="hidden"  name="type" name="withdrow">
+                <input type="hidden"  name="withdraw_by" value="2">
+                <label for="">Reason Of Withdeaw</label>
                 <textarea name="reason" id="reason" cols="10" rows="3" class="form-control" required></textarea>
             </div>
             </div>
@@ -878,6 +914,7 @@
 <script>
     function AssignId(id){
         $("#ml_id").val(id);
+        $("#ml_idd").val(id);
     //    alert(id);
     }
 </script>
