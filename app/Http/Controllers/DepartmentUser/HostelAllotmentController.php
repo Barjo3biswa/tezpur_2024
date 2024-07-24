@@ -131,6 +131,7 @@ class HostelAllotmentController extends Controller
             // }
           
         } catch (\Exception $e) {
+            dd($e);
             Log::emergency($e);
             return redirect()->back()->with("error", "Whoos! something went wrong. Please try again later.");
         }
