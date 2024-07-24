@@ -131,7 +131,7 @@ class HostelAllotmentController extends Controller
             // }
           
         } catch (\Exception $e) {
-            dd($e);
+            
             Log::emergency($e);
             return redirect()->back()->with("error", "Whoos! something went wrong. Please try again later.");
         }
@@ -236,7 +236,7 @@ class HostelAllotmentController extends Controller
                 ],
             ];
         } catch (Exception $e) {
-            // dd($e);
+            dd($e);
             Log::error($e);
             DB::rollback();
             saveLogs(auth(get_guard())->id(), auth(get_guard())->user()->name, get_guard(), "Application Number:  {$application->id} Proceeding payment failed.");
