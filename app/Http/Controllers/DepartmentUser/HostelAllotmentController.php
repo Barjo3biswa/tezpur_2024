@@ -428,8 +428,7 @@ class HostelAllotmentController extends Controller
         // dd($receipt);
         // $hostel_receipt = $merit_list->hostelReceipt->load("collections.feeHead");
         $application = $merit_list->application;
-        return view("department-user.hostel.arf", compact("application", "merit_list", "receipt"));
-        
+        return view("department-user.hostel.arf", compact("application", "merit_list", "receipt"));      
     }
     
     public function noHostel($encrypted_id){
