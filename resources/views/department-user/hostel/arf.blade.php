@@ -367,9 +367,16 @@
                                             <tr>
                                                 <th colspan="4" style="text-decoration: underline">Fees</th>
                                             </tr>
+                                            @if ($application->is_mba==1)
+                                            <tr>
+                                                <td colspan="4">Admission and Hostel fees Rs <strong>{{$merit_list->admissionReceipt->total}}</strong> by online payment ID <strong>{{$merit_list->admissionReceipt->transaction_id}}</strong> dated <strong>{{date('d-m-Y', strtotime($merit_list->admissionReceipt->created_at))}}</strong>.</td>
+                                            </tr>
+                                            @else
                                             <tr>
                                                 <td colspan="4">Admission fees Rs <strong>{{$merit_list->admissionReceipt->total}}</strong> by online payment ID <strong>{{$merit_list->admissionReceipt->transaction_id}}</strong> dated <strong>{{date('d-m-Y', strtotime($merit_list->admissionReceipt->created_at))}}</strong>.</td>
                                             </tr>
+                                            @endif
+                                            
                                             @if ($merit_list->hostelReceipt)
                                                 <tr>
                                                     <td colspan="4">Hostel fee with caution deposit <strong>{{$merit_list->hostelReceipt->total}}</strong> by online payment ID <strong>{{$merit_list->hostelReceipt->transaction_id}}</strong> dated <strong>{{date('d-m-Y', strtotime($merit_list->hostelReceipt->created_at??""))}}</strong>.</td>
