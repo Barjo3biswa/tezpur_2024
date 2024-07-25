@@ -172,8 +172,9 @@ class AdmissionReportController extends Controller
                         'Minority',	
                         'Place of Residence',
                         'Annual Income',
-                        'Admission Time',
-                        'Hostel Status');
+                        'Admission Date',
+                        'Hostal Status'
+                    );
         $callback = function () use ($excel, $columns,$castes) {
             $file = fopen('php://output', 'w');
             fputcsv($file, $columns);
@@ -230,8 +231,9 @@ class AdmissionReportController extends Controller
                 $row['Minority']           = $task->application->is_minority;	
                 $row['Place of Residence'] = $task->application->place_residence;
                 $raw['Annual Income']      = $task->application->family_income_range->min.'-to-'.$task->application->family_income_range->max;
-                $row['Admission Time']     = "NA";
-                $hostel = 'Not Required';
+                $raw['Admission Date'] = 'NA';
+                $raw['Hostal Status'] = 'NA';
+
                 // if($task->hostel_required==0){
                 //     $hostel = 'Not Required';
                 // }else if($task->hostel_required==1){
@@ -245,7 +247,6 @@ class AdmissionReportController extends Controller
                 // }else if($task->hostel_required==6){
                 //     $hostel = 'Will Be Assigned Later';
                 // }
-                $raw['Hostel Status']      = "NA";
                 fputcsv($file, array(
                                                 $row['SL'],
                                                 $row['id'],	
@@ -287,8 +288,8 @@ class AdmissionReportController extends Controller
                                                 $row['Minority'],	
                                                 $row['Place of Residence'] ,
                                                 $raw['Annual Income'],
-                                                $row['Admission Time'],	
-                                                $row['Hostel Status']      
+                                                $raw['Admission Date'],
+                                                $raw['Hostal Status'],     
                         ));
             }
             fclose($file);
