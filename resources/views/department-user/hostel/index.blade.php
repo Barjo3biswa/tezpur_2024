@@ -131,7 +131,7 @@
                                                 <a href="{{ route(get_route_guard() . '.merit.later-hostel', Crypt::encrypt($list->id)) }}" class="btn btn-warning btn-sm"
                                                         onclick="return confirm('Are you sure?');">Hostel Will be allocated later </a>
                                             @elseif($list->hostel_required==3 && $list->application->is_mba==0)
-                                               <a href="{{ route(get_route_guard() . '.merit.hostel-process-payment', Crypt::encrypt($list->id)) }}" class="btn btn-success btn-sm">Proceed for Payment</a>
+                                               <a href="{{ route(get_route_guard() . '.merit.hostel-process-payment', Crypt::encrypt($list->id)) }}" class="btn btn-success btn-sm">Proceed for Payment{{$list->application->is_mba}}</a>
                                             @elseif($list->hostel_required==3 && $list->application->is_mba==1)
                                                 <a href="{{ route(get_route_guard() . '.a-r-f', Crypt::encrypt($list->id)) }}" class="btn btn-primary btn-sm">Print ARF</a>
                                             @elseif($list->hostel_required==4 && $list->application->is_mba==0)
