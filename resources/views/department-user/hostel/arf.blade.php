@@ -369,7 +369,7 @@
                                             </tr>
                                             @if ($application->is_mba==1)
                                             <tr>
-                                                <td colspan="4">Admission and Hostel fees Rs <strong>{{$merit_list->admissionReceipt->total}}</strong> by online payment ID <strong>{{$merit_list->admissionReceipt->transaction_id}}</strong> dated <strong>{{date('d-m-Y', strtotime($merit_list->admissionReceipt->created_at))}}</strong>.</td>
+                                                <td colspan="4">Admission and Hostel fees Rs <strong>{{$merit_list->admissionReceipt->total}}</strong> by {{$merit_list->admissionReceipt->pay_method}} payment ID <strong>{{$merit_list->admissionReceipt->transaction_id}}</strong> dated <strong>{{date('d-m-Y', strtotime($merit_list->admissionReceipt->created_at))}}</strong>.</td>
                                             </tr>
                                             @else
                                             <tr>
