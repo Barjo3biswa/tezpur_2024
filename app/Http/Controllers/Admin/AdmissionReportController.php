@@ -232,20 +232,20 @@ class AdmissionReportController extends Controller
                 $raw['Annual Income']      = $task->application->family_income_range->min.'-to-'.$task->application->family_income_range->max;
                 $row['Admission Time']     = $task->admissionReceipt->created_at;
                 $hostel = 'Not Required';
-                if($task->hostel_required==0){
-                    $hostel = 'Not Required';
-                }else if($task->hostel_required==1){
-                    $hostel = 'Required';
-                }else if($task->hostel_required==3){
-                    $hostel = 'Payment Pending';
-                }else if($task->hostel_required==4){
-                    $hostel = 'Assigned';
-                }else if($task->hostel_required==5){
-                    $hostel = 'Not Allowed';
-                }else if($task->hostel_required==6){
-                    $hostel = 'Will Be Assigned Later';
-                }
-                $raw['Hostel Status']      = $hostel;
+                // if($task->hostel_required==0){
+                //     $hostel = 'Not Required';
+                // }else if($task->hostel_required==1){
+                //     $hostel = 'Required';
+                // }else if($task->hostel_required==3){
+                //     $hostel = 'Payment Pending';
+                // }else if($task->hostel_required==4){
+                //     $hostel = 'Assigned';
+                // }else if($task->hostel_required==5){
+                //     $hostel = 'Not Allowed';
+                // }else if($task->hostel_required==6){
+                //     $hostel = 'Will Be Assigned Later';
+                // }
+                $raw['Hostel Status']      = "NA";
                 fputcsv($file, array(
                                                 $row['SL'],
                                                 $row['id'],	
