@@ -112,7 +112,7 @@
                                     <th>Hostel</th>
                                     <th>P. Type</th>
                                     <th>Preference</th>
-                                    <th>Action</th>
+                                    <th>Actionnnnn</th>
                                 </tr>
                             </thead>
                             <tbody>
