@@ -245,7 +245,7 @@ class AdmissionReportController extends Controller
                 }else if($task->hostel_required==6){
                     $hostel = 'Will Be Assigned Later';
                 }
-                $raw['Hostel Status']      = $task->application->family_income_range->min.'-to-'.$task->application->family_income_range->max;
+                $raw['Hostel Status']      = $hostel;
                 fputcsv($file, array(
                                                 $row['SL'],
                                                 $row['id'],	
