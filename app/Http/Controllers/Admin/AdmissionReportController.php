@@ -171,7 +171,9 @@ class AdmissionReportController extends Controller
                         'DOB',
                         'Minority',	
                         'Place of Residence',
-                        'Annual Income');
+                        'Annual Income',
+                        'Admission Time',
+                        'Hostel Status');
         $callback = function () use ($excel, $columns,$castes) {
             $file = fopen('php://output', 'w');
             fputcsv($file, $columns);
@@ -228,6 +230,22 @@ class AdmissionReportController extends Controller
                 $row['Minority']           = $task->application->is_minority;	
                 $row['Place of Residence'] = $task->application->place_residence;
                 $raw['Annual Income']      = $task->application->family_income_range->min.'-to-'.$task->application->family_income_range->max;
+                $row['Admission Time']     = $task->admissionReceipt->created_at;
+                $hostel = 'Not Required';
+                if($task->hostel_required==0){
+                    $hostel = 'Not Required';
+                }else if($task->hostel_required==1){
+                    $hostel = 'Required';
+                }else if($task->hostel_required==3){
+                    $hostel = 'Payment Pending';
+                }else if($task->hostel_required==4){
+                    $hostel = 'Assigned';
+                }else if($task->hostel_required==5){
+                    $hostel = 'Not Allowed';
+                }else if($task->hostel_required==6){
+                    $hostel = 'Will Be Assigned Later';
+                }
+                $raw['Hostel Status']      = $task->application->family_income_range->min.'-to-'.$task->application->family_income_range->max;
                 fputcsv($file, array(
                                                 $row['SL'],
                                                 $row['id'],	
@@ -268,7 +286,9 @@ class AdmissionReportController extends Controller
                                                 $row['DOB'],
                                                 $row['Minority'],	
                                                 $row['Place of Residence'] ,
-                                                $raw['Annual Income']      
+                                                $raw['Annual Income'],
+                                                $row['Admission Time'],	
+                                                $row['Hostel Status']      
                         ));
             }
             fclose($file);
