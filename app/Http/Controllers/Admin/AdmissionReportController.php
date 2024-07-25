@@ -230,7 +230,7 @@ class AdmissionReportController extends Controller
                 $row['Minority']           = $task->application->is_minority;	
                 $row['Place of Residence'] = $task->application->place_residence;
                 $raw['Annual Income']      = $task->application->family_income_range->min.'-to-'.$task->application->family_income_range->max;
-                $row['Admission Time']     = $task->admissionReceipt->created_at;
+                $row['Admission Time']     = "NA";
                 $hostel = 'Not Required';
                 // if($task->hostel_required==0){
                 //     $hostel = 'Not Required';
