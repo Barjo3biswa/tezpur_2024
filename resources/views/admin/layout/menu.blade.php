@@ -68,7 +68,7 @@
                 <li><a href="{{ route(get_route_guard() . '.vacancy.index') }}">Seat Vacancy Position</a></li>
                 {{-- <li><a href="{{ route(get_route_guard() . '.merit.withdrawal-request') }}">Withdrawal Requests</a></li> --}}
 
-                <li><a href="javascript:void(0){{-- {{ route(get_route_guard() . '.merit.hostel-allotment') }} --}}">Hostel Allotment</a></li>
+                <li><a href="{{ route(get_route_guard() . '.merit.hostel-allotment') }}">Hostel Allotment</a></li>
             </ul>
         </li>
     @else
@@ -79,7 +79,7 @@
                 <li><a href="{{ route(get_route_guard() . '.merit.reporting') }}">Invite For Reporting</a></li>
                 <li><a href="{{ route(get_route_guard() . '.merit.admission_new') }}">Admission</a></li>
                 <li><a href="{{ route(get_route_guard() . '.merit.admission_Track') }}">Track Process</a></li>
-                <li><a href="javascript:void(0){{-- {{ route(get_route_guard() . '.merit.hostel-allotment') }} --}}">Hostel Allotment</a></li>
+                <li><a href="{{ route(get_route_guard() . '.merit.hostel-allotment') }}">Hostel Allotment</a></li>
             </ul>
         </li>
     @endif
