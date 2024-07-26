@@ -6,7 +6,7 @@
         <div class="col-md-12">
             <div class="panel panel-default">
                 {{-- <div class="panel-heading">Welcome to VKNRL Admission Portal </div> --}}
-@if(auth("department_user")->id()!=178)
+                @if(auth("department_user")->id()!=178)
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-3 col-md-3 col-sm-6">
@@ -28,7 +28,7 @@
                             </div>
                         </div>
                     </div>
-@endif
+                @endif
                     @php
                         $user_id = auth("department_user")->id();
                         // app\DepartmentAssignedUser.php
