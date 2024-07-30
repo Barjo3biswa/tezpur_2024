@@ -584,6 +584,12 @@
                                     <p>Already Registered</p>
                                 </a>
                             </div>
+                            <div class="belowbanner-btn">
+                                <a href="https://cuetug.ntaonline.in/universities/eligibility/Mzk=" target="_blank">
+                                    <img src="assets/img/registration3.png" alt="" width="40">
+                                    <p>UG Programme through CUET UG 2024</p>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
