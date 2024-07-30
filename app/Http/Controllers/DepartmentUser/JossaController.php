@@ -10,6 +10,7 @@ use App\Models\Application;
 use App\Models\Caste;
 use App\Models\CourseSeat;
 use App\Models\MeritList;
+use App\Models\Session as ModelsSession;
 use DB;
 use Illuminate\Support\Facades\Crypt;
 use Session;
@@ -18,8 +19,13 @@ use Validator;
 class JossaController extends Controller
 {
     public function index(){
-        $session = Session::where('is_active',1)->first()->id;
-        $application = Application::where('is_btech',1)->where('session_id',$session)->whereHas('JossaStatus')->where('status','payment_done')->get();
+        // dd("ok");
+        $session = ModelsSession::where('is_active',1)->first()->id;
+        $application = Application::where('is_btech',1)
+                                    ->where('session_id',$session)
+                                    ->where('exam_through','JOSSA')
+                                    // ->whereHas('JossaStatus')
+                                    ->where('status','payment_done')->get();
         return view('department-user.jossa.index',compact('application'));
         // dd($application);
     }

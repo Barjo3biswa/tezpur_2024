@@ -16,6 +16,7 @@
                 <form class="login100-form validate-form"  method="POST" action="{{ route('student.register') }}"  onSubmit="return LoginEncrypter();" autocomplete="off">
                     {{ csrf_field() }}
                     <input type="hidden" name="by_mba" value={{$is_mba}}>
+                    <input type="hidden" name="t" value={{$t}}>
                     <div class="row">
                         <div class="col-md-4">
                             <label for="email">First Name <strong class="text-danger">*</strong></label>

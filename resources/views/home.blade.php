@@ -147,34 +147,41 @@
             <div class="panel panel-default">
             <div class="panel-heading">Welcome to Tezpur University 2024
                     <span class="pull-right">
-                        
-                        @if(Auth::User()->program_name=='PG' || Auth::User()->program_name=='MDES')
-                            <a href="{{route("student.application.create",['id'=>Crypt::encrypt('ECE')])}}" onclick="return confirm('Are you sure you want to continue?');"><button class="btn btn-sm btn-danger"> Apply New Application</button></a>
-                            {{-- <a href="{{route("student.application.create",['id'=>Crypt::encrypt('GATE')])}}" onclick="return confirm('Are you sure you want to continue with GATE?');"><button class="btn btn-sm btn-danger"> Apply New Application (Through TUEE {{Auth::User()->program_name=='PG'?'/GATE-M.Tech':''}} )</button></a>
-                            <a href="{{route("student.application.create",['id'=>Crypt::encrypt('CUET')])}}" onclick="return confirm('Are you sure you want to continue with CUET?');"><button class="btn btn-sm btn-primary"> Apply New Application (Through CUET)</button></a>
-                            @if (Auth::User()->program_name=='MDES')
-                            <a href="{{route("student.application.create",['id'=>Crypt::encrypt('CEED')])}}" onclick="return confirm('Are you sure you want to continue with TUEE?');"><button class="btn btn-sm btn-danger"> Apply New Application (Through CEED/GATE/DAT )</button></a>
-                            @endif --}}
-                        @elseif(Auth::User()->program_name=='PHD' || Auth::User()->program_name=='LATERAL' || Auth::User()->program_name=='FOREIGN' || Auth::User()->program_name=='PHDPROF')
-                            <a href="{{route("student.application.create",['id'=>Crypt::encrypt('TUEE')])}}"><button class="btn btn-sm btn-primary"> Apply New Application</button></a>
-                        @elseif(Auth::User()->program_name=='UG')
-                            <a href="{{route("student.application.create",['id'=>Crypt::encrypt('CUET')])}}"><button class="btn btn-sm btn-primary"> Apply New Application</button></a>
-                        @elseif(Auth::User()->program_name=='BDES')
-                            <a href="{{route("student.application.create",['id'=>Crypt::encrypt('TUEE')])}}"><button class="btn btn-sm btn-primary"> Apply New Application through(TUEE)</button></a>
-                            <a href="{{route("student.application.create",['id'=>Crypt::encrypt('UCEED')])}}"><button class="btn btn-sm btn-primary"> Apply New Application through(UCEED)</button></a>
-                        @elseif(Auth::User()->program_name=='CHINESE')
-                            <a href="{{route("student.application.create",['id'=>Crypt::encrypt('CHINESE')])}}"><button class="btn btn-sm btn-primary"> Apply New Application</button></a>
-                        @elseif(Auth::User()->program_name=='BTECH')
-                            <a href="{{route("student.application.create",['id'=>Crypt::encrypt('JEE')])}}"><button class="btn btn-sm btn-primary"> Apply New Application</button></a>
-                        @elseif(Auth::User()->program_name=='MBBT')
-                            <a href="{{route("student.application.create",['id'=>Crypt::encrypt('MBBT')])}}"><button class="btn btn-sm btn-primary"> Apply New Application</button></a>
-                        @elseif(Auth::User()->program_name=='VISVES')
-                            <a href="{{route("student.application.create",['id'=>Crypt::encrypt('Visvesvaraya')])}}"><button class="btn btn-sm btn-primary"> Apply New Application</button></a>
-                        @elseif(Auth::User()->program_name=='JOSSA')
-                            <a href="{{route("student.application.create",['id'=>Crypt::encrypt('JOSSA')])}}"><button class="btn btn-sm btn-primary"> Apply New Application</button></a>
+                        @php
+                            $is_spot = DB::table('spot_admissions')->where('mobile_no',Auth::User()->mobile_no)->where('deleted_at',null)->first();
+                        @endphp
+                        @if($is_spot)
+                            <a href="{{route("student.application.create",['id'=>Crypt::encrypt('SPOT')])}}"><button class="btn btn-sm btn-primary"> Apply New Application</button></a>
                         @else
-                            <a href="{{route("student.application.create",['id'=>Crypt::encrypt('TUEE')])}}"><button class="btn btn-sm btn-primary"> Apply New Application</button></a>
+                            @if(Auth::User()->program_name=='PG' || Auth::User()->program_name=='MDES')
+                                <a href="{{route("student.application.create",['id'=>Crypt::encrypt('ECE')])}}" onclick="return confirm('Are you sure you want to continue?');"><button class="btn btn-sm btn-danger"> Apply New Application</button></a>
+                                <a href="{{route("student.application.create",['id'=>Crypt::encrypt('GATE')])}}" onclick="return confirm('Are you sure you want to continue with GATE?');"><button class="btn btn-sm btn-danger"> Apply New Application (Through TUEE {{Auth::User()->program_name=='PG'?'/GATE-M.Tech':''}} )</button></a>
+                                <a href="{{route("student.application.create",['id'=>Crypt::encrypt('CUET')])}}" onclick="return confirm('Are you sure you want to continue with CUET?');"><button class="btn btn-sm btn-primary"> Apply New Application (Through CUET)</button></a>
+                                @if (Auth::User()->program_name=='MDES')
+                                <a href="{{route("student.application.create",['id'=>Crypt::encrypt('CEED')])}}" onclick="return confirm('Are you sure you want to continue with TUEE?');"><button class="btn btn-sm btn-danger"> Apply New Application (Through CEED/GATE/DAT )</button></a>
+                                @endif
+                            @elseif(Auth::User()->program_name=='PHD' || Auth::User()->program_name=='LATERAL' || Auth::User()->program_name=='FOREIGN' || Auth::User()->program_name=='PHDPROF')
+                                <a href="{{route("student.application.create",['id'=>Crypt::encrypt('TUEE')])}}"><button class="btn btn-sm btn-primary"> Apply New Application</button></a>
+                            @elseif(Auth::User()->program_name=='UG')
+                                <a href="{{route("student.application.create",['id'=>Crypt::encrypt('CUET')])}}"><button class="btn btn-sm btn-primary"> Apply New Application</button></a>
+                            @elseif(Auth::User()->program_name=='BDES')
+                                <a href="{{route("student.application.create",['id'=>Crypt::encrypt('TUEE')])}}"><button class="btn btn-sm btn-primary"> Apply New Application through(TUEE)</button></a>
+                                <a href="{{route("student.application.create",['id'=>Crypt::encrypt('UCEED')])}}"><button class="btn btn-sm btn-primary"> Apply New Application through(UCEED)</button></a>
+                            @elseif(Auth::User()->program_name=='CHINESE')
+                                <a href="{{route("student.application.create",['id'=>Crypt::encrypt('CHINESE')])}}"><button class="btn btn-sm btn-primary"> Apply New Application</button></a>
+                            @elseif(Auth::User()->program_name=='BTECH')
+                                <a href="{{route("student.application.create",['id'=>Crypt::encrypt('JEE')])}}"><button class="btn btn-sm btn-primary"> Apply New Application</button></a>
+                            @elseif(Auth::User()->program_name=='MBBT')
+                                <a href="{{route("student.application.create",['id'=>Crypt::encrypt('MBBT')])}}"><button class="btn btn-sm btn-primary"> Apply New Application</button></a>
+                            @elseif(Auth::User()->program_name=='VISVES')
+                                <a href="{{route("student.application.create",['id'=>Crypt::encrypt('Visvesvaraya')])}}"><button class="btn btn-sm btn-primary"> Apply New Application</button></a>
+                            @elseif(Auth::User()->program_name=='JOSSA')
+                                <a href="{{route("student.application.create",['id'=>Crypt::encrypt('JOSSA')])}}"><button class="btn btn-sm btn-primary"> Apply New Application</button></a>
+                            @else
+                                <a href="{{route("student.application.create",['id'=>Crypt::encrypt('TUEE')])}}"><button class="btn btn-sm btn-primary"> Apply New Application</button></a>
+                            @endif
                         @endif
+                        
                     </span>
             </div>
 

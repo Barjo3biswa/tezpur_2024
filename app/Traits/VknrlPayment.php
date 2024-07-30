@@ -16,6 +16,7 @@ use App\Models\RePaymentSuccess;
 use App\Models\Session as ModelsSession;
 use App\Models\User;
 use App\Services\PaymentHandlerService;
+use App\SpotAdmission;
 use Auth;
 use Session;
 
@@ -49,6 +50,12 @@ trait VknrlPayment
             // }
             // //is closed validation
             $application_type = Application::where('id',$decrypted_id)->first()->exam_through;
+            if($application_type=="SPOT"){
+                $is_avail_in_spot = SpotAdmission::where('mobile_no',Auth::User()->mobile_no)->first();
+                if(!$is_avail_in_spot){
+                    return redirect()->back()->with('error','Application Process is already closed.');
+                }
+            }
             $prog_name = Auth::user()->program_name;
             if($prog_name == "PHD" && $application->net_jrf){
                 $application_type = 'NET_JRF';

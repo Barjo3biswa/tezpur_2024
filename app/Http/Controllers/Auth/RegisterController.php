@@ -13,6 +13,7 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Session;
@@ -54,6 +55,7 @@ class RegisterController extends Controller
         $req=Crypt::decrypt($request->is_mba);
         // dd($req);
         $is_mba=$req;
+        $t = $request->t;
         $active_session = getActiveSession();
         if(!$active_session->id){
             abort(400, "Session closed.");
@@ -61,7 +63,7 @@ class RegisterController extends Controller
         // abort(404, "Registration closed");
         $countries = Country::orderBy('id', 'asc')->where('id','!=',1)->get();
         $mdes_exam= MDesExam::whereIn('program_name',[$is_mba])->get();
-        return view('student.auth.register2', compact('countries','is_mba','mdes_exam'));
+        return view('student.auth.register2', compact('countries','is_mba','mdes_exam','t'));
     }
 
     /**
@@ -108,10 +110,20 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         // dd($data['declear_tu']??0);
-        // dd($data);
+        
         if(!in_array($data['by_mba'], ["PHD","PG","LATERAL","BTECH","MDES","UG","MBBT","MBA","FOREIGN","BDES","PHDPROF","CHINESE","VISVES","JOSSA"])){
             // return view('welcome2');
             throw new \Exception("Something went wrong. Try again later.");
+        }
+
+        $button = DB::table('application_buttons')->where('id',$data['t'])->first();
+        if($button->spot_admission==1){   
+                    
+            $if_exist = DB::table('spot_admissions')->where('mobile_no',$data['mobile_no'])->where('deleted_at',null)->first();
+            
+            if(!$if_exist){
+                throw new \Exception("Spot admission is going on plz contact University for more information .");
+            }
         }
         if($data['nationality']==5){
             $data['isd_code']=$data['other_isd_code'];

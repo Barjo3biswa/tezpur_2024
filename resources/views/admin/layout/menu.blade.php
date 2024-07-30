@@ -80,6 +80,7 @@
                 <li><a href="{{ route(get_route_guard() . '.merit.admission_new') }}">Admission</a></li>
                 <li><a href="{{ route(get_route_guard() . '.merit.admission_Track') }}">Track Process</a></li>
                 <li><a href="{{ route(get_route_guard() . '.merit.hostel-allotment') }}">Hostel Allotment</a></li>
+                <li><a href="{{ route(get_route_guard() . '.merit.spot-Allow') }}">Allow For Spot</a></li>
             </ul>
         </li>
     @endif

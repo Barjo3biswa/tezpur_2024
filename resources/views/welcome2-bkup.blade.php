@@ -570,28 +570,267 @@
                             $buttons = DB::table('application_buttons')->where('deleted_at',null)->where('status','active')->orderBy('order_by')->get();
                         @endphp
                         <div class="btn-6">
-                            @foreach ($buttons as $butt)
-                                <div class="belowbanner-btn">                             
-                                    <a href="{{ route('student.register', ['is_mba' => Crypt::encrypt($butt->encrypt),'t'=>$butt->id]) }}">
-                                        <img src="assets/img/personal-profile.png" alt="" width="36">
-                                        <p>{{$butt->name}}</p>
-                                    </a>                          
-                                </div>
-                            @endforeach    
+                            <div class="belowbanner-btn">
+                                <a href="{{ route('student.register', ['is_mba' => Crypt::encrypt('PHD')]) }}">
+                                    <img src="assets/img/personal-profile.png" alt="" width="36">
+                                    <p>Ph.D. (through TUEE) Registration</p>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="btn-6">
+                            <div class="belowbanner-btn">
+                                <a href="{{ route('student.register', ['is_mba' => Crypt::encrypt('PHD')]) }}">
+                                    <img src="assets/img/personal-profile.png" alt="" width="36">
+                                    <p>Ph.D. (through TUEE) Registration</p>
+                                </a>
+                            </div>
+                            {{-- <div class="belowbanner-btn">
+                                <a href="{{ route('student.register', ['is_mba' => Crypt::encrypt('PG')]) }}">
+                                    <img src="assets/img/personal-profile.png" alt="" width="40">
+                                    <p>M. TECH. IN SEMICONDUCTOR TECHNOLOGY (through ECE) Registration</p>
+                                </a>
+                            </div> --}}
+                            {{-- <div class="belowbanner-btn">
+                                <a href="{{ route('student.register', ['is_mba' => Crypt::encrypt('LATERAL')]) }}">
+                                    <img src="assets/img/personal-profile.png" alt="" width="40">
+                                    <p>B.Tech-Lateral Entry (through TUEE) Registration</p>
+                                </a>
+                            </div> --}}
+
+                            {{-- <div class="belowbanner-btn">
+                                <a href="{{ route('student.register', ['is_mba' => Crypt::encrypt('PG')]) }}">
+                                    <img src="assets/img/personal-profile.png" alt="" width="40">
+                                    <p>M.Tech (through
+                                        GATE) Registration</p>
+                                </a>
+                            </div>
+
+                            <div class="belowbanner-btn">
+                                <a href="{{ route('student.register', ['is_mba' => Crypt::encrypt('MDES')]) }}">
+                                    <img src="assets/img/personal-profile.png" alt="" width="40">
+                                    <p>M. Des (through CEED/GATE) Registration</p>
+                                </a>
+                            </div> --}}
+
+
+                            {{-- <div class="belowbanner-btn">
+                                <a href="{{ route('student.register', ['is_mba' => Crypt::encrypt('BTECH')]) }}">
+                                    <img src="assets/img/personal-profile.png" alt="" width="40">
+                                    <p>B.Tech / B.Des (for Northeast quota through JEE Main)</p>
+                                </a>
+                            </div> --}}
+
+                            {{-- <div class="belowbanner-btn">
+                                <a href="{{ route('student.register', ['is_mba' => Crypt::encrypt('JOSSA')]) }}">
+                                    <img src="assets/img/personal-profile.png" alt="" width="40">
+                                    <p>B.Tech (through JOSSA)</p>
+                                </a>
+                            </div> --}}
+
+
+
+                            {{-- <div class="belowbanner-btn">
+                                <a href="{{ route('student.register', ['is_mba' => Crypt::encrypt('PG')]) }}">
+                                    <img src="assets/img/personal-profile.png" alt="" width="40">
+                                    <p>MA / M.Tech / PG-Diploma (through
+                                        Spot Registration) </p>
+                                </a>
+                            </div> --}}
+
+                            {{-- <div class="belowbanner-btn">
+                                <a href="{{ route('student.register', ['is_mba' => Crypt::encrypt('LATERAL')]) }}">
+                                    <img src="assets/img/personal-profile.png" alt="" width="40">
+                                    <p>B.Tech-Lateral Entry (through
+                                        Spot Registration)</p>
+                                </a>
+                            </div> --}}
+
+                            {{-- <div class="belowbanner-btn">
+                                <a href="{{ route('student.register', ['is_mba' => Crypt::encrypt('VISVES')]) }}">
+                                    <img src="assets/img/personal-profile.png" alt="" width="36">
+                                    <p>Ph.D. Registration (Visvesvaraya)</p>
+                                </a>
+                            </div> --}}
+
+                            {{-- <div class="belowbanner-btn">
+                                <a href="{{ route('student.register', ['is_mba' => Crypt::encrypt('PHD')]) }}">
+                                    <img src="assets/img/personal-profile.png" alt="" width="36">
+                                    <p>Ph.D. (Spring semester, 2024) Registration</p>
+                                </a>
+                            </div> --}}
+
+                            {{-- <div class="belowbanner-btn">
+                                <a href="{{ route('student.register', ['is_mba' => Crypt::encrypt('MDES')]) }}">
+                                    <img src="assets/img/personal-profile.png" alt="" width="40">
+                                    <p>M. Des (through
+                                        Spot Registration)</p>
+                                </a>
+                            </div>
+
+                            <div class="belowbanner-btn">
+                                <a href="{{ route('student.register', ['is_mba' => Crypt::encrypt('UG')]) }}">
+                                    <img src="assets/img/personal-profile.png" alt="" width="40">
+                                    <p>Certificate in Chinese</p>
+                                </a>
+                            </div>
+
+                            <div class="belowbanner-btn">
+                                <a href="{{ route('student.register', ['is_mba' => Crypt::encrypt('BTECH')]) }}">
+                                    <img src="assets/img/personal-profile.png" alt="" width="40">
+                                    <p>Registration for B.Tech Spot (FET Dpt.)Don`t Register if you not get any email from university.</p>
+                                </a>
+                            </div> --}}
+                            
+                            {{-- <div class="belowbanner-btn">
+                                <a href="{{ route('student.register', ['is_mba' => Crypt::encrypt('MBBT')]) }}">
+                                    <img src="assets/img/personal-profile.png" alt="" width="40">
+                                    <p>MBBT(Through GAT-B)</p>
+                                </a>
+                            </div> --}}
+
+
+                            {{-- <div class="belowbanner-btn">
+                                <a href="https://cuet.samarth.ac.in/index.php/app/info/eligibility?q=TEZU"
+                                    target="_blank">
+                                    <img src="assets/img/personal-profile.png" alt="" width="40">
+                                    <p>CUET (UG) Registration</p>
+                                </a>
+                            </div> --}}
+
+                            {{-- <div class="belowbanner-btn">
+                                <a href="{{route('student.register',['is_mba'=>Crypt::encrypt("MBA")])}}">
+                                    <img src="assets/img/registration3.png" alt="" width="40">
+                                    <p>MBA Registration</p>
+                                </a>
+                            </div>
+
+                            <div class="belowbanner-btn">
+                                <a href="{{ asset('notifications/2024/Prospectus 2024.pdf') }}" target="_blank">
+                                    <img src="assets/img/registration3.png" alt="" width="40">
+                                    <p>MBA Prospectus 2024</p>
+                                </a>
+                            </div> --}}
+
+                            {{-- <div class="belowbanner-btn">
+                                <a href="https://www2.tezu.ernet.in/mbaex/" target="_blank">
+                                    <img src="assets/img/registration3.png" alt="" width="40">
+                                    <p>MBA Executive Programme for Spring 2024</p>
+                                </a>
+                            </div> --}}
+
+                            {{-- <div class="belowbanner-btn">
+                                <a href="{{ route('student.register', ['is_mba' => Crypt::encrypt('PG')]) }}">
+                                    <img src="assets/img/personal-profile.png" alt="" width="40">
+                                    <p>PG/ B.Ed/ M.Ed Registration (through CUET/ M.Tech through GATE)</p>
+                                </a>
+                            </div> --}}
+
+                            {{-- <div class="belowbanner-btn">
+                                <a href="{{ route('student.register', ['is_mba' => Crypt::encrypt('LATERAL')]) }}">
+                                    <img src="assets/img/personal-profile.png" alt="" width="40">
+                                    <p> B.Tech-Lateral Entry Registration (through
+                                        TUEE)</p>
+                                </a>
+                            </div> --}}
+
+                            {{-- <div class="belowbanner-btn">
+                                <a href="{{ route('student.register', ['is_mba' => Crypt::encrypt('BDES')]) }}">
+                                    <img src="assets/img/personal-profile.png" alt="" width="40">
+                                    <p> BDes  Registration (through UCEED)</p>
+                                </a>
+                            </div> --}}
+
+                            {{-- <div class="belowbanner-btn">
+                                <a href="{{ route('student.register', ['is_mba' => Crypt::encrypt('PHD')]) }}">
+                                    <img src="assets/img/personal-profile.png" alt="" width="36">
+                                    <p>Ph.D. Registration (through NET / GATE)</p>
+                                </a>
+                            </div> --}}
+
+                            {{-- <div class="belowbanner-btn">
+                                <a href="{{ route('student.register', ['is_mba' => Crypt::encrypt('PHDPROF')]) }}">
+                                    <img src="assets/img/personal-profile.png" alt="" width="36">
+                                    <p>Ph.D Registration for Industry Personnel and Professionals (through TUEE) </p>
+                                </a>
+                            </div>--}}
+                            
+                            {{-- <div class="belowbanner-btn">
+                                <a href="{{ route('student.register', ['is_mba' => Crypt::encrypt('MDES')]) }}">
+                                    <img src="assets/img/personal-profile.png" alt="" width="40">
+                                    <p>M. Des Registration (through
+                                        TUEE / CEED)</p>
+                                </a>
+                            </div> --}}
+
+                            <div class="belowbanner-btn">
+                                <a href="{{ route('student.register', ['is_mba' => Crypt::encrypt('UG')]) }}">
+                                    <img src="assets/img/personal-profile.png" alt="" width="40">
+                                    <p>UG Registration (through CUET)</p>
+                                </a>
+                            </div>
+
+                            {{-- <div class="belowbanner-btn">
+                                <a href="{{ route('student.register', ['is_mba' => Crypt::encrypt('CHINESE')]) }}">
+                                    <img src="assets/img/personal-profile.png" alt="" width="40">
+                                    <p>BA in Chinese Registration</p>
+                                </a>
+                            </div> --}}
+
+
+                            {{-- <div class="belowbanner-btn">
+                                <a href="{{ route('student.register', ['is_mba' => Crypt::encrypt('FOREIGN')]) }}">
+                                    <img src="assets/img/personal-profile.png" alt="" width="40">
+                                    <p>Registration For International Student</p>
+                                </a>
+                            </div> --}}
+
+                            {{-- <div class="belowbanner-btn">
+                                <a href="http://www.tezu.ernet.in/soe/jossa-csab.html" target="_blank">
+                                    <img src="assets/img/registered-document.png" alt="" width="40">
+                                    <p>JoSSA-CSAB</p>
+                                </a>
+                            </div> --}}
+
+
                             <div class="belowbanner-btn">
                                 <a href="{{ route('student.login') }}">
                                     <img src="assets/img/registration-2.png" alt="" width="40">
                                     <p>Already Registered</p>
                                 </a>
                             </div>
+
+                            {{-- <div class="belowbanner-btn">
+                                <a href="https://pgcuet.samarth.ac.in/index.php/app/info/eligibility?q=TEZU" target="_blank">
+                                    <img src="assets/img/registration3.png" alt="" width="40">
+                                    <p>PG Programme through CUET PG 2024</p>
+                                </a>
+                            </div> --}}
+
+                            <div class="belowbanner-btn">
+                                <a href="https://cuetug.ntaonline.in/universities/eligibility/Mzk=" target="_blank">
+                                    <img src="assets/img/registration3.png" alt="" width="40">
+                                    <p>UG Programme through CUET UG 2024</p>
+                                </a>
+                            </div>
+
+                            {{-- <div class="belowbanner-btn">
+                                <a href="{{ route('shortlist-candidates') }}">
+                                    <img src="assets/img/registered-document.png" alt="" width="40">
+                                    <p>Shortlisted Candidates for Ph.D Programs</p>
+                                </a>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
 
 
+
+
                 <div class="row">
+
                     <div class="col-lg-4">
                         <div class="container-fluid1" style="margin-left:-14px">
+
                             <div class="row">
                                 @php
                                   $new_buttons = DB::table('new_buttons')->where('deleted_at',null)->where('status','Active')->orderBy('orderby')->get();
@@ -733,8 +972,12 @@
                                             </ul>
                                         </div>
                                     </div>
+
+
+
                                 </div>
                             </div>
+
                         </div>
                     </div>
 

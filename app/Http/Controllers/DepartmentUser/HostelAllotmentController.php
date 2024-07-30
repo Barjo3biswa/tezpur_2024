@@ -14,6 +14,7 @@ use App\Models\MeritList;
 use App\Models\OnlinePaymentProcessing;
 use App\Models\OnlinePaymentSuccess;
 use App\Services\PaymentHandlerService;
+use App\SpotAdmission;
 use Crypt;
 use DB;
 use Exception;
@@ -50,6 +51,39 @@ class HostelAllotmentController extends Controller
             $layot = 'department-user.layout.auth';
         }
         return view('department-user.hostel.index', compact('merit_lists','admission_categories','layot','hostels'));
+    }
+
+    public function spotAllow(){
+        $courses = programmes_array();
+        $course_array = [];
+        foreach($courses as $id=>$name){
+            array_push($course_array,$id);
+        }
+        $students = SpotAdmission::whereIn('course_id',$course_array)->get();
+        return view('department-user.hostel.spot-admission',compact('courses','students'));
+    }
+
+    public function spotSave(Request $request){
+        $students = SpotAdmission::where('mobile_no',$request->m_no)->first();
+        if($students){
+            return redirect()->back()->with('error','Already Exist');
+        }
+        SpotAdmission::create([
+                'name'     => $request->s_name,
+                'course_id'=> $request->course_id,
+                'mobile_no'=> $request->m_no,
+            ]);
+        return redirect()->back()->with('success','Successfull');
+    }
+
+    public function spotDelete($id){
+        try {
+            $decrypted = Crypt::decrypt($id);
+        } catch (\Exception $e) {
+            
+        }
+        SpotAdmission::where('id',$decrypted)->delete();
+        return redirect()->back()->with('success','Successfull');
     }
 
     public function assignHostel(Request $request){
