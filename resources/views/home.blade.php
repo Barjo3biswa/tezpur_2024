@@ -151,7 +151,7 @@
                             $is_spot = DB::table('spot_admissions')->where('mobile_no',Auth::User()->mobile_no)->where('deleted_at',null)->first();
                         @endphp
                         @if($is_spot)
-                            <a href="{{route("student.application.create",['id'=>Crypt::encrypt('SPOT')])}}"><button class="btn btn-sm btn-primary"> Apply New Application</button></a>
+                            <a href="{{route("student.application.create",['id'=>Crypt::encrypt('SPOT')])}}"><button class="btn btn-sm btn-primary"> Apply New Application (SPOT Admission)</button></a>
                         @else
                             @if(Auth::User()->program_name=='PG' || Auth::User()->program_name=='MDES')
                                 {{-- <a href="{{route("student.application.create",['id'=>Crypt::encrypt('ECE')])}}" onclick="return confirm('Are you sure you want to continue?');"><button class="btn btn-sm btn-danger"> Apply New Application</button></a>
