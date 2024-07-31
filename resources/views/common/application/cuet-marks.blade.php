@@ -30,7 +30,7 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <label for="">Roll No</label>
-                                <input type="number" class="form-control" name="roll_no[]" value="">
+                                <input type="number" class="form-control" name="roll_no[]" value="" placeholder="Enter CUET Roll Number">
                             </div>
                             <div class="col-md-4">
                                 <label for="">Paper Code</label>
@@ -40,7 +40,7 @@
                             </div>
                             <div class="col-md-4">
                                 <label for="">CUET Marks (Obtained)</label>
-                                <input type="number" class="form-control" name="marks[]" required>
+                                <input type="number" class="form-control" name="marks[]" required placeholder="Enter CUET Marks">
                             </div>
                             
                             {{-- <div class="col-md-4">
@@ -60,7 +60,7 @@
                             @foreach ($applied->cuet_course_code as $course)
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <input type="number" class="form-control" name="roll_no[]" value="roll_no" placeholder="Enter Roll Number">
+                                        <input type="number" class="form-control" name="roll_no[]" value="roll_no" placeholder="Enter CUET Roll Number">
                                     </div>
                                     <div class="col-md-4">
                                         <select name="course_code[]" class="form-control" readonly>
@@ -68,7 +68,7 @@
                                         </select>
                                     </div>
                                     <div class="col-md-4">
-                                        <input type="number" class="form-control" name="marks[]" value="{{ old('marks.' . $count) }}" placeholder="Enter Marks">
+                                        <input type="number" class="form-control" name="marks[]" value="{{ old('marks.' . $count) }}" placeholder="Enter CUET Marks">
                                     </div>
                                     {{-- <div class="col-md-4">
                                         @if ($count == 0 && $application->is_cuet_pg==1)
