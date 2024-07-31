@@ -39,7 +39,7 @@
                                 </select>
                             </div>
                             <div class="col-md-4">
-                                <label for="">CUET Total Marks (Obtained)</label>
+                                <label for="">CUET Marks (Obtained)</label>
                                 <input type="number" class="form-control" name="marks[]" required>
                             </div>
                             
