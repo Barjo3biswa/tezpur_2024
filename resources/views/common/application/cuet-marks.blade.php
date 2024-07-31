@@ -60,7 +60,7 @@
                             @foreach ($applied->cuet_course_code as $course)
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <input type="number" class="form-control" name="roll_no[]" value="roll_no">
+                                        <input type="number" class="form-control" name="roll_no[]" value="roll_no" placeholder="Enter Roll Number">
                                     </div>
                                     <div class="col-md-4">
                                         <select name="course_code[]" class="form-control" readonly>
@@ -68,7 +68,7 @@
                                         </select>
                                     </div>
                                     <div class="col-md-4">
-                                        <input type="number" class="form-control" name="marks[]" value="{{ old('marks.' . $count) }}">
+                                        <input type="number" class="form-control" name="marks[]" value="{{ old('marks.' . $count) }}" placeholder="Enter Marks">
                                     </div>
                                     {{-- <div class="col-md-4">
                                         @if ($count == 0 && $application->is_cuet_pg==1)
