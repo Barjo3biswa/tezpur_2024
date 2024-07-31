@@ -492,7 +492,7 @@ class ApplicationController extends CommonApplicationController
                         // 'percentile' => number_format($cuet_per_sub[$i]->percentile, 7, '.', ''),
                     ]);
                 }
-                Application::where('id',$application->id)->update(['cuet_status'=>1]);
+                // Application::where('id',$application->id)->update(['cuet_status'=>1]);
                 // $application->update(['cuet_status'=>1]);
             }
 
