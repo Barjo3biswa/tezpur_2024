@@ -124,7 +124,7 @@
                                         <td>
                                             @if($list->hostel_required==1)
                                             <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
-                                                data-target="#myModal" onclick="assignId({{$list->id}})">Assign Hostel</button>
+                                                data-target="#myModal" onclick="assignId({{$list->id}})">Assign Hostel </button>
 
                                                 <a href="{{ route(get_route_guard() . '.merit.no-hostel', Crypt::encrypt($list->id)) }}" class="btn btn-danger btn-sm"
                                                     onclick="return confirm('Are you sure?');">No Hostel</a>
@@ -136,6 +136,10 @@
                                                 <a href="{{ route(get_route_guard() . '.a-r-f', Crypt::encrypt($list->id)) }}" class="btn btn-primary btn-sm">Print ARF</a>
                                             @elseif($list->hostel_required==4 && $list->course_id!=80)
                                                <a href="{{ route(get_route_guard() . '.hostel-receipt', Crypt::encrypt($list->id)) }}" class="btn btn-primary btn-sm">Hostel Payment Receipt</a>
+                                            @endif
+
+                                            @if(in_array($list->hostel_required,[0,6]))
+                                                <a href="{{ route(get_route_guard() . '.allow-hos', Crypt::encrypt($list->id)) }}" class="btn btn-primary btn-sm">Allow Hostel</a>
                                             @endif
 
                                             @if(in_array($list->hostel_required,[0,4,5,6]))

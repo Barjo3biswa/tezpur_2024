@@ -262,6 +262,10 @@ Route::get("/no-hostel/{merit_list_id}", [
     "uses"  => "HostelAllotmentController@noHostel",
     "as"    => "merit.no-hostel"
 ]);
+Route::get("/allow-hos/{merit_list_id}", [
+    "uses"  => "HostelAllotmentController@allowHos",
+    "as"    => "merit.allow-hos"
+]);
 
 Route::get("/later-hostel/{merit_list_id}", [
     "uses"  => "HostelAllotmentController@laterHostel",

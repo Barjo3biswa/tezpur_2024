@@ -480,6 +480,20 @@ class HostelAllotmentController extends Controller
         
     }
 
+    public function allowHos($encrypted_id){
+        try {
+            $decrypted_id = Crypt::decrypt($encrypted_id);
+        } catch (Exception $e) {
+            // dd($e);
+            Log::error($e);
+            return redirect()->back()
+                ->with("error", "Whoops! something went wrong. Try again later.");
+        }
+        MeritList::where('id',$decrypted_id)->update(['hostel_required'=>1]);
+        return redirect()->back()->with('success','Successfull');
+        
+    }
+
     public function laterHostel($encrypted_id){
         try {
             $decrypted_id = Crypt::decrypt($encrypted_id);
