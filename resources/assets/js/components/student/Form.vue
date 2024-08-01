@@ -2463,7 +2463,7 @@
                       </div> -->
 
                       <div v-for="(cuet, index) in step_three_form.cuet.subject_wise_dtl" :key="index">
-                        <!--<div class="row">
+                        <div class="row">
                           <div class="form-group">
 
                             <div class="col-md-1"></div>
@@ -2518,7 +2518,7 @@
                               </button>
                             </div>
                           </div>
-                        </div>-->
+                        </div>
                       </div>
 
                     </div>
