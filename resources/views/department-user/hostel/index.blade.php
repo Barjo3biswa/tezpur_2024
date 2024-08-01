@@ -139,7 +139,7 @@
                                             @endif
 
                                             @if(in_array($list->hostel_required,[0,6]))
-                                                <a href="{{ route(get_route_guard() . '.allow-hos', Crypt::encrypt($list->id)) }}" class="btn btn-primary btn-sm">Allow Hostel</a>
+                                                <a href="{{ route(get_route_guard() . '.merit.allow-hos', Crypt::encrypt($list->id)) }}" class="btn btn-primary btn-sm">Allow Hostel</a>
                                             @endif
 
                                             @if(in_array($list->hostel_required,[0,4,5,6]))
