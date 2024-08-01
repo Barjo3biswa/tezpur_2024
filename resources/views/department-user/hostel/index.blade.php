@@ -138,7 +138,7 @@
                                                <a href="{{ route(get_route_guard() . '.hostel-receipt', Crypt::encrypt($list->id)) }}" class="btn btn-primary btn-sm">Hostel Payment Receipt</a>
                                             @endif
 
-                                            @if(in_array($list->hostel_required,[0,6]))
+                                            @if(in_array($list->hostel_required,[0,5,6]))
                                                 <a href="{{ route(get_route_guard() . '.merit.allow-hos', Crypt::encrypt($list->id)) }}" class="btn btn-primary btn-sm">Allow Hostel</a>
                                             @endif
 
