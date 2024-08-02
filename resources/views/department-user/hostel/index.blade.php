@@ -219,7 +219,7 @@
 
                     <form  action="{{ route(get_route_guard() . '.merit.change-hostel') }}" method="POST">
                         {{ csrf_field() }}
-                        <div id="myModal" class="modal fade" role="dialog">
+                        <div id="myModalChange" class="modal fade" role="dialog">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
