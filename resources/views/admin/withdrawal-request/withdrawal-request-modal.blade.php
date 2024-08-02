@@ -38,7 +38,7 @@
                             </tr>
                             <tr>
                                 <th>Hostal Amount & Date</th>
-                                <td>{{ $withdrawal_request->meritList->hostelReceipt->total ?? "NA" }}/-(Trans Id: {{ $withdrawal_request->meritList->hostelReceipt->transaction_id ?? "NA" }})</td>
+                                <td>{{ $withdrawal_request->meritList->hostelReceipt->total ?? "NA" }}/-(Trans Id: {{ $withdrawal_request->meritList->hostelReceipt->transaction_id ?? "NA" }}, Date:{{date('d-m-Y', strtotime($withdrawal_request->meritList->hostelReceipt->created_at??"NA"))}})</td>
                             </tr>
 
                             {{-- <tr>
