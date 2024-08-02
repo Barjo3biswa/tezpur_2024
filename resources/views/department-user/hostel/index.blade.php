@@ -139,7 +139,7 @@
                                             @endif
 
                                             @if ($list->hostel_required==4)
-                                                <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
+                                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
                                                     data-target="#myModalChange" onclick="assignChangeId({{$list->id}})">Change Hostel </button>
                                             @endif
 
