@@ -173,7 +173,12 @@ class AdmissionReportController extends Controller
                         'Place of Residence',
                         'Annual Income',
                         'Admission Date',
-                        'Hostal Status'
+                        'Hostal Status',
+                        'Admission Trans Id',
+                        'Admission Amount',
+                        'Hostal Trans Id',
+                        'Hostal Amount'
+
                     );
         $callback = function () use ($excel, $columns,$castes) {
             $file = fopen('php://output', 'w');
@@ -248,6 +253,10 @@ class AdmissionReportController extends Controller
                     $hostel = 'Will Be Assigned Later';
                 }
                 $raw['Hostal Status'] = $hostel;
+                $raw['Admission Trans Id'] = 'NA';
+                $raw['Admission Amount'] = 'NA';
+                $raw['Hostal Trans Id'] = 'NA';
+                $raw['Hostal Amount'] = 'NA';
                 fputcsv($file, array(
                                                 $row['SL'],
                                                 $row['id'],	
@@ -290,7 +299,11 @@ class AdmissionReportController extends Controller
                                                 $row['Place of Residence'] ,
                                                 $raw['Annual Income'],
                                                 $raw['Admission Date'],
-                                                $raw['Hostal Status'],     
+                                                $raw['Hostal Status'],  
+                                                $raw['Admission Trans Id'],
+                                                $raw['Admission Amount'],
+                                                $raw['Hostal Trans Id'],
+                                                $raw['Hostal Amount'],   
                         ));
             }
             fclose($file);
