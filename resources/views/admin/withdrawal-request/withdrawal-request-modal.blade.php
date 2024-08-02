@@ -32,6 +32,15 @@
                                 <th>RECEIPT NUMBER</th>
                                 <td>{{ $withdrawal_request->meritList->admissionReceipt->receipt_no ?? "NA" }}</td>
                             </tr>
+                            <tr>
+                                <th>Admission Amount & Date</th>
+                                <th>{{ $withdrawal_request->application->admission_receipt->total ?? "NA" }}(Trans Id: {{ $withdrawal_request->application->admission_receipt->transaction_id ?? "NA" }}, Date:{{date('d-m-Y', strtotime($withdrawal_request->application->admission_receipt->created_at))}})</th>
+                            </tr>
+                            <tr>
+                                <th>Hostal Amount & Date</th>
+                                <th></th>
+                            </tr>
+
                             {{-- <tr>
                                 <th>DOB</th>
                                 <td>{{$withdrawal_request->dob ?? "NA"}}</td>
