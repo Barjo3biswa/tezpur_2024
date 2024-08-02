@@ -34,7 +34,7 @@
                             </tr>
                             <tr>
                                 <th>Admission Amount & Date</th>
-                                <th>{{ $withdrawal_request->application->admission_receipt->total ?? "NA" }}(Trans Id: {{ $withdrawal_request->application->admission_receipt->transaction_id ?? "NA" }}, Date:{{date('d-m-Y', strtotime($withdrawal_request->application->admission_receipt->created_at))}})</th>
+                                <td>{{ $withdrawal_request->application->admission_receipt->total ?? "NA" }}/-(Trans Id: {{ $withdrawal_request->application->admission_receipt->transaction_id ?? "NA" }}, Date:{{date('d-m-Y', strtotime($withdrawal_request->application->admission_receipt->created_at))}})</td>
                             </tr>
                             <tr>
                                 <th>Hostal Amount & Date</th>
