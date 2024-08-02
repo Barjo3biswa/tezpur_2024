@@ -106,7 +106,7 @@ class HostelAllotmentController extends Controller
 
 
     public function changeHostel(Request $request){
-        dd($request->all());
+        // dd($request->all());
         $rules = [
             "hos_name"    => "required",
             "hos_room_no" => "required",
@@ -115,12 +115,12 @@ class HostelAllotmentController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->with('error','please fill all the field');
         }
-        MeritList::where('id',$request->ml_id_change)->update([
+        MeritList::where('id',$request->ml_id)->update([
             // 'hostel_required' => 3,
             'hostel_name'=>$request->hos_name,
             'room_no'    =>$request->hos_room_no,
         ]);
-        $ml = MeritList::where('id',$request->ml_id_change)->first();
+        $ml = MeritList::where('id',$request->ml_id)->first();
 
         dd($ml);
         $hostel_receipt = HostelReceipt::where('student_id',$ml->student_id)->update([
