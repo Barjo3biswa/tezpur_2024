@@ -253,10 +253,10 @@ class AdmissionReportController extends Controller
                     $hostel = 'Will Be Assigned Later';
                 }
                 $raw['Hostal Status'] = $hostel;
-                $raw['Admission Trans Id'] = 'NA';
-                $raw['Admission Amount'] = 'NA';
-                $raw['Hostal Trans Id'] = 'NA';
-                $raw['Hostal Amount'] = 'NA';
+                $raw['Admission Trans Id'] = $task->application->admission_receipt->transaction_id;
+                $raw['Admission Amount'] = $task->application->admission_receipt->total;
+                $raw['Hostal Trans Id'] = $task->hostelReceipt->transaction_id;
+                $raw['Hostal Amount'] = $task->hostelReceipt->total;
                 fputcsv($file, array(
                                                 $row['SL'],
                                                 $row['id'],	
