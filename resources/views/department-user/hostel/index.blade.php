@@ -138,6 +138,11 @@
                                                <a href="{{ route(get_route_guard() . '.hostel-receipt', Crypt::encrypt($list->id)) }}" class="btn btn-primary btn-sm">Hostel Payment Receipt</a>
                                             @endif
 
+                                            @if ($list->hostel_required==4)
+                                                <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
+                                                    data-target="#myModalChange" onclick="assignChangeId({{$list->id}})">Change Hostel </button>
+                                            @endif
+
                                             @if(in_array($list->hostel_required,[0,5,6]))
                                                 <a href="{{ route(get_route_guard() . '.merit.allow-hos', Crypt::encrypt($list->id)) }}" class="btn btn-primary btn-sm">Allow Hostel</a>
                                             @endif
@@ -211,6 +216,47 @@
                             </div>
                         </div>
                     </form>
+
+                    <form  action="{{ route(get_route_guard() . '.merit.change-hostel') }}" method="POST">
+                        {{ csrf_field() }}
+                        <div id="myModal" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close"
+                                            data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Enter Hostel Details</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <input type="hidden" name="ml_id" id="ml_id_change">
+                                                <label for=""> Hostel Name</label>
+                                                    <select class="form-control"
+                                                    name="hos_name">
+                                                        <option value="">--select--</option>
+                                                        @foreach ($hostels as $hos)
+                                                            <option value="{{$hos->name}}">{{$hos->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <label for="">Seat No</label>
+                                                <input type="text" class="form-control"
+                                                    name="hos_room_no">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-primary"
+                                            >Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                     </div>
                 </div>
             </div>
@@ -223,6 +269,10 @@
     <script>
         function assignId(id){
             $("#ml_id").val(id);
+        }
+
+        function assignChangeId(id){
+            $("#ml_id_change").val(id);
         }
     </script>
 @endsection

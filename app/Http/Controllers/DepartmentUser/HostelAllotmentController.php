@@ -104,6 +104,31 @@ class HostelAllotmentController extends Controller
         // dd($request->all());
     }
 
+
+    public function changeHostel(Request $request){
+        $rules = [
+            "hos_name"    => "required",
+            "hos_room_no" => "required",
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return redirect()->back()->with('error','please fill all the field');
+        }
+        $ml = MeritList::where('id',$request->ml_id_change)->update([
+            // 'hostel_required' => 3,
+            'hostel_name'=>$request->hos_name,
+            'room_no'    =>$request->hos_room_no,
+        ]);
+
+        $hostel_receipt = HostelReceipt::where('student_id',$ml->student_id)->update([
+            'hostel_name'  => $request->hos_name,
+            "room_no"      => $request->hos_room_no,
+        ]);
+
+        return redirect()->back()->with('success','Successfully changed Hostel');
+        // dd($request->all());
+    }
+
     private function setFeeStructure(MeritList $merit_list)
     {
         $this->fee_structure = $merit_list->fee_structure_hostel();

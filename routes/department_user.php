@@ -233,6 +233,7 @@ Route::get("/spot-Allow", ["uses" => "HostelAllotmentController@spotAllow", "as"
 Route::post("/spot-save", ["uses" => "HostelAllotmentController@spotSave", "as" => "merit.spot-save"]);
 Route::get("/spot-delete/{id}", ["uses" => "HostelAllotmentController@spotDelete", "as" => "merit.spot-delete"]);
 Route::post("/assign-hostel", ["uses" => "HostelAllotmentController@assignHostel", "as" => "merit.assign-hostel"]);
+Route::post("/change-hostel", ["uses" => "HostelAllotmentController@changeHostel", "as" => "merit.change-hostel"]);
 
 Route::get("/hostel-process-payment/{id}", ["uses" => "HostelAllotmentController@hostelProcessPayment", "as" => "merit.hostel-process-payment"]);
 
