@@ -121,6 +121,8 @@ class HostelAllotmentController extends Controller
             'room_no'    =>$request->hos_room_no,
         ]);
         $ml = MeritList::where('id',$request->ml_id_change)->first();
+
+        dd($ml);
         $hostel_receipt = HostelReceipt::where('student_id',$ml->student_id)->update([
             'hostel_name'  => $request->hos_name,
             "room_no"      => $request->hos_room_no,
