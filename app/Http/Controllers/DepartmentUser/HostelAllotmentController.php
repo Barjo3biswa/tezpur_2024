@@ -106,7 +106,7 @@ class HostelAllotmentController extends Controller
 
 
     public function changeHostel(Request $request){
-        dd("ok");
+        // dd("ok");
         $rules = [
             "hos_name"    => "required",
             "hos_room_no" => "required",
