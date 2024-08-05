@@ -1496,6 +1496,9 @@ class CommonApplicationController extends Controller
             }
             // dump($application->getChanges());
             // dd($application);
+            if($application->is_editable==1){
+                $application->is_editable = 0;
+            }
             $application->save();
         } catch (Exception $e) {
             // dd($e);
@@ -1570,6 +1573,9 @@ class CommonApplicationController extends Controller
             $application->same_address = $request->get("same_address");
             if($application->form_step == 1){
                 $application->form_step = 2;
+            }
+            if($application->is_editable==1){
+                $application->is_editable = 0;
             }
             $application->save();
         } catch (Exception $e) {
@@ -1677,6 +1683,9 @@ class CommonApplicationController extends Controller
             }
             // dump($application->getChanges());
             // dd($application);
+            if($application->is_editable==1){
+                $application->is_editable = 0;
+            }
             $application->save();
         } catch (Exception $e) {
             // dd($e);
@@ -1791,6 +1800,9 @@ class CommonApplicationController extends Controller
 
             if($application->form_step == 3){
                 $application->form_step = 4;
+            }
+            if($application->is_editable==1){
+                $application->is_editable = 0;
             }
             $application->save();
         } catch (Exception $e) {
