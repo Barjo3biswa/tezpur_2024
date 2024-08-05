@@ -2389,7 +2389,7 @@
 
                   <div class="alert alert-danger">
                 <strong>Note:</strong> - Attention CUET applicants.<br />
-                You are requested to Update exact Percentile Score And Normalised Score as per your NTA Score Card After Decleration of CUET result. 
+                You are requested to Update Score And other details as per your NTA Score Card at a later stage.
                 </div>
                   <div class="panel panel-default">
                     <div class="panel-body">
