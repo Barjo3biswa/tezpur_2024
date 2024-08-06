@@ -287,7 +287,7 @@
                                         }elseif($application->is_cuet_pg==1){
                                             $flag=DB::table('programs')->where('id',2)->first()->cuet_marks;
                                         }
-                                        
+                                        dump($application->exam_through); dump($flag);
                                     @endphp
                                     @if ($application->exam_through =="CUET" && $flag) <h1>payment</h1>
                                         @if ($application->form_step == 4 || $application->payment_status || $application->status == 'payment_pending')
