@@ -53,7 +53,10 @@ class SlidingController extends Controller
         if($course==null ||$merit_master==null){
             return redirect()->back()->with('error','select valid course & list');
         }
-        $seatmatrix=CourseSeat::where('course_id',$course_id)->where('admission_category_id',1)->first();
+
+
+
+        $seatmatrix=CourseSeat::where('course_id',$course_id)->where('admission_category_id',1)->where('course_seat_type_id', $merit_master->course_seat_type_id??'')->first();
         $vacancy=$seatmatrix->total_seats-($seatmatrix->total_seats_applied+$seatmatrix->temp_seat_applied+$seatmatrix->temp_attendence_occupied);
         if($vacancy<=0){
             return redirect()->back()->with('error','sliding is processed please wait till students to cancel.');
@@ -103,7 +106,7 @@ class SlidingController extends Controller
                     }
                     MeritList::where('id', $first_cat_student->id)->update(['may_slide' => 1]);
                 }
-                CourseSeat::where('course_id',$course_id)->where('admission_category_id',1)->increment('temp_attendence_occupied');
+                CourseSeat::where('course_id',$course_id)->where('admission_category_id',1)->where('course_seat_type_id', $merit_master->course_seat_type_id??'')->increment('temp_attendence_occupied');
             }
             DB::commit();
         }catch(\Exception $e){
@@ -123,6 +126,7 @@ class SlidingController extends Controller
         }
 
         $meritlist=MeritList::where('id',$decripted)->first();
+        $merit_master = MeritMaster::where('id',$meritlist->merit_master_id)->first();
 
             if($meritlist->admission_category_id==1){
                 return redirect()->back()->with('error','Can`t Slide Admission category. As Student is already in Open category');
@@ -133,8 +137,10 @@ class SlidingController extends Controller
             DB::beginTransaction();
             try{
                 CourseSeat::where(['course_id'=>$meritlist->course_id,'admission_category_id'=>$meritlist->admission_category_id])
+                            ->where('course_seat_type_id', $merit_master->course_seat_type_id??'')
                             ->decrement('total_seats_applied');
                 CourseSeat::where(['course_id'=>$meritlist->course_id,'admission_category_id'=>1])
+                            ->where('course_seat_type_id', $merit_master->course_seat_type_id??'')
                             ->increment('total_seats_applied');
 
                 $meritlist->update([
@@ -142,7 +148,9 @@ class SlidingController extends Controller
                                     "may_slide"=>2]);  
                 AdmissionReceipt::where('id',$meritlist->admissionReceipt->id)->update(['category_id'=>1,'slide_date'=>date('Y-m-d H:m:s')]);
                 
-                CourseSeat::where('course_id',$meritlist->course_id)->where('admission_category_id',1)->decrement('temp_attendence_occupied');
+                CourseSeat::where('course_id',$meritlist->course_id)->where('admission_category_id',1)
+                        ->where('course_seat_type_id', $merit_master->course_seat_type_id??'')
+                        ->decrement('temp_attendence_occupied');
 
                 DB::commit();
             }catch(\Exception $e){
