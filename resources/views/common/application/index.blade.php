@@ -289,7 +289,7 @@
                                         }
                                         dump($application->exam_through); dump($flag);
                                     @endphp
-                                    @if ($application->exam_through =="CUET" && $flag) <h1>payment</h1>
+                                    @if ($application->exam_through =="CUET" && $flag)
                                         @if ($application->form_step == 4 || $application->payment_status || $application->status == 'payment_pending')
                                             <a href="{{route('student.cuet-details.form',Crypt::encrypt($application->id))}}" class="btn btn-danger btn-xs">Update CUET Scorecard</a>
                                         @endif
