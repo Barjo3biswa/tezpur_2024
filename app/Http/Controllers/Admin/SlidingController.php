@@ -131,7 +131,7 @@ class SlidingController extends Controller
             if($meritlist->admission_category_id==1){
                 return redirect()->back()->with('error','Can`t Slide Admission category. As Student is already in Open category');
             }
-            if(checkOpenAvailability($meritlist->course_id)==false){
+            if(checkOpenAvailability2($meritlist->course_id,$merit_master->course_seat_type_id)==false){
                 return redirect()->back()->with('error','Can`t Slide Admission category. As General Category is already Filled UP..');
             }
             DB::beginTransaction();

@@ -1458,6 +1458,19 @@ function gettotalCouser()
         return true;
     }
 
+    function checkOpenAvailability2($course_id,$mm)
+    {
+        $course_seat=CourseSeat::where(['course_id'=>$course_id,'admission_category_id'=>1])
+        ->where('course_seat_type_id', $mm??'')->first();
+        // $approved_count=MeritList::where(['admission_category_id'=>1, 'status'=>1,'course_id'=>$course_id])->count();
+        // dump($approved_count);
+        // dd($course_seat);
+        if($course_seat->total_seats <= $course_seat->temp_seat_applied + $course_seat->total_seats_applied/* +$approved_count */){
+            return false;
+        }
+        return true;
+    }
+
     //latest
 
     function getTotalPHDApplicants($session_id){
