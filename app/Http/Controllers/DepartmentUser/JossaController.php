@@ -101,7 +101,7 @@ class JossaController extends Controller
 
     
         $data=[
-            'merit_master_id'	=> 215,
+            'merit_master_id'	=> 334,
             'student_id'	    => $application->student_id,
             'admission_category_id'	=> $admission_category,
             'is_pwd'    => 0,
@@ -126,7 +126,8 @@ class JossaController extends Controller
             'cmr'	=> null,
             'new_status'	=> 'branch_assigned',
             'hostel_required' =>0,
-            'processing_technique' =>1
+            'processing_technique' =>1,
+            'payment_mode'  => 'offline'
         ];
         // dd
         DB::beginTransaction();
