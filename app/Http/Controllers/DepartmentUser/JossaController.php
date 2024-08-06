@@ -101,7 +101,7 @@ class JossaController extends Controller
 
     
         $data=[
-            'merit_master_id'	=> 105,
+            'merit_master_id'	=> 215,
             'student_id'	    => $application->student_id,
             'admission_category_id'	=> $admission_category,
             'is_pwd'    => 0,
