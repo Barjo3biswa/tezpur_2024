@@ -20,7 +20,7 @@
                 <th>Category</th>
                 <th>Gender</th>
                 <th>Status</th>
-                <th>Actionhhhh</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -278,23 +278,7 @@
                                                 target="_blank"><button type="button" class="btn btn-danger  btn-xs">
                                                     Admit Card</button></a> --}}
                                         {{-- @endif  --}}
-                                    @endif
-
-                                    @php
-                                        $flag = 0;
-                                        if($application->is_cuet_ug==1){
-                                            $flag=DB::table('programs')->where('id',1)->first()->cuet_marks;
-                                        }elseif($application->is_cuet_pg==1){
-                                            $flag=DB::table('programs')->where('id',2)->first()->cuet_marks;
-                                        }
-                                        // dump($application->exam_through); dd($flag);
-                                    @endphp
-                                    @if ($application->exam_through =="CUET" && $flag)
-                                        @if ($application->form_step == 4 || $application->payment_status || $application->status == 'payment_pending')
-                                            <a href="{{route('student.cuet-details.form',Crypt::encrypt($application->id))}}" class="btn btn-danger btn-xs">Update CUET Scorecard</a>
-                                        @endif
-                                    @endif
-
+                                    @endif                        
                                     @php
                                         $status=0;
                                         foreach($application->merit_list as $list){
@@ -334,6 +318,21 @@
                                         <a href="{{ route(get_route_guard() . '.hostel-receipt-re', Crypt::encrypt($application->id)) }}" class="btn btn-primary btn-xs">Balance Amount Receipt (Registration Fee)</a>
                                     @endif
                                 @endif
+
+                                @php
+                                        $flag = 0;
+                                        if($application->is_cuet_ug==1){
+                                            $flag=DB::table('programs')->where('id',1)->first()->cuet_marks;
+                                        }elseif($application->is_cuet_pg==1){
+                                            $flag=DB::table('programs')->where('id',2)->first()->cuet_marks;
+                                        }
+                                        // dump($application->exam_through); dd($flag);
+                                    @endphp
+                                    @if ($application->exam_through =="CUET" && $flag)
+                                        @if ($application->form_step == 4 || $application->payment_status || $application->status == 'payment_pending')
+                                            <a href="{{route('student.cuet-details.form',Crypt::encrypt($application->id))}}" class="btn btn-danger btn-xs">Update CUET Scorecard</a>
+                                        @endif
+                                    @endif
                             </td>
                         @endif
 
