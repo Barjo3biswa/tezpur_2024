@@ -20,7 +20,7 @@
                 <th>Category</th>
                 <th>Gender</th>
                 <th>Status</th>
-                <th>Action</th>
+                <th>Actionhhhh</th>
             </tr>
         </thead>
         <tbody>
@@ -287,7 +287,7 @@
                                         }elseif($application->is_cuet_pg==1){
                                             $flag=DB::table('programs')->where('id',2)->first()->cuet_marks;
                                         }
-                                        dump($application->exam_through); dd($flag);
+                                        // dump($application->exam_through); dd($flag);
                                     @endphp
                                     @if ($application->exam_through =="CUET" && $flag)
                                         @if ($application->form_step == 4 || $application->payment_status || $application->status == 'payment_pending')
