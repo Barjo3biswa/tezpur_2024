@@ -17,7 +17,7 @@
                 <td>{{ $key+ 1 + ($applicants->perPage() * ($applicants->currentPage() - 1)) }}</td>
                 <td>{{$applicant->name}}</td>
                 <td>{{$applicant->session->name}}</td>
-                <td>{{$applicant->id}} ({{$applicant->otp}})</td>
+                <td>{{$applicant->id}} ({{$applicant->otp}}) ({{$applicant->admitedCourse->declined_otp??"NA"}})</td>
                 <td>{{$applicant->isd_code}}-{{$applicant->mobile_no}}</td>
                 <td>{{$applicant->email}}</td>
             <td> <button type="button" class="btn btn-sm btn-danger" onclick="resetPassword('{{Crypt::encrypt($applicant->id)}}')"><i class="fa fa-key"></i> Reset Password</button></td>
