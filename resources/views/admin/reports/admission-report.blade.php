@@ -128,6 +128,15 @@
                                     <label for="status" class="label-control">Admission Date</label>
                                     <input type="date" class="form-control" name="admission_date" value="{{request()->get("admission_date")}}">
                                 </div>
+
+                                <div class="col-sm-4">
+                                    <label for="status" class="label-control">B.Tech Filter</label>
+                                    <select name="btech_fil" id="btech_fil">
+                                        <option value="all">All</option>
+                                        <option value="jossa">Jossa</option>
+                                        <option value="ne">NE</option>
+                                    </select>
+                                </div>
                             </div>
                             <br>
                             <div class="row">
