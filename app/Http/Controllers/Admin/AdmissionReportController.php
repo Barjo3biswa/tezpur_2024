@@ -108,6 +108,14 @@ class AdmissionReportController extends Controller
                 }
                 
             }
+
+            if($request->btech_fil){
+                if($request->btech_fil=='jossa'){
+                    $merit_lists = $merit_lists->whereIn('merit_master_id',[344]);
+                }else if($request->btech_fil=='ne'){
+                    $merit_lists = $merit_lists->whereNotIn('merit_master_id',[344]);
+                }
+            }
             // if ($status) {
                 $merit_lists = $merit_lists->whereNotIn('merit_master_id',[344])->/* orderBy('admission_category_id')-> */orderby('admission_receipts.roll_number')->paginate(100);
             // }else{
