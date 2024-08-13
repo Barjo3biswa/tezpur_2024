@@ -133,8 +133,8 @@
                                     <label for="status" class="label-control">B.Tech Filter</label>
                                     <select name="btech_fil" id="btech_fil" class="form-control">
                                         <option value="all">All</option>
-                                        <option value="jossa">Jossa</option>
-                                        <option value="ne">NE</option>
+                                        <option value="jossa" {{request()->get("btech_fil") == "jossa"  ? "selected" : ''}}>Jossa</option>
+                                        <option value="ne" {{request()->get("btech_fil") == "ne"  ? "selected" : ''}}>NE</option>
                                     </select>
                                 </div>
                             </div>
