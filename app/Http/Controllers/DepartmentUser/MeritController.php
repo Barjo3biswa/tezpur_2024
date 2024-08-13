@@ -789,6 +789,9 @@ class MeritController extends CommomMeritController
             return redirect()->route("student.application.index")->with("error", "Whoops! something went wrong. Try again later.");
         }
         $merit_list = MeritList::findOrFail($decrypted_id);
+
+        $merit_master = MeritMaster::where('id',$merit_list->merit_master_id)->first();
+
         DB::beginTransaction();
         try{
                 $merit_list->admissionReceipt()->update([
@@ -799,7 +802,10 @@ class MeritController extends CommomMeritController
                 // if($merit_list->admission_category_id==1){
                 //     $this->slidingChanges($merit_list);                  
                 // }
-                $course_seat = $merit_list->course_seat();
+                // $course_seat = $merit_list->course_seat();
+                $course_seat = CourseSeat::where('course_id',$merit_list->course_id)
+                            ->where('course_seat_type_id', $merit_master->course_seat_type_id)
+                            ->where('admission_category_id',$merit_list->admission_category_id)->first();
                 $application = $merit_list->application;
                 if($course_seat){
                     

@@ -1,4 +1,7 @@
 @extends('admin.layout.auth')
+@section('meta')
+<meta http-equiv="refresh" content="300; url={{route('department.vacancy.index')}}">
+@endsection
 @section('css')
     <link rel="{{ asset('css/latest_toastr.min.css') }}" rel="stlyesheet">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />

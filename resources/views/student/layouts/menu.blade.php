@@ -16,7 +16,7 @@
 {{-- <li><a target="_blank" href="{{asset("Guide for B.Tech application form 2020.pdf")}}" > Guide for filling B.Tech
         application form 2020.</a> </li> --}}
 {{-- @if (config("vknrl.show_vacancy_positions")) --}}
-{{-- <li><a href="{{route("student.vacancy.index")}}" style="background: red;color:white !important;"> Vacancy Positions.<span class="label label-default blink">New</span></a> </li> --}}
+<li><a href="{{route("student.vacancy.index")}}" style="background: red;color:white !important;"> Vacancy Positions.<span class="label label-default blink">New</span></a> </li>
 {{-- @endif --}}
 
 {{-- @php
