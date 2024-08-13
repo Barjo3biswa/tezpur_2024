@@ -67,6 +67,7 @@ class JossaController extends Controller
     }
 
     public function changeBranch(Request $request,$id){
+        dd("OK");
         try {
             $decrypted = Crypt::decrypt($id);
             $application=Application::where('id',$decrypted)->first();
@@ -135,13 +136,13 @@ class JossaController extends Controller
             MeritList::create($data);
             Application::where('id',$decrypted)->update(['caste_id'=>$request->s_cat]);
             // dd($data);
-            CourseSeat::where('course_id',$branch_name)
-                    ->where('admission_category_id',$admission_category)
-                    ->increment('temp_seat_applied');
+            // CourseSeat::where('course_id',$branch_name)
+            //         ->where('admission_category_id',$admission_category)
+            //         ->increment('temp_seat_applied');
 
-            CourseSeat::where('course_id',$branch_name)
-                ->where('admission_category_id',$admission_category)
-                ->increment('total_seats');
+            // CourseSeat::where('course_id',$branch_name)
+            //     ->where('admission_category_id',$admission_category)
+            //     ->increment('total_seats');
 
             DB::commit();
         }catch(\Exception $e){
