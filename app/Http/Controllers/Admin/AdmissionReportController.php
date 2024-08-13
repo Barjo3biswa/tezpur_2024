@@ -109,7 +109,7 @@ class AdmissionReportController extends Controller
                 
             }
             // if ($status) {
-                $merit_lists = $merit_lists->/* orderBy('admission_category_id')-> */orderby('admission_receipts.roll_number')->paginate(100);
+                $merit_lists = $merit_lists->whereNotIn('merit_master_id',[344])->/* orderBy('admission_category_id')-> */orderby('admission_receipts.roll_number')->paginate(100);
             // }else{
             //     $merit_lists = $merit_lists->paginate(100);
             // } 
