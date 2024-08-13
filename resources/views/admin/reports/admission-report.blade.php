@@ -131,7 +131,7 @@
 
                                 <div class="col-sm-4">
                                     <label for="status" class="label-control">B.Tech Filter</label>
-                                    <select name="btech_fil" id="btech_fil">
+                                    <select name="btech_fil" id="btech_fil" class="form-control">
                                         <option value="all">All</option>
                                         <option value="jossa">Jossa</option>
                                         <option value="ne">NE</option>
