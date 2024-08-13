@@ -67,7 +67,7 @@ class JossaController extends Controller
     }
 
     public function changeBranch(Request $request,$id){
-        dd("OK");
+        // dd("OK");
         try {
             $decrypted = Crypt::decrypt($id);
             $application=Application::where('id',$decrypted)->first();
