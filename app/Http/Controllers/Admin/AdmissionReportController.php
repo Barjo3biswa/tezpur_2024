@@ -114,6 +114,8 @@ class AdmissionReportController extends Controller
                     $merit_lists = $merit_lists->whereIn('merit_master_id',[344]);
                 }else if($request->btech_fil=='ne'){
                     $merit_lists = $merit_lists->whereNotIn('merit_master_id',[344]);
+                }else if($request->btech_fil=='None'){
+                    $merit_lists = $merit_lists->WhereNotIn('course_id',[72,73,74,75,76,77,83,111]);
                 }
             }
             // if ($status) {

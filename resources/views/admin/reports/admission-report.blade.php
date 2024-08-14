@@ -135,6 +135,7 @@
                                         <option value="all">All</option>
                                         <option value="jossa" {{request()->get("btech_fil") == "jossa"  ? "selected" : ''}}>Jossa</option>
                                         <option value="ne" {{request()->get("btech_fil") == "ne"  ? "selected" : ''}}>NE</option>
+                                        <option value="None" {{request()->get("btech_fil") == "None"  ? "selected" : ''}}>None</option>
                                     </select>
                                 </div>
                             </div>
