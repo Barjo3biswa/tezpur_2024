@@ -46,7 +46,9 @@ class sendToZZZ extends Notification
         // dd(route($this->route_name));
         return (new MailMessage)
             // ->subject('Urgent Information Required. LAST CHANCE!!')
-            ->subject('Information regarding admission in Tezpur University through MBBT GAT-B')
+            // ->subject('Information regarding admission in Tezpur University through MBBT GAT-B')
+            ->subject('Notice: Spot Admission')
+
             ->level("success")
             ->from(env('MAIL_USERNAME'), env("INSTITUTE_NAME"))
             //->greeting('Urgent Information. LAST CHANCE!!')
