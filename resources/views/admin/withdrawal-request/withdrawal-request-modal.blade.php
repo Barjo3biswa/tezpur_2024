@@ -34,7 +34,17 @@
                             </tr>
                             <tr>
                                 <th>Admission Amount & Date</th>
-                                <td>{{ $withdrawal_request->application->admission_receipt->total ?? "NA" }}/-(Trans Id: {{ $withdrawal_request->application->admission_receipt->transaction_id ?? "NA" }}, Date:{{date('d-m-Y', strtotime($withdrawal_request->application->admission_receipt->created_at))}})</td>
+                                @if ($withdrawal_request->application->admission_receipt->previous_receipt_id==NULL)
+                                    <td>{{ $withdrawal_request->application->admission_receipt->total ?? "NA" }}/-(Trans Id: {{ $withdrawal_request->application->admission_receipt->transaction_id ?? "NA" }}, Date:{{date('d-m-Y', strtotime($withdrawal_request->application->admission_receipt->created_at))}})</td>
+                                @else
+                                    @php
+                                        $Prev_transaction = DB::table('admission_receipts')
+                                                        ->where('id', $withdrawal_request->application->admission_receipt->previous_receipt_id)
+                                                        ->first();
+                                    @endphp
+                                    <td>{{ $withdrawal_request->application->admission_receipt->total + $Prev_transaction->total }}/-(Trans Id: {{ $withdrawal_request->application->admission_receipt->transaction_id ?? "NA" }}, Date:{{date('d-m-Y', strtotime($Prev_transaction->created_at))}})</td>
+                                @endif
+                                
                             </tr>
                             <tr>
                                 <th>Hostal Amount & Date</th>
