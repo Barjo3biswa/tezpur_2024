@@ -42,7 +42,7 @@
                                                         ->where('id', $withdrawal_request->application->admission_receipt->previous_receipt_id)
                                                         ->first();
                                     @endphp
-                                    <td>{{ $withdrawal_request->application->admission_receipt->total + $Prev_transaction->total }}/-(Trans Id: {{ $withdrawal_request->application->admission_receipt->transaction_id ?? "NA" }}, Date:{{date('d-m-Y', strtotime($Prev_transaction->created_at))}})</td>
+                                    <td>{{ $withdrawal_request->application->admission_receipt->total + $Prev_transaction->total }}/-(Trans Id: {{ $Prev_transaction->transaction_id ?? "NA" }}, Date:{{date('d-m-Y', strtotime($Prev_transaction->created_at))}})</td>
                                 @endif
                                 
                             </tr>
