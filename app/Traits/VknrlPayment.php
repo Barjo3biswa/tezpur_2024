@@ -52,7 +52,7 @@ trait VknrlPayment
             $application_type = Application::where('id',$decrypted_id)->first()->exam_through;
             if($application_type=="SPOT"){
                 $is_avail_in_spot = SpotAdmission::where('mobile_no',Auth::User()->mobile_no)->first();
-                if(!$is_avail_in_spot){
+                if(!$is_avail_in_spot && $application->is_btech!=1){
                     return redirect()->back()->with('error','Application Process is already closed.');
                 }
             }
