@@ -103,9 +103,9 @@ trait VknrlPayment
             $is_mba = Auth::user()->is_mba;
             // dd($is_mba);
             
-            $alloed_ids = explode(",", config("vknrl.ALLOW_AFTER_CLOSING_APP_IDS"));
+            // $alloed_ids = explode(",", config("vknrl.ALLOW_AFTER_CLOSING_APP_IDS"));
             
-            if($courses_count !== sizeof($course_ids) && !in_array($application->id, $alloed_ids )&& $is_mba !=1){
+            if($courses_count !== sizeof($course_ids) /* && !in_array($application->id, $alloed_ids ) */&& $is_mba !=1){
                 // dd("ok");
                 $student_id = Auth::user()->id;
                 $is_avail=DB::table('zzz_payment_allowed_students')->where('student_id',$student_id)->count();
