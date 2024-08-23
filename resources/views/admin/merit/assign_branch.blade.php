@@ -132,7 +132,7 @@
                                                         </th>
                                                     @endif
 
-                                                    @if ($seat->admission_category_id==8)
+                                                    @if ($seat->admission_category_id==9)
                                                         <th>{{$seat->admissionCategory->name}} @if($merit_list->is_pwd==1)<span class="btn btn-danger btn-xs">Supernumerary</span>@endif 
                                                             : <button class="btn btn-{{checkButton($seat->total_seats,$seat->total_seats_applied,$seat->temp_seat_applied)}} btn-sm">
                                                                 {{$seat->total_seats-$seat->total_seats_applied-$seat->temp_seat_applied}}</button> 
