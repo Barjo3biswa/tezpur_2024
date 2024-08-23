@@ -132,6 +132,14 @@
                                                         </th>
                                                     @endif
 
+                                                    @if ($seat->admission_category_id==8)
+                                                        <th>{{$seat->admissionCategory->name}} @if($merit_list->is_pwd==1)<span class="btn btn-danger btn-xs">Supernumerary</span>@endif 
+                                                            : <button class="btn btn-{{checkButton($seat->total_seats,$seat->total_seats_applied,$seat->temp_seat_applied)}} btn-sm">
+                                                                {{$seat->total_seats-$seat->total_seats_applied-$seat->temp_seat_applied}}</button> 
+                                                            <input type="radio" id="html" name="branch_name" value="{{$encodedArray}}">
+                                                        </th>
+                                                    @endif
+
                                                     @if ($seat->admission_category_id==10)
                                                         <th>{{$seat->admissionCategory->name}} @if($merit_list->is_pwd==1)<span class="btn btn-danger btn-xs">Rankholder</span>@endif 
                                                             : <button class="btn btn-{{checkButton($seat->total_seats,$seat->total_seats_applied,$seat->temp_seat_applied)}} btn-sm">
