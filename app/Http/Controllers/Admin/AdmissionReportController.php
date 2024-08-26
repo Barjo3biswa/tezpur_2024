@@ -163,7 +163,8 @@ class AdmissionReportController extends Controller
                         'Mobile No',	
                         'Email',	
                         'Amount',	
-                        'Fathers Name',	
+                        'Fathers Name',
+                        'Mothers Name',	
                         'Permanent Address',
                         'Permanent PO',	
                         'Permananent Dist',	
@@ -228,6 +229,7 @@ class AdmissionReportController extends Controller
                 $row['Email']            = $task->student->email;	
                 $row['Amount']           = $task/* ->admissionReceipt */->total+$task->previous_received_amount;	
                 $row['Fathers Name']     = $task->application->father_name;	
+                $row['Mothers Name']     = $task->application->mother_name;	
                 $row['Permanent Address']= $task->application->permanent_village_town;
                 $row['Permanent PO']     = $task->application->permanent_po;	
                 $row['Permananent Dist'] = $task->application->per_district->district_name??$task->application->permanent_district;	
@@ -289,7 +291,8 @@ class AdmissionReportController extends Controller
                                                 $row['Mobile No'],	
                                                 $row['Email'],	
                                                 $row['Amount'],	
-                                                $row['Fathers Name'],	
+                                                $row['Fathers Name'],
+                                                $row['Mothers Name'],	
                                                 $row['Permanent Address'],
                                                 $row['Permanent PO'],	
                                                 $row['Permananent Dist'],	
