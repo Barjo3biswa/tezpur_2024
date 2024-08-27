@@ -179,7 +179,7 @@ class AdmissionReportController extends Controller
                         'Religion',	
                         'Social Category',	
                         'Sub Caste',	
-                        'IS_PWD',	
+                        // 'IS_PWD',	
                         'DOB',
                         'Minority',	
                         'Place of Residence',
@@ -217,9 +217,9 @@ class AdmissionReportController extends Controller
                 $row['Year']             = $task/* ->admissionReceipt */->year ?? "NA";
                 if($task->may_slide==3){
                     $new=MeritList::where(['student_id'=>$task->student_id,'course_id'=>$task->course_id,'status'=>14])->first();
-                    $row['Admitted Category']= $new->admissionCategory->name;
+                    $row['Admitted Category']= $new->admissionCategory->name . $task->is_pwd==1?'(PWD)':'';
                 }else{
-                    $row['Admitted Category']= $task->admissionCategory->name;
+                    $row['Admitted Category']= $task->admissionCategory->name . $task->is_pwd==1?'(PWD)':'';
                 }	
 
                 $row['Hostel Name'] = $task->hostel_required==4?$task->hostel_name:"NA";
@@ -245,7 +245,7 @@ class AdmissionReportController extends Controller
                 $row['Religion']           = $task->application->religion;	
                 $row['Social Category']    = $castes[$task->application->caste_id];
                 $row['Sub Caste']          = $task->application->sub_caste;	
-                $row['IS_PWD']             = $task->application->is_pwd;	
+                // $row['IS_PWD']             = $task->application->is_pwd;	
                 $row['DOB']                = $task->application->dob;
                 $row['Minority']           = $task->application->is_minority;	
                 $row['Place of Residence'] = $task->application->place_residence;
@@ -309,7 +309,7 @@ class AdmissionReportController extends Controller
                                                 $row['Religion'],	
                                                 $row['Social Category'],	
                                                 $row['Sub Caste'],	
-                                                $row['IS_PWD'],	
+                                                // $row['IS_PWD'],	
                                                 $row['DOB'],
                                                 $row['Minority'],	
                                                 $row['Place of Residence'] ,
