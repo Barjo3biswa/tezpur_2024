@@ -217,9 +217,9 @@ class AdmissionReportController extends Controller
                 $row['Year']             = $task/* ->admissionReceipt */->year ?? "NA";
                 if($task->may_slide==3){
                     $new=MeritList::where(['student_id'=>$task->student_id,'course_id'=>$task->course_id,'status'=>14])->first();
-                    $row['Admitted Category']= $new->admissionCategory->name . $task->is_pwd==1?'(PWD)':'';
+                    $row['Admitted Category']= $new->admissionCategory->name_in_excel . $task->is_pwd==1?'(PWD)':'';
                 }else{
-                    $row['Admitted Category']= $task->admissionCategory->name . $task->is_pwd==1?'(PWD)':'';
+                    $row['Admitted Category']= $task->admissionCategory->name_in_excel . $task->is_pwd==1?'(PWD)':'';
                 }	
 
                 $row['Hostel Name'] = $task->hostel_required==4?$task->hostel_name:"NA";
