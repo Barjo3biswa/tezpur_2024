@@ -155,6 +155,7 @@ class AdmissionReportController extends Controller
                         'Program',	
                         'Program Code',	
                         'Gender',	
+                        'PWD',
                         'Year',	
                         'Admitted Category',
                         'Hostel Name',
@@ -212,6 +213,7 @@ class AdmissionReportController extends Controller
                 $row['Program']          = $task->course->name;	
                 $row['Program Code']     = $task->course->code;
                 $row['Gender']           = $task->gender;	
+                $row['PWD']              = $task->is_pwd==1?'Yes':'No';
                 $row['Year']             = $task/* ->admissionReceipt */->year ?? "NA";
                 if($task->may_slide==3){
                     $new=MeritList::where(['student_id'=>$task->student_id,'course_id'=>$task->course_id,'status'=>14])->first();
@@ -283,6 +285,7 @@ class AdmissionReportController extends Controller
                                                 $row['Program'],	
                                                 $row['Program Code'],	
                                                 $row['Gender'],	
+                                                $row['PWD'],
                                                 $row['Year'],	
                                                 $row['Admitted Category'],	
                                                 // $row['Admitted On'],	
