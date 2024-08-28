@@ -133,7 +133,7 @@ class AdmissionReportController extends Controller
         // dd("ok");
         // dd($merit_list->get());
         $castes = Caste::pluck("name","id")->toArray();
-        $excel    = $merit_list->orderBy('admission_receipts.roll_number')->orderBy('tuee_rank')->get();
+        $excel    = $merit_list->orderBy('admission_receipts.roll_number')->orderBy('merit_lists.id')->get();
         $fileName = $merit_list->first()->course->name.'.csv';
         $headers = array(
             "Content-type"        => "text/csv",
