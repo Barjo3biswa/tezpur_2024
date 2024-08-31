@@ -904,14 +904,18 @@ function getTotalCollection($active_session_id){
 function getTotalCollectionMBA($active_session_id){
     $collections1 = OnlinePaymentSuccess::where("biller_status", "captured")
         ->whereHas("application", function($query) use ($active_session_id){
-            $query->where("session_id", $active_session_id)->where('is_mba',1)->orWhere('is_btech',1);
+            $query->where("session_id", $active_session_id)->where('is_mba',1);
+        })->where('payment_type','application')->sum("amount");
+    $collections2 = OnlinePaymentSuccess::where("biller_status", "captured")
+        ->whereHas("application", function($query) use ($active_session_id){
+            $query->where("session_id", $active_session_id)->Where('is_btech',1);
         })->where('payment_type','application')->sum("amount");
     /* $collections2 = RePaymentSuccess::where("biller_status", "captured")
         ->whereHas("application", function($query) use ($active_session_id){
             $query->where("session_id", $active_session_id)->where('is_mba',1)->orWhere('is_btech',1);
         })
         ->sum("amount"); */
-    return $collections1 /* + $collections2 */;
+    return $collections1 + $collections2;
 }
 
 
