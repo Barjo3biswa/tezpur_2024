@@ -277,11 +277,11 @@
                                                 {{ $merit_list->admissionCategory->name }} 
                                             @endif
                                             
-                                            {{-- @if($merit_list->is_pwd==1)
+                                            @if($merit_list->is_pwd==1)
                                                 <span class="label label-danger">PWD</span>   
                                             @elseif($merit_list->application->is_pwd==1)
                                                <span class="label label-success">PWD</span>
-                                            @endif --}}
+                                            @endif
                                         </td>
                                         <td>
                                             <span class="label label-primary">{{ $castes[$merit_list->application->caste_id] ?? "NA" }}</span>
