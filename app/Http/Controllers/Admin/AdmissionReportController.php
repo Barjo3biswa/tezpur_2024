@@ -119,7 +119,7 @@ class AdmissionReportController extends Controller
                 }
             }
             // if ($status) {
-                $merit_lists = $merit_lists->/* orderBy('admission_category_id')-> */orderby('admission_receipts.roll_number')->paginate(100);
+                $merit_lists = $merit_lists->/* orderby('admission_receipts.roll_number') */orderBy('merit_lists.course_id')->orderBy('merit_lists.tuee_rank')->paginate(100);
             // }else{
             //     $merit_lists = $merit_lists->paginate(100);
             // } 
