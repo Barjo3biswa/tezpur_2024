@@ -897,7 +897,7 @@ function getTotalCollection($active_session_id){
         ->whereHas("application", function($query) use ($active_session_id){
             $query->where("session_id", $active_session_id)->where('is_mba',0)->where('is_btech',0);
         })
-        ->sum("amount");
+        ->sum("amount1");
     return $collections1 + $collections2;
 }
 
