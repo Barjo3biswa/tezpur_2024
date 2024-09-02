@@ -436,9 +436,10 @@ class CommonApplicationController extends Controller
 
         // is closed validation
         $prog_name = Auth::user()->program_name;
-        if($prog_name == "PHD"){
-            $application_type = 'NET_JRF';
-        }/* else if($prog_name == "PG"){
+        // if($prog_name == "PHD"){
+        //     $application_type = 'NET_JRF';
+        // }
+        /* else if($prog_name == "PG"){
             $application_type = 'GATE';
         } */
         if($prog_name=="PHDPROF" || $prog_name == "VISVES"){
