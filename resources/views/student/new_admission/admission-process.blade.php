@@ -308,11 +308,11 @@
                                             @endif
 
 
-                                            @if($merit_list->status==2 && $merit_list->application->is_btech==1)
+                                            {{-- @if($merit_list->status==2 && $merit_list->application->is_btech==1)
                                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal{{$merit_list->id}}">
                                                     Send Withdrawal Request
                                                 </button>
-                                            @endif
+                                            @endif --}}
 
                                             {{-- @if($merit_list->hostel_required==3)
                                                 <br/>

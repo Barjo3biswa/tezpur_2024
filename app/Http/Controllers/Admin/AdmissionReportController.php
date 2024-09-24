@@ -149,6 +149,7 @@ class AdmissionReportController extends Controller
                         'Receipt No',	
                         'Roll No',	
                         'Through',
+                        'Exam Through',
                         'Reg ID',	
                         'App ID',	
                         'App No',
@@ -205,6 +206,7 @@ class AdmissionReportController extends Controller
                 $row['Roll No']          = $task/* ->admissionReceipt */->roll_number ??"NA";	
                 $ml_details = MeritList::where(['student_id'=>$task->student_id,'course_id'=>$task->course_id,'status'=>2])->first();
                 $row['Through']          = $ml_details->meritMaster->courseSeatType->name ?? "NA";	
+                $row['Exam Through']     = $task->application->exam_through ?? "NA";
                 $row['Reg ID']           = $task->student_id;	
                 $row['App ID']           = $task->id;	
                 $row['App No']           = $task->application_no;
@@ -278,7 +280,8 @@ class AdmissionReportController extends Controller
                                                 $row['id'],	
                                                 $row['Receipt No'],	
                                                 $row['Roll No'],
-                                                $row['Through'],	
+                                                $row['Through'],
+                                                $row['Exam Through'],	
                                                 $row['Reg ID'],	
                                                 $row['App ID'],	
                                                 $row['App No'],	
